@@ -6,15 +6,12 @@ namespace Dnetix\Redirection\Message;
 
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Traits\LoaderTrait;
+use Dnetix\Redirection\Traits\StatusTrait;
 
 class RedirectResponse
 {
 
-    use LoaderTrait;
-    /**
-     * @var Status
-     */
-    public $status;
+    use LoaderTrait, StatusTrait;
     /**
      * @var string
      */
@@ -29,14 +26,6 @@ class RedirectResponse
         $this->load($data, ['requestId', 'processUrl']);
         if(isset($data['status']))
             $this->setStatus($data['status']);
-    }
-
-    /**
-     * @return Status
-     */
-    public function status()
-    {
-        return $this->status;
     }
 
     /**
@@ -55,14 +44,6 @@ class RedirectResponse
     public function processUrl()
     {
         return $this->processUrl;
-    }
-
-    public function setStatus($status)
-    {
-        if (is_array($status))
-            $status = new Status($status);
-        $this->status = $status;
-        return $this;
     }
 
     public function isSuccessful()

@@ -7,14 +7,13 @@ namespace Dnetix\Redirection\Message;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Entities\Token;
 use Dnetix\Redirection\Entities\Transaction;
+use Dnetix\Redirection\Traits\StatusTrait;
 
 class RedirectInformation
 {
+    use StatusTrait;
+
     public $requestId;
-    /**
-     * @var Status
-     */
-    public $status;
     /**
      * @var RedirectRequest
      */
@@ -27,6 +26,21 @@ class RedirectInformation
      * @var Token
      */
     public $token;
+
+    public function __construct($data = [])
+    {
+        if (isset($data['requestId']))
+            $this->requestId = $data['requestId'];
+
+        $this->setStatus($data['status']);
+        $this->setRequest($data['request']);
+
+        if (isset($data['payment']))
+            $this->setPayment($data['payment']);
+
+        if (isset($data['token']))
+            $this->setToken($data['token']);
+    }
 
     public function requestId()
     {
@@ -51,29 +65,6 @@ class RedirectInformation
     public function token()
     {
         return $this->token;
-    }
-
-    public function __construct($data = [])
-    {
-        if (isset($data['requestId']))
-            $this->requestId = $data['requestId'];
-
-        $this->setStatus($data['status']);
-        $this->setRequest($data['request']);
-
-        if (isset($data['payment']))
-            $this->setPayment($data['payment']);
-
-        if (isset($data['token']))
-            $this->setToken($data['token']);
-    }
-
-    public function setStatus($status)
-    {
-        if (is_array($status))
-            $status = new Status($status);
-        $this->status = $status;
-        return $this;
     }
 
     public function setRequest($request)

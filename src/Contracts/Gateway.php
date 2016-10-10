@@ -7,6 +7,7 @@ namespace Dnetix\Redirection\Contracts;
 use Dnetix\Redirection\Carrier\Authentication;
 use Dnetix\Redirection\Carrier\SoapCarrier;
 use Dnetix\Redirection\Message\CollectRequest;
+use Dnetix\Redirection\Message\Notification;
 use Dnetix\Redirection\Message\RedirectInformation;
 use Dnetix\Redirection\Message\RedirectRequest;
 use Dnetix\Redirection\Message\RedirectResponse;
@@ -66,6 +67,14 @@ abstract class Gateway
     public function carrier()
     {
         return $this->carrier;
+    }
+
+    public function readNotification($data = null)
+    {
+        if (!$data)
+            $data = $_POST;
+
+        return new Notification($data, $this->authentication->tranKey());
     }
 
 }

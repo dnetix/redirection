@@ -6,13 +6,12 @@ namespace Dnetix\Redirection\Message;
 
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Entities\Transaction;
+use Dnetix\Redirection\Traits\StatusTrait;
 
 class ReverseResponse
 {
-    /**
-     * @var Status
-     */
-    public $status;
+    use StatusTrait;
+
     /**
      * @var Transaction
      */
@@ -35,14 +34,6 @@ class ReverseResponse
 
         if (isset($data['payment']))
             $this->setPayment($data['payment']);
-    }
-
-    public function setStatus($status)
-    {
-        if (is_array($status))
-            $status = new Status($status);
-        $this->status = $status;
-        return $this;
     }
 
     private function setPayment($payment)

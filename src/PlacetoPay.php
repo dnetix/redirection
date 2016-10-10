@@ -55,13 +55,4 @@ class PlacetoPay extends Gateway
         return $this->carrier()->reverse($internalReference);
     }
 
-    /**
-     * Change the web service to use for the connection
-     * @param string $type can be SOAP or REST
-     * @return $this
-     */
-    public function using($type)
-    {
-        // TODO: Implement using() method.
-    }
 }
