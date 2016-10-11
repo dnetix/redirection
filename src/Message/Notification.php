@@ -4,11 +4,12 @@
 namespace Dnetix\Redirection\Message;
 
 
+use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Traits\LoaderTrait;
 use Dnetix\Redirection\Traits\StatusTrait;
 
-class Notification
+class Notification extends Entity
 {
     use LoaderTrait, StatusTrait;
 
@@ -61,4 +62,11 @@ class Notification
         return $this->status()->status() == Status::ST_REJECTED;
     }
 
+    /**
+     * Extracts the information for the entity
+     * @return array
+     */
+    public function toArray()
+    {
+    }
 }

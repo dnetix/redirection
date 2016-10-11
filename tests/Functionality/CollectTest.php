@@ -31,7 +31,6 @@ class CollectTest extends TestCase
         $response = $gateway->collect($this->data);
         // Verifies the process url
         if ($response->isSuccessful()){
-            var_dump($response);
         } else{
             $this->fail($response->status()->message());
         }

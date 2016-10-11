@@ -154,7 +154,7 @@ class Payment extends Entity
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'reference' => $this->reference(),
             'description' => $this->description(),
             'amount' => $this->amount() ? $this->amount()->toArray() : null,

@@ -55,7 +55,7 @@ class Item extends Entity
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'sku' => $this->sku(),
             'name' => $this->name(),
             'category' => $this->category(),

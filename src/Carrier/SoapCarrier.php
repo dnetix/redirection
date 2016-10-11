@@ -119,9 +119,7 @@ class SoapCarrier extends Carrier
             $arguments = $this->parseArguments([
                 'internalReference' => $internalReference
             ]);
-            $result = $this->client()->reversePayment($arguments);
-            var_dump($result);
-            die();
+            $result = $this->client()->reversePayment($arguments)->reversePaymentResult;
             return new ReverseResponse($this->asArray($result));
         } catch (\Exception $e) {
             return new ReverseResponse([

@@ -4,12 +4,13 @@
 namespace Dnetix\Redirection\Message;
 
 
+use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Entities\Token;
 use Dnetix\Redirection\Entities\Transaction;
 use Dnetix\Redirection\Traits\StatusTrait;
 
-class RedirectInformation
+class RedirectInformation extends Entity
 {
     use StatusTrait;
 
@@ -107,7 +108,7 @@ class RedirectInformation
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'requestId' => $this->requestId(),
             'status' => $this->status() ? $this->status()->toArray() : null,
             'request' => $this->request()->toArray(),

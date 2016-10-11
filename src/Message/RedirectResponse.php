@@ -4,11 +4,12 @@
 namespace Dnetix\Redirection\Message;
 
 
+use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Traits\LoaderTrait;
 use Dnetix\Redirection\Traits\StatusTrait;
 
-class RedirectResponse
+class RedirectResponse extends Entity
 {
 
     use LoaderTrait, StatusTrait;
@@ -57,7 +58,7 @@ class RedirectResponse
      */
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'status' => $this->status() ? $this->status()->toArray() : null,
             'requestId' => $this->requestId(),
             'processUrl' => $this->processUrl()

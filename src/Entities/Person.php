@@ -84,7 +84,7 @@ class Person extends Entity
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'document' => $this->document(),
             'documentType' => $this->documentType(),
             'name' => $this->name(),

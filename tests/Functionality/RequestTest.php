@@ -24,7 +24,6 @@ class RequestTest extends TestCase
         $response = $gateway->request($data);
         // Verifies the process url
         if ($response->isSuccessful()){
-            var_dump($response->toArray());
         } else{
             $this->fail($response->status()->message());
         }

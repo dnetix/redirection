@@ -73,7 +73,7 @@ class Recurring extends Entity
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'periodicity' => $this->periodicity(),
             'interval' => $this->interval(),
             'nextPayment' => $this->nextPayment(),

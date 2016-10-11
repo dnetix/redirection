@@ -4,11 +4,12 @@
 namespace Dnetix\Redirection\Message;
 
 
+use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Entities\Transaction;
 use Dnetix\Redirection\Traits\StatusTrait;
 
-class ReverseResponse
+class ReverseResponse extends Entity
 {
     use StatusTrait;
 
@@ -51,7 +52,7 @@ class ReverseResponse
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'status' => $this->status() ? $this->status()->toArray() : null,
             'payment' => $this->payment() ? $this->payment()->toArray() : null,
         ]);

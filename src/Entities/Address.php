@@ -55,7 +55,7 @@ class Address extends Entity
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'street' => $this->street(),
             'city' => $this->city(),
             'state' => $this->state(),

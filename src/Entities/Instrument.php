@@ -91,7 +91,7 @@ class Instrument extends Entity
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'bank' => $this->bank() ? $this->bank()->toArray() : null,
             'card' => $this->card() ? $this->card()->toArray() : null,
             'token' => $this->token() ? $this->token()->toArray() : null,

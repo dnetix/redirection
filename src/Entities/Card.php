@@ -84,7 +84,7 @@ class Card extends Entity
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'name' => $this->name(),
             'installments' => $this->installments(),
             'kind' => $this->kind()

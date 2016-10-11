@@ -93,7 +93,7 @@ class Token extends Entity
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'status' => $this->status() ? $this->status()->toArray() : null,
             'token' => $this->token(),
             'subtoken' => $this->subtoken(),

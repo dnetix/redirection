@@ -29,7 +29,8 @@ class PaymentEntityTest extends TestCase
                     'sku' => '1111',
                     'name' => 'Testing2'
                 ]
-            ]
+            ],
+            'allowPartial' => false
         ];
         $payment = new Payment($data);
         $this->assertEquals(1, sizeof($payment->fields()));

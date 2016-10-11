@@ -16,4 +16,11 @@ abstract class Entity
      */
     public abstract function toArray();
 
+    public static function arrayFilter($array)
+    {
+        return array_filter($array, function ($item) {
+            return !empty($item) || $item === false || $item === 0;
+        });
+    }
+
 }

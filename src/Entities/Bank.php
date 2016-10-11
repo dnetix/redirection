@@ -40,7 +40,7 @@ class Bank extends Entity
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'interface' => $this->interface,
             'code' => $this->code(),
             'name' => $this->name()

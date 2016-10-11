@@ -4,13 +4,14 @@
 namespace Dnetix\Redirection\Message;
 
 
+use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Instrument;
 use Dnetix\Redirection\Entities\Payment;
 use Dnetix\Redirection\Entities\Person;
 use Dnetix\Redirection\Traits\FieldsTrait;
 use Dnetix\Redirection\Traits\LoaderTrait;
 
-class CollectRequest
+class CollectRequest extends Entity
 {
     use LoaderTrait, FieldsTrait;
 
@@ -133,7 +134,7 @@ class CollectRequest
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'locale' => $this->locale(),
             'payer' => $this->payer() ? $this->payer()->toArray() : null,
             'buyer' => $this->buyer() ? $this->buyer()->toArray() : null,

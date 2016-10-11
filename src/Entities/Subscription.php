@@ -35,7 +35,7 @@ class Subscription extends Entity
 
     public function toArray()
     {
-        return array_filter([
+        return $this->arrayFilter([
             'reference' => $this->reference(),
             'description' => $this->description(),
             'fields' => $this->fieldsToArray()
