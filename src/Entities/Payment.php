@@ -37,21 +37,18 @@ class Payment extends Entity
     {
         $this->load($data, ['reference', 'description', 'allowPartial', 'items']);
 
-        if (isset($data['amount'])) {
+        if (isset($data['amount']))
             $this->setAmount($data['amount']);
-        }
-        if (isset($data['recurring'])) {
+        if (isset($data['recurring']))
             $this->setRecurring($data['recurring']);
-        }
-        if (isset($data['shipping'])) {
+        if (isset($data['shipping']))
             $this->setShipping($data['shipping']);
-        }
-        if (isset($data['instrument'])) {
+        if (isset($data['items']))
+            $this->setItems($data['items']);
+        if (isset($data['instrument']))
             $this->setInstrument($data['instrument']);
-        }
-        if (isset($data['fields'])) {
+        if (isset($data['fields']))
             $this->setFields($data['fields']);
-        }
     }
 
     public function reference()
@@ -129,6 +126,32 @@ class Payment extends Entity
         return $this;
     }
 
+    public function setItems($items)
+    {
+        if ($items && is_array($items)) {
+            $this->items = [];
+            foreach ($items as $item) {
+                if (is_array($item))
+                    $item = new Item($item);
+                $this->items[] = $item;
+            }
+        }
+        return $this;
+    }
+
+    public function itemsToArray()
+    {
+        if ($this->items() && is_array($this->items())) {
+            $items = [];
+            foreach ($this->items() as $item) {
+                $items[] = $item->toArray();
+            }
+            return $items;
+        } else {
+            return null;
+        }
+    }
+
     public function toArray()
     {
         return array_filter([
@@ -137,10 +160,10 @@ class Payment extends Entity
             'amount' => $this->amount() ? $this->amount()->toArray() : null,
             'allowPartial' => $this->allowPartial,
             'shipping' => $this->shipping() ? $this->shipping()->toArray() : null,
-            'items' => $this->items(),
+            'items' => $this->itemsToArray(),
             'recurring' => $this->recurring() ? $this->recurring()->toArray() : null,
             'instrument' => $this->instrument() ? $this->instrument()->toArray() : null,
-            'fields' => $this->fieldsToArray()
+            'fields' => $this->fieldsToArray(),
         ]);
     }
 
