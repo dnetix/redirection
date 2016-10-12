@@ -14,19 +14,24 @@ use Dnetix\Redirection\Message\ReverseResponse;
 
 class SoapCarrier extends Carrier
 {
-    private $wsdl = 'http://redirection.p2p.dev/soap/redirect?wsdl';
+    private $wsdl = 'https://test.placetopay.com/redirection/soap/redirect?wsdl';
 
     private function client()
     {
-        $config = [
+        $config = array_merge([
             'soap_version' => SOAP_1_2,
             'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
             'cache_wsdl' => WSDL_CACHE_DISK,
             'trace' => false,
-            'encoding' => 'UTF-8'
-        ];
-        $client = new \SoapClient($this->wsdl, array_merge($config, $this->config()));
+            'encoding' => 'UTF-8',
+        ], $this->config());
 
+        if (isset($config['wsdl'])) {
+            $this->wsdl = $config['wsdl'];
+            unset($config['wsdl']);
+        }
+
+        $client = new \SoapClient($this->wsdl, $config);
         $client->__setSoapHeaders($this->authentication()->getSoapHeader());
 
         return $client;
@@ -45,7 +50,7 @@ class SoapCarrier extends Carrier
     {
         try {
             $arguments = $this->parseArguments([
-                'payload' => $redirectRequest->toArray()
+                'payload' => $redirectRequest->toArray(),
             ]);
             $result = $this->client()->createRequest($arguments)->createRequestResult;
             return new RedirectResponse($this->asArray($result));
@@ -55,8 +60,8 @@ class SoapCarrier extends Carrier
                     'status' => Status::ST_ERROR,
                     'reason' => 'WR',
                     'message' => $e->getMessage(),
-                    'date' => date('c')
-                ]
+                    'date' => date('c'),
+                ],
             ]);
         }
     }
@@ -69,7 +74,7 @@ class SoapCarrier extends Carrier
     {
         try {
             $arguments = $this->parseArguments([
-                'requestId' => $requestId
+                'requestId' => $requestId,
             ]);
             $result = $this->client()->getRequestInformation($arguments)->getRequestInformationResult;
             return new RedirectInformation($this->asArray($result));
@@ -79,8 +84,8 @@ class SoapCarrier extends Carrier
                     'status' => Status::ST_ERROR,
                     'reason' => 'WR',
                     'message' => $e->getMessage(),
-                    'date' => date('c')
-                ]
+                    'date' => date('c'),
+                ],
             ]);
         }
     }
@@ -93,7 +98,7 @@ class SoapCarrier extends Carrier
     {
         try {
             $arguments = $this->parseArguments([
-                'payload' => $collectRequest->toArray()
+                'payload' => $collectRequest->toArray(),
             ]);
             $result = $this->client()->collect($arguments)->collectResult;
             return new RedirectInformation($this->asArray($result));
@@ -103,8 +108,8 @@ class SoapCarrier extends Carrier
                     'status' => Status::ST_ERROR,
                     'reason' => 'WR',
                     'message' => $e->getMessage(),
-                    'date' => date('c')
-                ]
+                    'date' => date('c'),
+                ],
             ]);
         }
     }
@@ -117,7 +122,7 @@ class SoapCarrier extends Carrier
     {
         try {
             $arguments = $this->parseArguments([
-                'internalReference' => $internalReference
+                'internalReference' => $internalReference,
             ]);
             $result = $this->client()->reversePayment($arguments)->reversePaymentResult;
             return new ReverseResponse($this->asArray($result));
@@ -127,8 +132,8 @@ class SoapCarrier extends Carrier
                     'status' => Status::ST_ERROR,
                     'reason' => 'WR',
                     'message' => $e->getMessage(),
-                    'date' => date('c')
-                ]
+                    'date' => date('c'),
+                ],
             ]);
         }
     }
