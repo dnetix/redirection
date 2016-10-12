@@ -9,13 +9,13 @@ class TestCase extends PHPUnit_Framework_TestCase
     /**
      * @return Gateway
      */
-    public function getGateway()
+    public function getGateway($data = [])
     {
-        return new PlacetoPay([
+        return new PlacetoPay(array_merge([
             'login' => getenv('LOGIN'),
             'tranKey' => getenv('TRANKEY'),
             'location' => 'http://redirection.p2p.dev/soap/redirect',
-        ]);
+        ], $data));
     }
 
     /**
