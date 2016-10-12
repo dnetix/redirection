@@ -74,7 +74,7 @@ abstract class Gateway
         if (!$data)
             $data = $_POST;
 
-        return new Notification($data, $this->authentication->tranKey());
+        return new Notification($data, $this->authentication->key());
     }
 
 }
