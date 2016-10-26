@@ -35,7 +35,7 @@ class Authentication
     public function __construct($config)
     {
         if (!isset($config['login']) || !isset($config['tranKey']))
-            throw new PlacetoPayException('No login or tranKey provided');
+            throw new PlacetoPayException('No login or tranKey provided on authentication');
 
         $this->login = $config['login'];
         $this->tranKey = $config['tranKey'];

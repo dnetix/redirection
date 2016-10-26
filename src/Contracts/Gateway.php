@@ -23,7 +23,7 @@ abstract class Gateway
     public function __construct($config = [])
     {
         if (!isset($config['login']) || !isset($config['tranKey']))
-            throw new PlacetoPayException('No login or tranKey provided gat');
+            throw new PlacetoPayException('No login or tranKey provided on gateway');
 
         if (!isset($config['url']) || !filter_var($config['url'], FILTER_VALIDATE_URL))
             throw new PlacetoPayException('No service URL provided to use');
