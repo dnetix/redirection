@@ -2,13 +2,11 @@
 
 require_once (__DIR__ . "/../bootstrap.php");
 
-use Dnetix\Redirection\PlacetoPay;
-
 // Creating a random reference for the test
 $reference = 'TEST_' . time();
 
 // Request Information
-$paymentRequest = [
+$request = [
     'buyer' => [
         'name' => 'John',
         'surname' => 'Doe',
@@ -55,7 +53,7 @@ $paymentRequest = [
 ];
 
 try {
-    $response = placetopay()->request($paymentRequest);
+    $response = placetopay()->request($request);
 
     if ($response->isSuccessful()) {
         // Redirect the client to the processUrl or display it on the JS extension
