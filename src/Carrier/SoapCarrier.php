@@ -14,25 +14,23 @@ use Dnetix\Redirection\Message\ReverseResponse;
 
 class SoapCarrier extends Carrier
 {
-    private $wsdl = 'https://test.placetopay.com/redirection/soap/redirect?wsdl';
-
     private function client()
     {
+        $config = $this->config();
+
         $config = array_merge([
             'soap_version' => SOAP_1_2,
             'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
             'cache_wsdl' => WSDL_CACHE_DISK,
             'trace' => false,
             'encoding' => 'UTF-8',
-        ], $this->config());
+        ], $config);
 
-        if (isset($config['wsdl'])) {
-            $this->wsdl = $config['wsdl'];
-            unset($config['wsdl']);
-        }
+        $wsdl = $config['wsdl'];
+        unset($config['wsdl']);
 
-        $client = new \SoapClient($this->wsdl, $config);
-        $client->__setSoapHeaders($this->authentication()->getSoapHeader());
+        $client = new \SoapClient($wsdl, $config);
+        $client->__setSoapHeaders($this->authentication()->asSoapHeader());
 
         return $client;
     }

@@ -14,7 +14,7 @@ class TestCase extends PHPUnit_Framework_TestCase
         return new PlacetoPay(array_merge([
             'login' => getenv('LOGIN'),
             'tranKey' => getenv('TRANKEY'),
-            'location' => 'http://redirection.p2p.dev/soap/redirect',
+            'url' => 'http://redirection.p2p.dev',
         ], $data));
     }
 

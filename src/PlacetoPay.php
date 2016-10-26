@@ -4,23 +4,53 @@
 namespace Dnetix\Redirection;
 
 
+use Dnetix\Redirection\Carrier\Authentication;
+use Dnetix\Redirection\Carrier\SoapCarrier;
+use Dnetix\Redirection\Contracts\Carrier;
 use Dnetix\Redirection\Contracts\Gateway;
+use Dnetix\Redirection\Exceptions\PlacetoPayException;
 use Dnetix\Redirection\Message\CollectRequest;
 use Dnetix\Redirection\Message\RedirectInformation;
 use Dnetix\Redirection\Message\RedirectRequest;
+use Dnetix\Redirection\Message\RedirectResponse;
 use Dnetix\Redirection\Message\ReverseResponse;
 
 class PlacetoPay extends Gateway
 {
 
+    private function carrier()
+    {
+        if ($this->carrier instanceof Carrier)
+            return $this->carrier;
+
+        $config = $this->config;
+        $auth = new Authentication($config);
+        $type = $this->type;
+        $typeConfig = isset($config[$type]) ? $config[$type] : [];
+
+        if ($type == self::TP_SOAP) {
+            $carrierConfig = array_merge([
+                'wsdl' => $config['url'] . 'soap/redirect?wsdl',
+                'location' => $config['url'] . 'soap/redirect',
+            ], $typeConfig);
+            $this->carrier = new SoapCarrier($auth, $carrierConfig);
+        }
+
+        return $this->carrier;
+    }
+
     /**
      * @param RedirectRequest|array $redirectRequest
-     * @return \Dnetix\Redirection\Message\RedirectResponse
+     * @return RedirectResponse
+     * @throws PlacetoPayException
      */
     public function request($redirectRequest)
     {
         if (is_array($redirectRequest))
             $redirectRequest = new RedirectRequest($redirectRequest);
+
+        if (!($redirectRequest instanceof RedirectRequest))
+            throw new PlacetoPayException('Wrong class request');
 
         return $this->carrier()->request($redirectRequest);
     }
@@ -37,11 +67,15 @@ class PlacetoPay extends Gateway
     /**
      * @param CollectRequest|array $collectRequest
      * @return RedirectInformation
+     * @throws PlacetoPayException
      */
     public function collect($collectRequest)
     {
         if (is_array($collectRequest))
             $collectRequest = new CollectRequest($collectRequest);
+
+        if (!($collectRequest instanceof CollectRequest))
+            throw new PlacetoPayException('Wrong collect request');
 
         return $this->carrier()->collect($collectRequest);
     }

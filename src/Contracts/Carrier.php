@@ -13,18 +13,13 @@ use Dnetix\Redirection\Message\ReverseResponse;
 
 abstract class Carrier
 {
-    protected $authentication;
+    protected $auth;
     protected $config;
 
-    public function __construct(Authentication $authentication, $config = [])
+    public function __construct(Authentication $auth, $config = [])
     {
-        $this->authentication = $authentication;
+        $this->auth = $auth;
         $this->config = $config;
-    }
-
-    public function authentication()
-    {
-        return $this->authentication;
     }
 
     protected function config()
@@ -35,6 +30,11 @@ abstract class Carrier
     protected function asArray($object)
     {
         return json_decode(json_encode($object), true);
+    }
+
+    protected function authentication()
+    {
+        return $this->auth;
     }
 
     /**

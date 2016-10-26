@@ -3,6 +3,7 @@
 
 namespace Dnetix\Redirection\Carrier;
 
+use Dnetix\Redirection\Exceptions\PlacetoPayException;
 use SoapHeader;
 use SoapVar;
 use stdClass;
@@ -16,38 +17,83 @@ class Authentication
     const WSU = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
     const WSSE = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
 
-    protected $login;
-    protected $tranKey;
-    protected $additional;
-    protected $nonce;
-    protected $seed;
+    private $login;
+    private $tranKey;
+    /**
+     * Overrides the authentication, for testing purposes
+     * @var array
+     */
+    private $auth;
+    private $overrided = false;
+    /**
+     * It can be full or basic
+     * @var string
+     */
+    private $type = 'full';
+    private $additional;
 
-    private $key;
-
-    public function __construct($data)
+    public function __construct($config)
     {
-        $this->login = $data['login'];
-        $this->key = $data['tranKey'];
-        if (isset($data['seed'])) {
-            $this->seed = $data['seed'];
-        } else {
-            $this->seed = date('c');
+        if (!isset($config['login']) || !isset($config['tranKey']))
+            throw new PlacetoPayException('No login or tranKey provided');
+
+        $this->login = $config['login'];
+        $this->tranKey = $config['tranKey'];
+
+        if (isset($config['auth'])) {
+            if ((!isset($config['auth']['seed']) || !isset($config['auth']['seed'])))
+                throw new PlacetoPayException('Bad definition for the override');
+
+            $this->auth = $config['auth'];
+            $this->overrided = true;
         }
-        if (isset($data['additional'])) {
-            $this->additional = $data['additional'];
-        }
-        if (isset($data['nonce'])) {
-            $this->nonce = $data['nonce'];
+
+        if (isset($config['type']))
+            $this->type = $config['type'];
+
+        $this->generate();
+    }
+
+    public function getNonce($encoded = true)
+    {
+        if ($this->auth) {
+            $nonce = $this->auth['nonce'];
         } else {
             if (function_exists('random_bytes')) {
-                $this->nonce = bin2hex(random_bytes(16));
+                $nonce = bin2hex(random_bytes(16));
             } elseif (function_exists('openssl_random_pseudo_bytes')) {
-                $this->nonce = bin2hex(openssl_random_pseudo_bytes(16));
+                $nonce = bin2hex(openssl_random_pseudo_bytes(16));
             } else {
-                $this->nonce = mt_rand();
+                $nonce = mt_rand();
             }
         }
-        $this->digestTranKey();
+
+        if ($encoded)
+            return base64_encode($nonce);
+
+        return $nonce;
+    }
+
+    public function getSeed()
+    {
+        if ($this->auth)
+            return $this->auth['seed'];
+
+        return date('c');
+    }
+
+    public function digest($encoded = true)
+    {
+        if ($this->type == 'full') {
+            $digest = sha1($this->getNonce(false) . $this->getSeed() . $this->tranKey(), true);
+        } else {
+            $digest = sha1($this->getSeed() . $this->tranKey(), false);
+        }
+
+        if ($encoded)
+            return base64_encode($digest);
+
+        return $digest;
     }
 
     public function login()
@@ -55,40 +101,9 @@ class Authentication
         return $this->login;
     }
 
-    public function digest()
-    {
-        return base64_encode(sha1($this->nonce . $this->seed() . $this->key, true));
-    }
-
     public function tranKey()
     {
         return $this->tranKey;
-    }
-
-    /**
-     * By default, it will set the tranKey to the digested one
-     * @return $this
-     */
-    public function digestTranKey()
-    {
-        $this->tranKey = $this->digest();
-        return $this;
-    }
-
-    /**
-     * Returns the value for a simple transactional key, i.e. the ones needed for the
-     * old services
-     * @return self
-     */
-    public function basicTrankey()
-    {
-        $this->tranKey = sha1($this->seed() . $this->key, false);
-        return $this;
-    }
-
-    public function seed()
-    {
-        return $this->seed;
     }
 
     public function additional()
@@ -96,42 +111,50 @@ class Authentication
         return $this->additional;
     }
 
-    public function nonce()
-    {
-        return base64_encode($this->nonce);
+    public function generate() {
+        if (!$this->overrided) {
+            $this->auth = [
+                'seed' => $this->getSeed(),
+                'nonce' => $this->getNonce(),
+            ];
+        }
+
+        return $this;
     }
 
-    public function key()
+    public function setAdditional($additional)
     {
-        return $this->key;
+        $this->additional = $additional;
+        return $this;
     }
 
     /**
      * Parses the entity as a SOAP Header
      * @return SoapHeader
      */
-    public function getSoapHeader()
+    public function asSoapHeader()
     {
         $UsernameToken = new stdClass();
-        $UsernameToken->Username = new SoapVar($this->login(), XSD_STRING, NULL, self::WSSE, NULL, self::WSSE);
-        $UsernameToken->Password = new SoapVar($this->digest(), XSD_STRING, 'PasswordDigest', NULL, 'Password', self::WSSE);
-        $UsernameToken->Nonce = new SoapVar($this->nonce(), XSD_STRING, null, self::WSSE, null, self::WSSE);
-        $UsernameToken->Created = new SoapVar($this->seed(), XSD_STRING, NULL, self::WSU, null, self::WSU);
+        $UsernameToken->Username = new SoapVar($this->login(), XSD_STRING, null, self::WSSE, null, self::WSSE);
+        $UsernameToken->Password = new SoapVar($this->digest(), XSD_STRING, 'PasswordDigest', null, 'Password', self::WSSE);
+        $UsernameToken->Nonce = new SoapVar($this->getNonce(), XSD_STRING, null, self::WSSE, null, self::WSSE);
+        $UsernameToken->Created = new SoapVar($this->getSeed(), XSD_STRING, null, self::WSU, null, self::WSU);
 
         $security = new stdClass();
-        $security->UsernameToken = new SoapVar($UsernameToken, SOAP_ENC_OBJECT, NULL, self::WSSE, 'UsernameToken', self::WSSE);
+        $security->UsernameToken = new SoapVar($UsernameToken, SOAP_ENC_OBJECT, null, self::WSSE, 'UsernameToken', self::WSSE);
 
         return new SoapHeader(self::WSSE, 'Security', $security, true);
     }
 
-    public function toArray()
+    public function asArray()
     {
         return [
             'login' => $this->login(),
-            'tranKey' => $this->tranKey(),
-            'nonce' => $this->nonce(),
-            'seed' => $this->seed(),
+            'tranKey' => $this->digest(),
+            'nonce' => $this->getNonce(),
+            'seed' => $this->getSeed(),
             'additional' => $this->additional()
         ];
     }
+
 }
