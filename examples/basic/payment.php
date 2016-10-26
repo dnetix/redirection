@@ -16,35 +16,9 @@ $request = [
         'reference' => $reference,
         'description' => 'Testing payment',
         'amount' => [
-            'taxes' => [
-                [
-                    'kind' => 'valueAddedTax',
-                    'amount' => 10,
-                    'base' => 120
-                ],
-                [
-                    'kind' => 'exciseDuty',
-                    'amount' => 10,
-                    'base' => 120
-                ]
-
-            ],
-            'details' => [
-                [
-                    'kind' => 'discount',
-                    'amount' => 1200
-                ]
-            ],
             'currency' => 'USD',
             'total' => 120
         ],
-    ],
-    'fields' => [
-        [
-            'keyword' => 'additional',
-            'value' => 'ABC123',
-            'displayOn' => 'both'
-        ]
     ],
     'expiration' => date('c', strtotime('+2 days')),
     'returnUrl' => 'http://example.com/response?reference=' . $reference,

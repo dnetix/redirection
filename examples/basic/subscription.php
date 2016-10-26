@@ -16,13 +16,6 @@ $request = [
         'reference' => $reference,
         'description' => 'Testing subscription',
     ],
-    'fields' => [
-        [
-            'keyword' => 'additional',
-            'value' => 'ABC123',
-            'displayOn' => 'both',
-        ],
-    ],
     'expiration' => date('c', strtotime('+2 days')),
     'returnUrl' => 'http://example.com/response?reference=' . $reference,
     'ipAddress' => '127.0.0.1',
