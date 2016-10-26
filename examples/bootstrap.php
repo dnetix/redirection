@@ -4,7 +4,7 @@
  * The only purpose for this file its bootstrap the classes and generate a single point
  * to instanciate the PlacetoPay class
  */
-require_once '../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dnetix\Redirection\PlacetoPay;
 

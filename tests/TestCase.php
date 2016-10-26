@@ -12,9 +12,9 @@ class TestCase extends PHPUnit_Framework_TestCase
     public function getGateway($data = [])
     {
         return new PlacetoPay(array_merge([
-            'login' => getenv('LOGIN'),
-            'tranKey' => getenv('TRANKEY'),
-            'url' => 'http://redirection.p2p.dev',
+            'login' => getenv('P2P_LOGIN'),
+            'tranKey' => getenv('P2P_TRANKEY'),
+            'url' => getenv('P2P_URL'),
         ], $data));
     }
 
