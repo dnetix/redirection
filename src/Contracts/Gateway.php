@@ -68,7 +68,7 @@ abstract class Gateway
     {
         if (in_array($type, [self::TP_SOAP, self::TP_REST])) {
             $this->type = $type;
-        }else{
+        } else {
             throw new PlacetoPayException('The only connection methods are SOAP or REST');
         }
     }

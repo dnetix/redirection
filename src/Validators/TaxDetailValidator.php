@@ -13,7 +13,7 @@ class TaxDetailValidator extends BaseValidator
 
     public static $TYPES = [
         self::TP_IVA,
-        self::TP_IPO
+        self::TP_IPO,
     ];
 
     public static function isValidKind($kind = null)

@@ -14,7 +14,7 @@ class AuthenticationTest extends TestCase
             'auth' => [
                 'seed' => '2016-10-26T21:37:00+00:00',
                 'nonce' => 'ifYEPnAcJbpDVR1t',
-            ]
+            ],
         ]);
 
         $data = $auth->asArray();

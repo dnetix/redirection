@@ -29,7 +29,7 @@ class AmountDetailValidator extends BaseValidator
         self::TP_GIFT_WRAP,
         self::TP_SUBTOTAL,
         self::TP_FEE,
-        self::TP_TIP
+        self::TP_TIP,
     ];
 
     /**

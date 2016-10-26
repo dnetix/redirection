@@ -32,7 +32,7 @@ class AmountBase extends Entity
     {
         return [
             'currency' => $this->currency(),
-            'total' => $this->total()
+            'total' => $this->total(),
         ];
     }
 }

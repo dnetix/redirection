@@ -50,7 +50,7 @@ trait FieldsTrait
 
     public function fieldsToKeyValue($nvps = null)
     {
-        if(!$nvps)
+        if (!$nvps)
             $nvps = $this->fields();
 
         if ($nvps) {

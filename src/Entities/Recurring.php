@@ -80,7 +80,7 @@ class Recurring extends Entity
             'nextPayment' => $this->nextPayment(),
             'maxPeriods' => $this->maxPeriods(),
             'dueDate' => $this->dueDate(),
-            'notificationUrl' => $this->notificationUrl()
+            'notificationUrl' => $this->notificationUrl(),
         ]);
     }
 

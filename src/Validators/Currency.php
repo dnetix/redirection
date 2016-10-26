@@ -16,7 +16,7 @@ class Currency extends BaseValidator
         self::CUR_COP,
         self::CUR_USD,
         self::CUR_MXN,
-        self::CUR_AUD
+        self::CUR_AUD,
     ];
 
     public static function isValidCurrency($currency)

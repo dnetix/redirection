@@ -87,7 +87,7 @@ class Card extends Entity
         return $this->arrayFilter([
             'name' => $this->name(),
             'installments' => $this->installments(),
-            'kind' => $this->kind()
+            'kind' => $this->kind(),
         ]);
     }
 }

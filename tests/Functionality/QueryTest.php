@@ -10,8 +10,8 @@ class QueryTest extends TestCase
         $gateway = $this->getGateway();
         $response = $gateway->query('60');
         // Verifies the process url
-        if ($response->isSuccessful()){
-        } else{
+        if ($response->isSuccessful()) {
+        } else {
             $this->fail($response->status()->message());
         }
     }

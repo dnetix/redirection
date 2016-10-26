@@ -43,7 +43,7 @@ class Bank extends Entity
         return $this->arrayFilter([
             'interface' => $this->interface,
             'code' => $this->code(),
-            'name' => $this->name()
+            'name' => $this->name(),
         ]);
     }
 }

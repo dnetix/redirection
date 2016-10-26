@@ -8,10 +8,10 @@ class RequestTest extends TestCase
             'reference' => 'TESTING123456',
             'amount' => [
                 'currency' => 'COP',
-                'total' => '10000'
-            ]
+                'total' => '10000',
+            ],
         ],
-        'returnUrl' => 'http://your.url.com/return?reference=TESTING123456'
+        'returnUrl' => 'http://your.url.com/return?reference=TESTING123456',
     ];
 
     public function testItMakesASOAPPaymentRequest()
@@ -23,8 +23,8 @@ class RequestTest extends TestCase
         // Create a request to the system
         $response = $gateway->request($data);
         // Verifies the process url
-        if ($response->isSuccessful()){
-        } else{
+        if ($response->isSuccessful()) {
+        } else {
             $this->fail($response->status()->message());
         }
     }

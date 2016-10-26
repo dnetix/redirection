@@ -25,7 +25,7 @@ class RedirectResponse extends Entity
     public function __construct($data = [])
     {
         $this->load($data, ['requestId', 'processUrl']);
-        if(isset($data['status']))
+        if (isset($data['status']))
             $this->setStatus($data['status']);
     }
 
@@ -61,7 +61,7 @@ class RedirectResponse extends Entity
         return $this->arrayFilter([
             'status' => $this->status() ? $this->status()->toArray() : null,
             'requestId' => $this->requestId(),
-            'processUrl' => $this->processUrl()
+            'processUrl' => $this->processUrl(),
         ]);
     }
 

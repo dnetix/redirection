@@ -40,7 +40,7 @@ class NameValuePair extends Entity
         return [
             'keyword' => $this->keyword(),
             'value' => $this->value(),
-            'displayOn' => $this->displayOn()
+            'displayOn' => $this->displayOn(),
         ];
     }
 

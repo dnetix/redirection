@@ -100,7 +100,7 @@ class Token extends Entity
             'franchiseName' => $this->franchiseName(),
             'issuerName' => $this->issuerName(),
             'lastDigits' => $this->lastDigits(),
-            'validUntil' => $this->validUntil()
+            'validUntil' => $this->validUntil(),
         ]);
     }
 

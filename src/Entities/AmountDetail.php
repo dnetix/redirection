@@ -33,7 +33,7 @@ class AmountDetail extends Entity
     {
         return $this->arrayFilter([
             'kind' => $this->kind(),
-            'amount' => $this->amount()
+            'amount' => $this->amount(),
         ]);
     }
 

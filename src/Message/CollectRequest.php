@@ -140,7 +140,7 @@ class CollectRequest extends Entity
             'buyer' => $this->buyer() ? $this->buyer()->toArray() : null,
             'payment' => $this->payment() ? $this->payment()->toArray() : null,
             'instrument' => $this->instrument() ? $this->instrument()->toArray() : null,
-            'fields' => $this->fieldsToArray()
+            'fields' => $this->fieldsToArray(),
         ]);
     }
 }

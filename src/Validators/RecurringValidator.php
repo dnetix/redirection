@@ -15,7 +15,7 @@ class RecurringValidator extends BaseValidator
     public static $PERIODS = [
         self::PERIOD_DAY,
         self::PERIOD_MONTH,
-        self::PERIOD_YEAR
+        self::PERIOD_YEAR,
     ];
 
     /**

@@ -40,7 +40,7 @@ class TaxDetail extends Entity
         return $this->arrayFilter([
             'kind' => $this->kind(),
             'amount' => $this->amount(),
-            'base' => $this->base()
+            'base' => $this->base(),
         ]);
     }
 

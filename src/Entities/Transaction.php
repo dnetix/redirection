@@ -160,7 +160,7 @@ class Transaction extends Entity
             'reference' => $this->reference(),
             'receipt' => $this->receipt(),
             'franchise' => $this->franchise(),
-            'refunded' => $this->refunded()
+            'refunded' => $this->refunded(),
         ];
     }
 

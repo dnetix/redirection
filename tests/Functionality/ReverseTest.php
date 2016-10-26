@@ -10,8 +10,8 @@ class ReverseTest extends TestCase
         $gateway = $this->getGateway();
         $response = $gateway->reverse('1442625531');
         // Verifies the process url
-        if ($response->isSuccessful()){
-        } else{
+        if ($response->isSuccessful()) {
+        } else {
             $this->fail($response->status()->message());
         }
     }

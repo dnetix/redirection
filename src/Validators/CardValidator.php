@@ -24,7 +24,7 @@ class CardValidator
         self::JBC => '/^35(2[89]|[3-8][0-9])/',
         self::AMEX => '/^3[47][0-9]{13}$/',
         self::DINERS => '/^3(0[0-5]|[68][0-9])[0-9]{11,13}$/',
-        self::DISCOVER => '/^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)/'
+        self::DISCOVER => '/^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)/',
     ];
 
     public static $FRANCHISES = [
@@ -35,7 +35,7 @@ class CardValidator
         self::CODENSA,
         self::DINERS,
         self::JBC,
-        self::DISCOVER
+        self::DISCOVER,
     ];
 
     public static function cardNumberFranchise($number)

@@ -111,7 +111,8 @@ class Authentication
         return $this->additional;
     }
 
-    public function generate() {
+    public function generate()
+    {
         if (!$this->overrided) {
             $this->auth = [
                 'seed' => $this->getSeed(),
@@ -153,7 +154,7 @@ class Authentication
             'tranKey' => $this->digest(),
             'nonce' => $this->getNonce(),
             'seed' => $this->getSeed(),
-            'additional' => $this->additional()
+            'additional' => $this->additional(),
         ];
     }
 

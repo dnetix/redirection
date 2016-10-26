@@ -91,7 +91,7 @@ class RedirectInformation extends Entity
 
     private function paymentToArray()
     {
-        if(!$this->payment() || !is_array($this->payment()))
+        if (!$this->payment() || !is_array($this->payment()))
             return null;
 
         $payments = [];
@@ -113,7 +113,7 @@ class RedirectInformation extends Entity
             'status' => $this->status() ? $this->status()->toArray() : null,
             'request' => $this->request()->toArray(),
             'payment' => $this->paymentToArray(),
-            'token' => $this->token() ? $this->token()->toArray() : null
+            'token' => $this->token() ? $this->token()->toArray() : null,
         ]);
     }
 }

@@ -22,7 +22,7 @@ class Document
         self::TYPE_RUT,
         self::TYPE_TI,
         self::TYPE_SSN,
-        self::TYPE_PPN
+        self::TYPE_PPN,
     ];
 
     public static $VALIDATION_PATTERNS = [

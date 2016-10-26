@@ -11,26 +11,26 @@ class PaymentEntityTest extends TestCase
             'reference' => 'required',
             'amount' => [
                 'total' => 10000,
-                'currency' => 'COP'
+                'currency' => 'COP',
             ],
             'fields' => [
                 [
                     'keyword' => 'no_empty',
                     'value' => 'no_empty_value',
-                    'displayOn' => 'none'
-                ]
+                    'displayOn' => 'none',
+                ],
             ],
             'items' => [
                 [
                     'sku' => '1234',
-                    'name' => 'Testing1'
+                    'name' => 'Testing1',
                 ],
                 [
                     'sku' => '1111',
-                    'name' => 'Testing2'
-                ]
+                    'name' => 'Testing2',
+                ],
             ],
-            'allowPartial' => false
+            'allowPartial' => false,
         ];
         $payment = new Payment($data);
         $this->assertEquals(1, sizeof($payment->fields()));

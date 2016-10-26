@@ -92,7 +92,7 @@ class Person extends Entity
             'email' => $this->email(),
             'mobile' => $this->mobile(),
             'company' => $this->company(),
-            'address' => $this->address() ? $this->address()->toArray() : null
+            'address' => $this->address() ? $this->address()->toArray() : null,
         ]);
     }
 

@@ -18,9 +18,8 @@ class Subscription extends Entity
     public function __construct($data = [])
     {
         $this->load($data, ['reference', 'description']);
-        if (isset($data['fields'])) {
+        if (isset($data['fields']))
             $this->setFields($data['fields']);
-        }
     }
 
     public function reference()
@@ -38,7 +37,7 @@ class Subscription extends Entity
         return $this->arrayFilter([
             'reference' => $this->reference(),
             'description' => $this->description(),
-            'fields' => $this->fieldsToArray()
+            'fields' => $this->fieldsToArray(),
         ]);
     }
 

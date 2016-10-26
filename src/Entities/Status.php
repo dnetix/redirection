@@ -42,7 +42,7 @@ class Status extends Entity
         self::ST_PENDING,
         self::ST_PENDING_VALIDATION,
         self::ST_ERROR,
-        self::ST_UNKNOWN
+        self::ST_UNKNOWN,
     ];
 
     public function __construct($data = [])
@@ -111,7 +111,7 @@ class Status extends Entity
             'status' => $this->status(),
             'reason' => $this->reason(),
             'message' => $this->message(),
-            'date' => $this->date()
+            'date' => $this->date(),
         ];
     }
 

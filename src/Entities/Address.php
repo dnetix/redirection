@@ -61,7 +61,7 @@ class Address extends Entity
             'state' => $this->state(),
             'postalCode' => $this->postalCode(),
             'country' => $this->country(),
-            'phone' => $this->phone()
+            'phone' => $this->phone(),
         ]);
     }
 
