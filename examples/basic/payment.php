@@ -1,6 +1,6 @@
 <?php
 
-require_once (__DIR__ . "/../bootstrap.php");
+require_once(__DIR__ . "/../bootstrap.php");
 
 // Creating a random reference for the test
 $reference = 'TEST_' . time();
@@ -10,14 +10,14 @@ $request = [
     'buyer' => [
         'name' => 'John',
         'surname' => 'Doe',
-        'email' => 'john.doe@example.com'
+        'email' => 'john.doe@example.com',
     ],
     'payment' => [
         'reference' => $reference,
         'description' => 'Testing payment',
         'amount' => [
             'currency' => 'USD',
-            'total' => 120
+            'total' => 120,
         ],
     ],
     'expiration' => date('c', strtotime('+2 days')),

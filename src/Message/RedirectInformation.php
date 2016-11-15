@@ -6,7 +6,7 @@ namespace Dnetix\Redirection\Message;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Status;
-use Dnetix\Redirection\Entities\Token;
+use Dnetix\Redirection\Entities\SubscriptionInformation;
 use Dnetix\Redirection\Entities\Transaction;
 use Dnetix\Redirection\Traits\StatusTrait;
 
@@ -24,9 +24,9 @@ class RedirectInformation extends Entity
      */
     public $payment;
     /**
-     * @var Token
+     * @var SubscriptionInformation
      */
-    public $token;
+    public $subscription;
 
     public function __construct($data = [])
     {
@@ -39,8 +39,8 @@ class RedirectInformation extends Entity
         if (isset($data['payment']))
             $this->setPayment($data['payment']);
 
-        if (isset($data['token']))
-            $this->setToken($data['token']);
+        if (isset($data['subscription']))
+            $this->setSubscription($data['subscription']);
     }
 
     public function requestId()
@@ -63,9 +63,9 @@ class RedirectInformation extends Entity
         return $this->payment;
     }
 
-    public function token()
+    public function subscription()
     {
-        return $this->token;
+        return $this->subscription;
     }
 
     public function setRequest($request)
@@ -81,11 +81,15 @@ class RedirectInformation extends Entity
         $this->payment = $payment;
     }
 
-    public function setToken($token)
+    /**
+     * @param SubscriptionInformation|array $subscription
+     * @return $this
+     */
+    public function setSubscription($subscription)
     {
-        if (is_array($token))
-            $token = new Token($token);
-        $this->token = $token;
+        if (is_array($subscription))
+            $subscription = new SubscriptionInformation($subscription);
+        $this->subscription = $subscription;
         return $this;
     }
 
@@ -108,12 +112,12 @@ class RedirectInformation extends Entity
 
     public function toArray()
     {
-        return $this->arrayFilter([
+        return array_filter([
             'requestId' => $this->requestId(),
             'status' => $this->status() ? $this->status()->toArray() : null,
             'request' => $this->request()->toArray(),
             'payment' => $this->paymentToArray(),
-            'token' => $this->token() ? $this->token()->toArray() : null,
+            'subscription' => $this->subscription() ? $this->subscription()->toArray() : null,
         ]);
     }
 }
