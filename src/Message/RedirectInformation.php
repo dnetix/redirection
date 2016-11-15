@@ -76,9 +76,19 @@ class RedirectInformation extends Entity
         return $this;
     }
 
-    private function setPayment($payment)
+    private function setPayment($payments)
     {
-        $this->payment = $payment;
+        if ($payments) {
+            $this->payment = [];
+
+            if ($payments['transaction'])
+                $payments = $payments['transaction'];
+
+            foreach ($payments as $payment) {
+                $this->payment[] = new Transaction($payment);
+            }
+        }
+        return $this;
     }
 
     /**

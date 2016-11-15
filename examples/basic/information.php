@@ -29,13 +29,12 @@ try {
     $response = placetopay()->query($requestId);
 
     if ($response->isSuccessful()) {
-        // Redirect the client to the processUrl or display it on the JS extension
-        // $response->processUrl();
+        // In order to use the functions please refer to the RedirectInformation class
+        var_dump($response->toArray());
     } else {
         // There was some error so check the message
         // $response->status()->message();
     }
-    var_dump($response);
 } catch (Exception $e) {
     var_dump($e->getMessage());
 }
