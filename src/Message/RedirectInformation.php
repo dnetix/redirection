@@ -34,7 +34,9 @@ class RedirectInformation extends Entity
             $this->requestId = $data['requestId'];
 
         $this->setStatus($data['status']);
-        $this->setRequest($data['request']);
+
+        if (isset($data['request']))
+            $this->setRequest($data['request']);
 
         if (isset($data['payment']))
             $this->setPayment($data['payment']);
@@ -125,7 +127,7 @@ class RedirectInformation extends Entity
         return array_filter([
             'requestId' => $this->requestId(),
             'status' => $this->status() ? $this->status()->toArray() : null,
-            'request' => $this->request()->toArray(),
+            'request' => $this->request() ? $this->request()->toArray() : null,
             'payment' => $this->paymentToArray(),
             'subscription' => $this->subscription() ? $this->subscription()->toArray() : null,
         ]);
