@@ -1,6 +1,6 @@
 {
   "name": "dnetix/redirection",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Library to connect with PlacetoPay Redirection service",
   "type": "library",
   "license": "MIT",
