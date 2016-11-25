@@ -30,9 +30,24 @@ try {
 
     if ($response->isSuccessful()) {
         // In order to use the functions please refer to the RedirectInformation class
-        var_dump($response->toArray());
+
+        if ($response->status()->isApproved()) {
+            // The payment has been approved
+            print_r($requestId . " PAYMENT APPROVED\n");
+            // This is additional information about it
+            var_dump($response->payment());
+        }else{
+            if ($response->status()->isRejected()) {
+                // This is why it has been rejected
+                print_r($requestId . " PAYMENT PENDING\n");
+            } else{
+                // Is pending so make a query for it later (see information.php example)
+                print_r($requestId . " PAYMENT PENDING\n");
+            }
+        }
+
     } else {
-        // There was some error so check the message
+        // There was some error with the connection so check the message
         // $response->status()->message();
     }
 } catch (Exception $e) {

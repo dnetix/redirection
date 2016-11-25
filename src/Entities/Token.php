@@ -101,6 +101,8 @@ class Token extends Entity
             'issuerName' => $this->issuerName(),
             'lastDigits' => $this->lastDigits(),
             'validUntil' => $this->validUntil(),
+            'cvv' => $this->cvv(),
+            'installments' => $this->installments(),
         ]);
     }
 
