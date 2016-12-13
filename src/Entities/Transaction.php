@@ -31,21 +31,26 @@ class Transaction extends Entity
      */
     protected $amount;
     protected $authorization;
-    protected $processorFields;
     protected $receipt;
     protected $franchise;
     protected $refunded = false;
+    /**
+     * @var NameValuePair[]
+     */
+    protected $processorFields;
 
     public function __construct($data = [])
     {
         $this->load($data, ['reference', 'internalReference', 'paymentMethod', 'paymentMethodName', 'issuerName', 'authorization', 'receipt', 'franchise', 'refunded']);
 
-        if (isset($data['status'])) {
+        if (isset($data['status']))
             $this->setStatus($data['status']);
-        }
-        if (isset($data['amount'])) {
+
+        if (isset($data['amount']))
             $this->setAmount($data['amount']);
-        }
+
+        if (isset($data['processorFields']))
+            $this->setProcessorFields($data['processorFields']);
     }
 
     public function status()
@@ -147,6 +152,32 @@ class Transaction extends Entity
         return $this;
     }
 
+    public function setProcessorFields($data)
+    {
+        if (isset($data['item']))
+            $data = $data['item'];
+
+        if (is_array($data)) {
+            foreach ($data as $nvp) {
+                $this->processorFields[] = new NameValuePair($nvp);
+            }
+        }
+
+        return $this;
+    }
+
+    public function processorFieldsToArray()
+    {
+        if ($this->processorFields()) {
+            $fields = [];
+            foreach ($this->processorFields() as $field) {
+                $fields[] = ($field instanceof NameValuePair) ? $field->toArray() : null;
+            }
+            return $fields;
+        }
+        return null;
+    }
+
     public function toArray()
     {
         return [
@@ -161,6 +192,7 @@ class Transaction extends Entity
             'receipt' => $this->receipt(),
             'franchise' => $this->franchise(),
             'refunded' => $this->refunded(),
+            'processorFields' => $this->processorFieldsToArray(),
         ];
     }
 
