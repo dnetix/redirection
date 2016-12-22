@@ -75,8 +75,13 @@ abstract class Gateway
 
     public function readNotification($data = null)
     {
-        if (!$data)
-            $data = $_POST;
+        if (!$data) {
+            try {
+                $data = json_decode(file_get_contents('php://input'), true);
+            } catch (\Exception $e) {
+                throw new PlacetoPayException('Error constructing the information from the input');
+            }
+        }
 
         return new Notification($data, $this->config['tranKey']);
     }
