@@ -6,6 +6,7 @@ namespace Dnetix\Redirection\Carrier;
 
 use Dnetix\Redirection\Contracts\Carrier;
 use Dnetix\Redirection\Entities\Status;
+use Dnetix\Redirection\Exceptions\PlacetoPayException;
 use Dnetix\Redirection\Message\CollectRequest;
 use Dnetix\Redirection\Message\RedirectInformation;
 use Dnetix\Redirection\Message\RedirectRequest;
@@ -57,7 +58,7 @@ class SoapCarrier extends Carrier
                 'status' => [
                     'status' => Status::ST_ERROR,
                     'reason' => 'WR',
-                    'message' => $e->getMessage(),
+                    'message' => PlacetoPayException::readException($e),
                     'date' => date('c'),
                 ],
             ]);
@@ -81,7 +82,7 @@ class SoapCarrier extends Carrier
                 'status' => [
                     'status' => Status::ST_ERROR,
                     'reason' => 'WR',
-                    'message' => $e->getMessage(),
+                    'message' => PlacetoPayException::readException($e),
                     'date' => date('c'),
                 ],
             ]);
@@ -105,7 +106,7 @@ class SoapCarrier extends Carrier
                 'status' => [
                     'status' => Status::ST_ERROR,
                     'reason' => 'WR',
-                    'message' => $e->getMessage(),
+                    'message' => PlacetoPayException::readException($e),
                     'date' => date('c'),
                 ],
             ]);
@@ -129,7 +130,7 @@ class SoapCarrier extends Carrier
                 'status' => [
                     'status' => Status::ST_ERROR,
                     'reason' => 'WR',
-                    'message' => $e->getMessage(),
+                    'message' => PlacetoPayException::readException($e),
                     'date' => date('c'),
                 ],
             ]);
