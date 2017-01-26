@@ -35,20 +35,18 @@ try {
             // The payment has been approved
             print_r($requestId . " PAYMENT APPROVED\n");
             // This is additional information about it
-            var_dump($response->payment());
-        }else{
-            if ($response->status()->isRejected()) {
-                // This is why it has been rejected
-                print_r($requestId . " PAYMENT PENDING\n");
-            } else{
-                // Is pending so make a query for it later (see information.php example)
-                print_r($requestId . " PAYMENT PENDING\n");
+            if ($response->request()->payment()) {
+                var_dump($response->payment());
+            } else if ($response->request()->subscription()) {
+                var_dump($response->subscription());
             }
+        } else {
+            print_r($requestId . ' ' . $response->status()->message() . "\n");
         }
 
     } else {
         // There was some error with the connection so check the message
-        // $response->status()->message();
+        print_r($response->status()->message() . "\n");
     }
 } catch (Exception $e) {
     var_dump($e->getMessage());
