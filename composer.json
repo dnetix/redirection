@@ -14,12 +14,16 @@
     "ext-soap": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.8"
+    "phpunit/phpunit": "^4.8",
+    "guzzlehttp/guzzle": "^6.2"
   },
   "autoload": {
     "psr-4": {
       "Dnetix\\Redirection\\": "src/"
     }
+  },
+  "suggest": {
+    "guzzlehttp/guzzle": "To use it with REST"
   },
   "autoload-dev": {
     "classmap": [

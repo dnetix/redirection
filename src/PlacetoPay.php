@@ -5,6 +5,7 @@ namespace Dnetix\Redirection;
 
 
 use Dnetix\Redirection\Carrier\Authentication;
+use Dnetix\Redirection\Carrier\RestCarrier;
 use Dnetix\Redirection\Carrier\SoapCarrier;
 use Dnetix\Redirection\Contracts\Carrier;
 use Dnetix\Redirection\Contracts\Gateway;
@@ -34,6 +35,11 @@ class PlacetoPay extends Gateway
                 'location' => $config['url'] . 'soap/redirect',
             ], $typeConfig);
             $this->carrier = new SoapCarrier($auth, $carrierConfig);
+        } else {
+            $carrierConfig = array_merge([
+                'url' => $config['url'],
+            ], $typeConfig);
+            $this->carrier = new RestCarrier($auth, $carrierConfig);
         }
 
         return $this->carrier;

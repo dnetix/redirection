@@ -35,11 +35,7 @@ try {
             // The payment has been approved
             print_r($requestId . " PAYMENT APPROVED\n");
             // This is additional information about it
-            if ($response->request()->payment()) {
-                var_dump($response->payment());
-            } else if ($response->request()->subscription()) {
-                var_dump($response->subscription());
-            }
+            print_r($response->toArray());
         } else {
             print_r($requestId . ' ' . $response->status()->message() . "\n");
         }

@@ -31,6 +31,9 @@ abstract class Gateway
         if (substr($config['url'], -1) != '/')
             $config['url'] .= '/';
 
+        if (isset($config['type']) && in_array($config['type'], [self::TP_SOAP, self::TP_REST]))
+            $this->type = $config['type'];
+
         $this->config = $config;
     }
 
@@ -68,6 +71,7 @@ abstract class Gateway
     {
         if (in_array($type, [self::TP_SOAP, self::TP_REST])) {
             $this->type = $type;
+            $this->carrier = null;
         } else {
             throw new PlacetoPayException('The only connection methods are SOAP or REST');
         }

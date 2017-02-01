@@ -48,8 +48,8 @@ class Authentication
             $this->overrided = true;
         }
 
-        if (isset($config['type']))
-            $this->type = $config['type'];
+        if (isset($config['auth_type']))
+            $this->type = $config['auth_type'];
 
         $this->generate();
     }

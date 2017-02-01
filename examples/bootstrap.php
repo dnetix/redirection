@@ -19,5 +19,6 @@ function placetopay()
         'login' => getenv('P2P_LOGIN'),
         'tranKey' => getenv('P2P_TRANKEY'),
         'url' => getenv('P2P_URL'),
+        'type' => getenv('P2P_TYPE') ?: 'soap'
     ]);
 }

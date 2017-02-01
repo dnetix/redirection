@@ -83,7 +83,7 @@ class RedirectInformation extends Entity
         if ($payments) {
             $this->payment = [];
 
-            if ($payments['transaction'])
+            if (isset($payments['transaction']) && $payments['transaction'])
                 $payments = $payments['transaction'];
 
             foreach ($payments as $payment) {
