@@ -41,9 +41,21 @@ class RestCarrier extends Carrier
             $data = array_merge($arguments, [
                 'auth' => $this->authentication()->asArray(),
             ]);
-            $response = $client->request($method, $url, [
-                'json' => $data
-            ]);
+            if ($method == 'POST') {
+                $response = $client->post($url, [
+                    'json' => $data
+                ]);
+            } else if ($method == 'GET') {
+                $response = $client->get($url, [
+                    'json' => $data
+                ]);
+            } else if ($method == 'PUT') {
+                $response = $client->put($url, [
+                    'json' => $data
+                ]);
+            } else {
+                throw new PlacetoPayException("No valid method for this request");
+            }
             return json_decode($response->getBody()->getContents(), true);
         } catch (\Exception $e) {
             return ['status' => [
