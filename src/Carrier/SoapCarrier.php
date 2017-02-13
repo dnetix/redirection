@@ -18,7 +18,6 @@ class SoapCarrier extends Carrier
 {
     private function client()
     {
-        print_r("\nUsing SOAP\n");
         $config = $this->config();
 
         $config = array_merge([

@@ -11,6 +11,10 @@ $request = [
         'name' => 'John',
         'surname' => 'Doe',
         'email' => 'john.doe@example.com',
+        'address' => [
+            'city' => 'Bogotá',
+            'street' => 'Calle 14 # 13b - 03'
+        ]
     ],
     'payment' => [
         'reference' => $reference,

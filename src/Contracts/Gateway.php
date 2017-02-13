@@ -16,7 +16,7 @@ abstract class Gateway
     const TP_SOAP = 'soap';
     const TP_REST = 'rest';
 
-    protected $type = self::TP_SOAP;
+    protected $type = self::TP_REST;
     protected $carrier = null;
     protected $config;
 
