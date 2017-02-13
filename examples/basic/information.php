@@ -40,6 +40,8 @@ try {
             print_r($requestId . ' ' . $response->status()->message() . "\n");
         }
 
+        print_r($response);
+
     } else {
         // There was some error with the connection so check the message
         print_r($response->status()->message() . "\n");

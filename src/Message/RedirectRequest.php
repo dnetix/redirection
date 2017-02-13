@@ -39,6 +39,7 @@ class RedirectRequest extends Entity
     protected $expiration;
 
     protected $captureAddress;
+    protected $skipResult = false;
 
     public function __construct($data = [])
     {
@@ -50,7 +51,7 @@ class RedirectRequest extends Entity
         if (!isset($data['ipAddress']))
             $this->ipAddress = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : $_SERVER['REMOTE_ADDR'];
 
-        $this->load($data, ['locale', 'returnUrl', 'paymentMethod', 'cancelUrl', 'ipAddress', 'userAgent', 'expiration', 'captureAddress']);
+        $this->load($data, ['locale', 'returnUrl', 'paymentMethod', 'cancelUrl', 'ipAddress', 'userAgent', 'expiration', 'captureAddress', 'skipResult']);
 
         if (isset($data['payer']))
             $this->setPayer($data['payer']);
@@ -192,6 +193,11 @@ class RedirectRequest extends Entity
         return !!$this->captureAddress;
     }
 
+    public function skipResult()
+    {
+        return filter_var($this->skipResult, FILTER_VALIDATE_BOOLEAN);
+    }
+
     public function toArray()
     {
         return $this->arrayFilter([
@@ -208,6 +214,7 @@ class RedirectRequest extends Entity
             'userAgent' => $this->userAgent(),
             'expiration' => $this->expiration(),
             'captureAddress' => $this->captureAddress(),
+            'skipResult' => $this->skipResult(),
         ]);
     }
 
