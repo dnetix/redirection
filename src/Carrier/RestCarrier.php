@@ -13,6 +13,7 @@ use Dnetix\Redirection\Message\RedirectRequest;
 use Dnetix\Redirection\Message\RedirectResponse;
 use Dnetix\Redirection\Message\ReverseResponse;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 class RestCarrier extends Carrier
 {
@@ -43,20 +44,22 @@ class RestCarrier extends Carrier
             ]);
             if ($method == 'POST') {
                 $response = $client->post($url, [
-                    'json' => $data
+                    'json' => $data,
                 ]);
             } else if ($method == 'GET') {
                 $response = $client->get($url, [
-                    'json' => $data
+                    'json' => $data,
                 ]);
             } else if ($method == 'PUT') {
                 $response = $client->put($url, [
-                    'json' => $data
+                    'json' => $data,
                 ]);
             } else {
                 throw new PlacetoPayException("No valid method for this request");
             }
             return json_decode($response->getBody()->getContents(), true);
+        }catch (ClientException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
         } catch (\Exception $e) {
             return ['status' => [
                 'status' => Status::ST_ERROR,
