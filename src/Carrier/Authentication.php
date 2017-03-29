@@ -51,6 +51,9 @@ class Authentication
         if (isset($config['auth_type']))
             $this->type = $config['auth_type'];
 
+        if (isset($config['auth_additional']))
+            $this->additional = $config['auth_additional'];
+
         $this->generate();
     }
 

@@ -90,4 +90,18 @@ abstract class Gateway
         return new Notification($data, $this->config['tranKey']);
     }
 
+    /**
+     * @param array $data
+     * @return $this
+     */
+    public function addAuthenticationHeader($data = [])
+    {
+        if (!isset($this->config['auth_additional'])) {
+            $this->config['auth_additional'] = $data;
+        } else {
+            $this->config['auth_additional'] = array_merge($this->config['auth_additional'], $data);
+        }
+        return $this;
+    }
+
 }
