@@ -138,6 +138,12 @@ class RedirectRequest extends Entity
         return $this->subscription()->reference();
     }
 
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+
     public function setPayer($person)
     {
         if (is_array($person)) {
