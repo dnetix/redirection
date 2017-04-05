@@ -174,6 +174,24 @@ class RedirectRequest extends Entity
         return $this;
     }
 
+    public function setReturnUrl($returnUrl)
+    {
+        $this->returnUrl = $returnUrl;
+        return $this;
+    }
+
+    public function setCancelUrl($cancelUrl)
+    {
+        $this->cancelUrl = $cancelUrl;
+        return $this;
+    }
+
+    public function setExpiration($expiration)
+    {
+        $this->expiration = $expiration;
+        return $this;
+    }
+
     /**
      * Returns the expiration datetime for this request
      * @return string
