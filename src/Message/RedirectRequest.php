@@ -198,6 +198,18 @@ class RedirectRequest extends Entity
         return $this;
     }
 
+    public function setUserAgent($userAgent)
+    {
+        $this->userAgent = $userAgent;
+        return $this;
+    }
+
+    public function setIpAddress($ipAddress)
+    {
+        $this->ipAddress = $ipAddress;
+        return $this;
+    }
+
     /**
      * Returns the expiration datetime for this request
      * @return string
