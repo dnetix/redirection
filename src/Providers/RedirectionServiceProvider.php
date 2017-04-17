@@ -5,7 +5,7 @@ namespace Dnetix\Redirection\Providers;
 use Dnetix\Redirection\PlacetoPay;
 use Illuminate\Support\ServiceProvider;
 
-class RedirectionProvider extends ServiceProvider
+class RedirectionServiceProvider extends ServiceProvider
 {
     public function boot()
     {
