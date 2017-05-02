@@ -58,15 +58,16 @@ class RestCarrier extends Carrier
                 throw new PlacetoPayException("No valid method for this request");
             }
             return json_decode($response->getBody()->getContents(), true);
-        }catch (ClientException $e) {
+        } catch (ClientException $e) {
             return json_decode($e->getResponse()->getBody()->getContents(), true);
         } catch (\Exception $e) {
-            return ['status' => [
-                'status' => Status::ST_ERROR,
-                'reason' => 'WR',
-                'message' => PlacetoPayException::readException($e),
-                'date' => date('c'),
-            ],
+            return [
+                'status' => [
+                    'status' => Status::ST_ERROR,
+                    'reason' => 'WR',
+                    'message' => PlacetoPayException::readException($e),
+                    'date' => date('c'),
+                ],
             ];
         }
     }
