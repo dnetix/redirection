@@ -95,7 +95,9 @@ class SubscriptionInformation extends Entity
         if (!$instrumentNVP)
             return null;
 
-        $data = [];
+        $data = [
+            'status' => $this->status(),
+        ];
         foreach ($instrumentNVP as $nvp) {
             $data[$nvp->keyword()] = $nvp->value();
         }
