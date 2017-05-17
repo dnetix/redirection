@@ -52,7 +52,10 @@ class RedirectRequest extends Entity
         if (!isset($data['ipAddress']))
             $this->ipAddress = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : $_SERVER['REMOTE_ADDR'];
 
-        $this->load($data, ['locale', 'returnUrl', 'paymentMethod', 'cancelUrl', 'ipAddress', 'userAgent', 'expiration', 'captureAddress', 'skipResult', 'noBuyerFill']);
+        $this->load($data, ['returnUrl', 'paymentMethod', 'cancelUrl', 'ipAddress', 'userAgent', 'expiration', 'captureAddress', 'skipResult', 'noBuyerFill']);
+
+        if (isset($data['locale']))
+            $this->setLocale($data['locale']);
 
         if (isset($data['payer']))
             $this->setPayer($data['payer']);

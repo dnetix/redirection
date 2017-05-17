@@ -50,21 +50,33 @@ class RedirectInformation extends Entity
         return $this->requestId;
     }
 
+    /**
+     * @return Status
+     */
     public function status()
     {
         return $this->status;
     }
 
+    /**
+     * @return RedirectRequest
+     */
     public function request()
     {
         return $this->request;
     }
 
+    /**
+     * @return Transaction[]
+     */
     public function payment()
     {
         return $this->payment;
     }
 
+    /**
+     * @return SubscriptionInformation
+     */
     public function subscription()
     {
         return $this->subscription;
@@ -97,7 +109,7 @@ class RedirectInformation extends Entity
      * @param SubscriptionInformation|array $subscription
      * @return $this
      */
-    public function setSubscription($subscription)
+    private function setSubscription($subscription)
     {
         if (is_array($subscription))
             $subscription = new SubscriptionInformation($subscription);
@@ -120,6 +132,51 @@ class RedirectInformation extends Entity
     public function isSuccessful()
     {
         return $this->status()->status() != Status::ST_ERROR;
+    }
+
+    // Helpers
+
+    public function isApproved()
+    {
+        return $this->status()->status() == Status::ST_APPROVED;
+    }
+
+    public function lastApprovedTransaction()
+    {
+        return $this->lastTransaction(true);
+    }
+
+    /**
+     * Obtains the last transaction made to the session
+     * @param bool $approved
+     * @return Transaction
+     */
+    public function lastTransaction($approved = false)
+    {
+        $transactions = $this->payment();
+        if (is_array($transactions) && sizeof($transactions) > 0) {
+            if ($approved) {
+                while ($transaction = array_shift($transactions)) {
+                    if ($transaction->isApproved()) {
+                        return $transaction;
+                    }
+                }
+            } else {
+                return $transactions[0];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the last authorization associated with the session
+     */
+    public function lastAuthorization()
+    {
+        if ($this->lastApprovedTransaction()) {
+            return $this->lastApprovedTransaction()->authorization();
+        }
+        return null;
     }
 
     public function toArray()

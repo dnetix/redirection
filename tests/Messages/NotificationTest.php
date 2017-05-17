@@ -17,6 +17,8 @@ class NotificationTest extends TestCase
         $this->assertFalse($notification->isRejected(), $notification->status()->status());
         $this->assertEquals($notification->requestId(), 83, 'Same request identifier');
         $this->assertEquals($notification->reference(), 'TEST_20161010_213937', 'Same reference');
+
+        $this->assertEquals($data, $notification->toArray());
     }
 
     public function testItParsesANotificationPost()

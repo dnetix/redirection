@@ -123,6 +123,15 @@ class Transaction extends Entity
         return $this->status() && $this->status()->status() != Status::ST_ERROR;
     }
 
+    /**
+     * Determines if the transaction has been approved
+     * @return bool
+     */
+    public function isApproved()
+    {
+        return $this->status() && $this->status()->status() == Status::ST_APPROVED;
+    }
+
     public function setAmount($amount)
     {
         if (is_array($amount))
@@ -176,6 +185,21 @@ class Transaction extends Entity
             return $fields;
         }
         return null;
+    }
+
+    /**
+     * Parses the processorFields as a key value array
+     */
+    public function additionalData()
+    {
+        if ($this->processorFields()) {
+            $data = [];
+            foreach ($this->processorFields() as $field) {
+                $data[$field->keyword()] = $field->value();
+            }
+            return $data;
+        }
+        return [];
     }
 
     public function toArray()
