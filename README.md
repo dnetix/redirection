@@ -19,7 +19,7 @@ Or If you just want to run the examples contained in this project run "composer 
 Create an object with the configuration required for that instance
 
 ```
-$placetopay = Dnetix\Redirection\PlacetoPay([
+$placetopay = new Dnetix\Redirection\PlacetoPay([
     'login' => 'YOUR_LOGIN',
     'tranKey' => 'YOUR_TRANKEY',
     'url' => 'https://THE_BASE_URL_TO_POINT_AT',
