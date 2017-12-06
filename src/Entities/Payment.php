@@ -28,14 +28,17 @@ class Payment extends Entity
      * @var Recurring
      */
     protected $recurring;
+    protected $discount;
     /**
      * @var Instrument
      */
     protected $instrument;
 
+    public $subscribe = false;
+
     public function __construct($data = [])
     {
-        $this->load($data, ['reference', 'description', 'allowPartial', 'items']);
+        $this->load($data, ['reference', 'description', 'allowPartial', 'items', 'discount', 'subscribe']);
 
         if (isset($data['amount']))
             $this->setAmount($data['amount']);
@@ -89,9 +92,19 @@ class Payment extends Entity
         return $this->recurring;
     }
 
+    public function discount()
+    {
+        return $this->discount;
+    }
+
     public function instrument()
     {
         return $this->instrument;
+    }
+
+    public function subscribe()
+    {
+        return $this->subscribe;
     }
 
     public function setAmount($amount)
@@ -163,6 +176,8 @@ class Payment extends Entity
             'items' => $this->itemsToArray(),
             'recurring' => $this->recurring() ? $this->recurring()->toArray() : null,
             'instrument' => $this->instrument() ? $this->instrument()->toArray() : null,
+            'discount' => $this->discount(),
+            'subscribe' => $this->subscribe(),
             'fields' => $this->fieldsToArray(),
         ]);
     }
