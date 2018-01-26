@@ -62,33 +62,6 @@ class Instrument extends Entity
         return $this->password;
     }
 
-    public function setBank($bank)
-    {
-        if (is_array($bank)) {
-            $bank = new Bank($bank);
-        }
-        $this->bank = $bank;
-        return $this;
-    }
-
-    public function setToken($token)
-    {
-        if (is_array($token)) {
-            $token = new Token($token);
-        }
-        $this->token = $token;
-        return $this;
-    }
-
-    public function setCard($card)
-    {
-        if (is_array($card)) {
-            $card = new Card($card);
-        }
-        $this->card = $card;
-        return $this;
-    }
-
     public function toArray()
     {
         return $this->arrayFilter([

@@ -94,14 +94,6 @@ class Token extends Entity
         return $this->status()->status() == 'OK';
     }
 
-    public function setStatus($status)
-    {
-        if (is_array($status))
-            $status = new Status($status);
-        $this->status = $status;
-        return $this;
-    }
-
     public function toArray()
     {
         return $this->arrayFilter([

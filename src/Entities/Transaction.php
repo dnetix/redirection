@@ -136,6 +136,10 @@ class Transaction extends Entity
     {
         if (is_array($amount))
             $amount = new AmountConversion($amount);
+
+        if (!($amount instanceof AmountConversion))
+            $amount = null;
+
         $this->amount = $amount;
         return $this;
     }
@@ -149,15 +153,11 @@ class Transaction extends Entity
     {
         if (is_array($base))
             $base = new AmountBase($base);
-        $this->amount = (new AmountConversion())->setAmountBase($base);
-        return $this;
-    }
 
-    public function setStatus($status)
-    {
-        if (is_array($status))
-            $status = new Status($status);
-        $this->status = $status;
+        if (!($base instanceof AmountBase))
+            $base = null;
+
+        $this->amount = (new AmountConversion())->setAmountBase($base);
         return $this;
     }
 

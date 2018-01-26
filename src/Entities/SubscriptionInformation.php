@@ -76,14 +76,6 @@ class SubscriptionInformation extends Entity
         return null;
     }
 
-    public function setStatus($status)
-    {
-        if (is_array($status))
-            $status = new Status($status);
-        $this->status = $status;
-        return $this;
-    }
-
     /**
      * Parses the instrument as the proper entity, Keep in mind that can be null
      * if no instrument its provided

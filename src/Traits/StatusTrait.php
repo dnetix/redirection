@@ -21,12 +21,4 @@ trait StatusTrait
         return $this->status;
     }
 
-    public function setStatus($status)
-    {
-        if (is_array($status))
-            $status = new Status($status);
-        $this->status = $status;
-        return $this;
-    }
-
 }

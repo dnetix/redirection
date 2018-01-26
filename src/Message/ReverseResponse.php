@@ -37,14 +37,6 @@ class ReverseResponse extends Entity
             $this->setPayment($data['payment']);
     }
 
-    private function setPayment($payment)
-    {
-        if (is_array($payment))
-            $payment = new Transaction($payment);
-        $this->payment = $payment;
-        return $this;
-    }
-
     public function isSuccessful()
     {
         return $this->status()->status() != Status::ST_ERROR;

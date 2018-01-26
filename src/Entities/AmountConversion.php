@@ -72,6 +72,10 @@ class AmountConversion extends Entity
     {
         if (is_array($from))
             $from = new AmountBase($from);
+
+        if (!($from instanceof AmountBase))
+            $from = null;
+
         $this->from = $from;
         return $this;
     }
@@ -80,6 +84,10 @@ class AmountConversion extends Entity
     {
         if (is_array($to))
             $to = new AmountBase($to);
+
+        if (!($to instanceof AmountBase))
+            $to = null;
+
         $this->to = $to;
         return $this;
     }

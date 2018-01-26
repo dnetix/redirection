@@ -73,15 +73,6 @@ class Person extends Entity
         return $this->mobile;
     }
 
-    public function setAddress($address)
-    {
-        if (is_array($address)) {
-            $address = new Address($address);
-        }
-        $this->address = $address;
-        return $this;
-    }
-
     public function toArray()
     {
         return $this->arrayFilter([

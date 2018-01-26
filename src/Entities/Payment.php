@@ -107,38 +107,6 @@ class Payment extends Entity
         return $this->subscribe;
     }
 
-    public function setAmount($amount)
-    {
-        if (is_array($amount))
-            $amount = new Amount($amount);
-        $this->amount = $amount;
-        return $this;
-    }
-
-    public function setRecurring($recurring)
-    {
-        if (is_array($recurring))
-            $recurring = new Recurring($recurring);
-        $this->recurring = $recurring;
-        return $this;
-    }
-
-    public function setShipping($shipping)
-    {
-        if (is_array($shipping))
-            $shipping = new Person($shipping);
-        $this->shipping = $shipping;
-        return $this;
-    }
-
-    public function setInstrument($instrument)
-    {
-        if (is_array($instrument))
-            $instrument = new Instrument($instrument);
-        $this->instrument = $instrument;
-        return $this;
-    }
-
     public function setItems($items)
     {
         if ($items && is_array($items)) {

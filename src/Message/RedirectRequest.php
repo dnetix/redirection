@@ -148,38 +148,15 @@ class RedirectRequest extends Entity
         return $this;
     }
 
-    public function setPayer($person)
-    {
-        if (is_array($person)) {
-            $person = new Person($person);
-        }
-        $this->payer = $person;
-        return $this;
-    }
-
-    public function setBuyer($person)
-    {
-        if (is_array($person)) {
-            $person = new Person($person);
-        }
-        $this->buyer = $person;
-        return $this;
-    }
-
-    public function setPayment($payment)
-    {
-        if (is_array($payment)) {
-            $payment = new Payment($payment);
-        }
-        $this->payment = $payment;
-        return $this;
-    }
-
     public function setSubscription($subscription)
     {
         if (is_array($subscription)) {
             $subscription = new Subscription($subscription);
         }
+
+        if (!($subscription instanceof Subscription))
+            $subscription = null;
+
         $this->subscription = $subscription;
         return $this;
     }

@@ -96,42 +96,6 @@ class CollectRequest extends Entity
         return $this->payment()->reference();
     }
 
-    public function setPayer($person)
-    {
-        if (is_array($person)) {
-            $person = new Person($person);
-        }
-        $this->payer = $person;
-        return $this;
-    }
-
-    public function setBuyer($person)
-    {
-        if (is_array($person)) {
-            $person = new Person($person);
-        }
-        $this->buyer = $person;
-        return $this;
-    }
-
-    public function setPayment($payment)
-    {
-        if (is_array($payment)) {
-            $payment = new Payment($payment);
-        }
-        $this->payment = $payment;
-        return $this;
-    }
-
-    private function setInstrument($instrument)
-    {
-        if (is_array($instrument)) {
-            $instrument = new Instrument($instrument);
-        }
-        $this->instrument = $instrument;
-        return $this;
-    }
-
     public function toArray()
     {
         return $this->arrayFilter([

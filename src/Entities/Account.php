@@ -22,6 +22,7 @@ class Account extends Entity
     public function __construct($data = [])
     {
         $this->load($data, ['bankCode', 'bankName', 'accountType', 'accountNumber']);
+
         if (isset($data['status']))
             $this->setStatus($data['status']);
     }
@@ -58,14 +59,6 @@ class Account extends Entity
     public function franchise()
     {
         return '_' . $this->bankCode() . '_';
-    }
-
-    public function setStatus($status)
-    {
-        if (is_array($status))
-            $status = new Status($status);
-        $this->status = $status;
-        return $this;
     }
 
     public function toArray()

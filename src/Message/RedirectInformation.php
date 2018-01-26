@@ -90,7 +90,7 @@ class RedirectInformation extends Entity
         return $this;
     }
 
-    private function setPayment($payments)
+    public function setPayment($payments)
     {
         if ($payments) {
             $this->payment = [];
@@ -109,10 +109,14 @@ class RedirectInformation extends Entity
      * @param SubscriptionInformation|array $subscription
      * @return $this
      */
-    private function setSubscription($subscription)
+    public function setSubscription($subscription)
     {
         if (is_array($subscription))
             $subscription = new SubscriptionInformation($subscription);
+
+        if (!($subscription instanceof SubscriptionInformation))
+            $subscription = null;
+
         $this->subscription = $subscription;
         return $this;
     }
