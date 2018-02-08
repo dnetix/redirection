@@ -31,6 +31,7 @@ class PaymentEntityTest extends TestCase
                 ],
             ],
             'allowPartial' => false,
+            'subscribe' => false,
         ];
         $payment = new Payment($data);
         $this->assertEquals(1, sizeof($payment->fields()));

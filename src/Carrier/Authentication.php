@@ -31,6 +31,7 @@ class Authentication
      */
     private $type = 'full';
     private $additional;
+    private $algorithm = 'sha1';
 
     public function __construct($config)
     {
@@ -53,6 +54,9 @@ class Authentication
 
         if (isset($config['auth_additional']))
             $this->additional = $config['auth_additional'];
+
+        if (isset($config['algorithm']))
+            $this->additional = $config['algorithm'];
 
         $this->generate();
     }
@@ -88,9 +92,9 @@ class Authentication
     public function digest($encoded = true)
     {
         if ($this->type == 'full') {
-            $digest = sha1($this->getNonce(false) . $this->getSeed() . $this->tranKey(), true);
+            $digest = hash($this->algorithm, $this->getNonce(false) . $this->getSeed() . $this->tranKey(), true);
         } else {
-            $digest = sha1($this->getSeed() . $this->tranKey(), false);
+            $digest = hash($this->algorithm, $this->getSeed() . $this->tranKey(), false);
         }
 
         if ($encoded)
