@@ -133,6 +133,18 @@ class Payment extends Entity
         }
     }
 
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+        return $this;
+    }
+
     public function toArray()
     {
         return $this->arrayFilter([
