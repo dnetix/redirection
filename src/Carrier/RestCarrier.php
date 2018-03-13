@@ -14,6 +14,7 @@ use Dnetix\Redirection\Message\RedirectResponse;
 use Dnetix\Redirection\Message\ReverseResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 
 class RestCarrier extends Carrier
 {
@@ -59,6 +60,8 @@ class RestCarrier extends Carrier
             }
             return json_decode($response->getBody()->getContents(), true);
         } catch (ClientException $e) {
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
+        } catch (ServerException $e) {
             return json_decode($e->getResponse()->getBody()->getContents(), true);
         } catch (\Exception $e) {
             return [
