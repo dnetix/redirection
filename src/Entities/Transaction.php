@@ -27,6 +27,10 @@ class Transaction extends Entity
     protected $paymentMethodName;
     protected $issuerName;
     /**
+     * @var Discount
+     */
+    protected $discount;
+    /**
      * @var AmountConversion
      */
     protected $amount;
@@ -51,6 +55,10 @@ class Transaction extends Entity
 
         if (isset($data['processorFields']))
             $this->setProcessorFields($data['processorFields']);
+
+        if (isset($data['discount'])) {
+            $this->setDiscount($data['discount']);
+        }
     }
 
     public function status()
@@ -113,6 +121,11 @@ class Transaction extends Entity
         return $this->refunded;
     }
 
+    public function discount()
+    {
+        return $this->discount;
+    }
+
     /**
      * Determines if the transaction information its valid, meaning the query was
      * successful not the transaction
@@ -141,6 +154,20 @@ class Transaction extends Entity
             $amount = null;
 
         $this->amount = $amount;
+        return $this;
+    }
+
+    public function setDiscount($discount)
+    {
+        if (is_array($discount)) {
+            $discount = new Discount($discount);
+        }
+
+        if (!($discount instanceof Discount)) {
+            $discount = null;
+        }
+
+        $this->discount = $discount;
         return $this;
     }
 
@@ -216,6 +243,7 @@ class Transaction extends Entity
             'receipt' => $this->receipt(),
             'franchise' => $this->franchise(),
             'refunded' => $this->refunded(),
+            'discount' => $this->discount() ? $this->discount()->toArray() : null,
             'processorFields' => $this->processorFieldsToArray(),
         ];
     }
