@@ -36,22 +36,35 @@ class Payment extends Entity
 
     public $subscribe = false;
 
+    protected $agreement;
+    protected $agreementType;
+    /**
+     * @var GDS
+     */
+    protected $gds;
+
     public function __construct($data = [])
     {
-        $this->load($data, ['reference', 'description', 'allowPartial', 'items', 'discount', 'subscribe']);
+        $this->load($data, ['reference', 'description', 'allowPartial', 'subscribe', 'items', 'agreement', 'agreementType']);
 
-        if (isset($data['amount']))
+        if (isset($data['amount'])) {
             $this->setAmount($data['amount']);
-        if (isset($data['recurring']))
+        }
+        if (isset($data['recurring'])) {
             $this->setRecurring($data['recurring']);
-        if (isset($data['shipping']))
+        }
+        if (isset($data['shipping'])) {
             $this->setShipping($data['shipping']);
-        if (isset($data['items']))
+        }
+        if (isset($data['items'])) {
             $this->setItems($data['items']);
-        if (isset($data['instrument']))
-            $this->setInstrument($data['instrument']);
-        if (isset($data['fields']))
+        }
+        if (isset($data['fields'])) {
             $this->setFields($data['fields']);
+        }
+        if (isset($data['gds'])) {
+            $this->setGDS($data['gds']);
+        }
     }
 
     public function reference()
@@ -67,6 +80,21 @@ class Payment extends Entity
     public function amount()
     {
         return $this->amount;
+    }
+
+    public function agreement()
+    {
+        return $this->agreement;
+    }
+
+    public function agreementType()
+    {
+        return $this->agreementType;
+    }
+
+    public function gds()
+    {
+        return $this->gds;
     }
 
     /**
@@ -92,28 +120,44 @@ class Payment extends Entity
         return $this->recurring;
     }
 
-    public function discount()
-    {
-        return $this->discount;
-    }
-
-    public function instrument()
-    {
-        return $this->instrument;
-    }
-
     public function subscribe()
     {
         return $this->subscribe;
     }
 
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+        return $this;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function setGDS($gds)
+    {
+        if (is_array($gds)) {
+            $gds = new GDS($gds);
+        }
+        $this->gds = $gds;
+        return $this;
+    }
+
     public function setItems($items)
     {
         if ($items && is_array($items)) {
+            if (isset($items['item'])) {
+                $items = $items['item'];
+            }
+
             $this->items = [];
             foreach ($items as $item) {
-                if (is_array($item))
+                if (is_array($item)) {
                     $item = new Item($item);
+                }
                 $this->items[] = $item;
             }
         }
@@ -133,21 +177,9 @@ class Payment extends Entity
         }
     }
 
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    public function setReference($reference)
-    {
-        $this->reference = $reference;
-        return $this;
-    }
-
     public function toArray()
     {
-        return $this->arrayFilter([
+        return [
             'reference' => $this->reference(),
             'description' => $this->description(),
             'amount' => $this->amount() ? $this->amount()->toArray() : null,
@@ -155,11 +187,11 @@ class Payment extends Entity
             'shipping' => $this->shipping() ? $this->shipping()->toArray() : null,
             'items' => $this->itemsToArray(),
             'recurring' => $this->recurring() ? $this->recurring()->toArray() : null,
-            'instrument' => $this->instrument() ? $this->instrument()->toArray() : null,
-            'discount' => $this->discount(),
             'subscribe' => $this->subscribe(),
             'fields' => $this->fieldsToArray(),
-        ]);
+            'agreement' => $this->agreement(),
+            'agreementType' => $this->agreementType(),
+            'gds' => $this->gds() ? $this->gds()->toArray() : null,
+        ];
     }
-
 }

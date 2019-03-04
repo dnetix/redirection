@@ -4,6 +4,7 @@
 namespace Dnetix\Redirection\Message;
 
 use Dnetix\Redirection\Contracts\Entity;
+use Dnetix\Redirection\Entities\DispersionPayment;
 use Dnetix\Redirection\Traits\FieldsTrait;
 use Dnetix\Redirection\Traits\LoaderTrait;
 use Dnetix\Redirection\Entities\Payment;
@@ -24,7 +25,7 @@ class RedirectRequest extends Entity
      */
     protected $buyer;
     /**
-     * @var Payment
+     * @var DispersionPayment
      */
     protected $payment;
     /**

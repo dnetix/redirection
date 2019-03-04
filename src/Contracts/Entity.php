@@ -8,6 +8,7 @@ use Dnetix\Redirection\Entities\Address;
 use Dnetix\Redirection\Entities\Amount;
 use Dnetix\Redirection\Entities\Bank;
 use Dnetix\Redirection\Entities\Card;
+use Dnetix\Redirection\Entities\DispersionPayment;
 use Dnetix\Redirection\Entities\Instrument;
 use Dnetix\Redirection\Entities\Payment;
 use Dnetix\Redirection\Entities\Person;
@@ -55,11 +56,12 @@ abstract class Entity
     public function setPayment($payment)
     {
         if (is_array($payment)) {
-            $payment = new Payment($payment);
+            $payment = new DispersionPayment($payment);
         }
 
-        if (!($payment instanceof Payment))
+        if (!($payment instanceof DispersionPayment)) {
             $payment = null;
+        }
 
         $this->payment = $payment;
         return $this;
