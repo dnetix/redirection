@@ -41,6 +41,7 @@ class Status extends Entity
         self::ST_REJECTED,
         self::ST_PENDING,
         self::ST_PENDING_VALIDATION,
+        self::ST_REFUNDED,
         self::ST_ERROR,
         self::ST_UNKNOWN,
     ];
