@@ -135,7 +135,7 @@ class RedirectInformation extends Entity
 
     public function isSuccessful()
     {
-        return $this->status()->status() != Status::ST_ERROR;
+        return !in_array($this->status()->status(), [Status::ST_ERROR, Status::ST_FAILED]);
     }
 
     // Helpers
