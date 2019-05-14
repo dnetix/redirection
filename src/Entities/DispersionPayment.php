@@ -49,8 +49,8 @@ class DispersionPayment extends Payment
 
     public function toArray()
     {
-        return array_replace(parent::toArray(), [
+        return self::arrayFilter(array_replace(parent::toArray(), [
             'dispersion' => $this->dispersionToArray(),
-        ]);
+        ]));
     }
 }

@@ -179,7 +179,7 @@ class Payment extends Entity
 
     public function toArray()
     {
-        return [
+        return self::arrayFilter([
             'reference' => $this->reference(),
             'description' => $this->description(),
             'amount' => $this->amount() ? $this->amount()->toArray() : null,
@@ -192,6 +192,6 @@ class Payment extends Entity
             'agreement' => $this->agreement(),
             'agreementType' => $this->agreementType(),
             'gds' => $this->gds() ? $this->gds()->toArray() : null,
-        ];
+        ]);
     }
 }
