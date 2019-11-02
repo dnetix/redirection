@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
@@ -9,7 +8,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class GDS extends Entity
 {
     use LoaderTrait;
-
     protected $code;
     protected $session;
     protected $pnr;

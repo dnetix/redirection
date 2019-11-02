@@ -4,7 +4,6 @@ namespace Dnetix\Redirection\Validators;
 
 class Country extends BaseValidator
 {
-
     public static $ISO2_ISO3 = [
         'CO' => 'COL',
         'AF' => 'AFG',
@@ -258,5 +257,4 @@ class Country extends BaseValidator
 
         return array_has($countryCode, self::$ISO2_ISO3);
     }
-
 }

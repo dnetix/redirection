@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Validators;
-
 
 use Dnetix\Redirection\Entities\Recurring;
 
@@ -11,7 +9,6 @@ class RecurringValidator extends BaseValidator
     const PERIOD_DAY = 'D';
     const PERIOD_MONTH = 'M';
     const PERIOD_YEAR = 'Y';
-
     public static $PERIODS = [
         self::PERIOD_DAY,
         self::PERIOD_MONTH,
@@ -47,5 +44,4 @@ class RecurringValidator extends BaseValidator
         }
         return true;
     }
-
 }

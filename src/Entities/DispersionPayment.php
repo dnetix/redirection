@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
 
 class DispersionPayment extends Payment

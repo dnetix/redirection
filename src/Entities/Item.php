@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\LoaderTrait;
@@ -10,7 +8,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class Item extends Entity
 {
     use LoaderTrait;
-
     protected $sku;
     protected $name;
     protected $category;
@@ -64,5 +61,4 @@ class Item extends Entity
             'tax' => $this->tax(),
         ]);
     }
-
 }

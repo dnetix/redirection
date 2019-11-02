@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Dnetix\Redirection\Validators;
-
 
 use Dnetix\Redirection\Entities\Payment;
 
 class PaymentValidator extends BaseValidator
 {
-
     /**
      * @param Payment $entity
      * @param $fields
@@ -35,5 +32,4 @@ class PaymentValidator extends BaseValidator
         }
         return true;
     }
-
 }

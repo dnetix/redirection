@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Message;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Status;
@@ -11,7 +9,6 @@ use Dnetix\Redirection\Traits\StatusTrait;
 
 class RedirectResponse extends Entity
 {
-
     use LoaderTrait, StatusTrait;
     /**
      * @var string
@@ -64,5 +61,4 @@ class RedirectResponse extends Entity
             'processUrl' => $this->processUrl(),
         ]);
     }
-
 }

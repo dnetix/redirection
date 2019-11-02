@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 
 class AmountConversion extends Entity
 {
-
     /**
      * @var AmountBase
      */

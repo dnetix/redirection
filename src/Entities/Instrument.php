@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 
@@ -70,5 +68,4 @@ class Instrument extends Entity
             'token' => $this->token() ? $this->token()->toArray() : null,
         ]);
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\FieldsTrait;
@@ -11,7 +9,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class Subscription extends Entity
 {
     use FieldsTrait, LoaderTrait;
-
     protected $reference;
     protected $description;
 
@@ -40,5 +37,4 @@ class Subscription extends Entity
             'fields' => $this->fieldsToArray(),
         ]);
     }
-
 }

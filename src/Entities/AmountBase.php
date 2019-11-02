@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
@@ -9,7 +8,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class AmountBase extends Entity
 {
     use LoaderTrait;
-
     protected $currency = 'COP';
     protected $total;
 

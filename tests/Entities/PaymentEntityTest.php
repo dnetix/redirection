@@ -39,5 +39,4 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertEquals(1, sizeof($payment->fields()));
         $this->assertEquals($data, $payment->toArray());
     }
-
 }

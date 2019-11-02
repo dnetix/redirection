@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Validators;
-
 
 use Dnetix\Redirection\Entities\AmountDetail;
 
@@ -18,7 +16,6 @@ class AmountDetailValidator extends BaseValidator
     const TP_SUBTOTAL = 'subtotal';
     const TP_FEE = 'fee';
     const TP_TIP = 'tip';
-
     public static $TYPES = [
         self::TP_DISCOUNT,
         self::TP_ADDITIONAL,
@@ -54,5 +51,4 @@ class AmountDetailValidator extends BaseValidator
         }
         return true;
     }
-
 }

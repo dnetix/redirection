@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Message;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Instrument;
@@ -14,7 +12,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class CollectRequest extends Entity
 {
     use LoaderTrait, FieldsTrait;
-
     protected $locale = 'es_CO';
     /**
      * @var Person

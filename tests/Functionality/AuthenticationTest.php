@@ -7,7 +7,6 @@ use Tests\BaseTestCase;
 
 class AuthenticationTest extends BaseTestCase
 {
-
     public function testItCreatesTheAuthenticationCorrectly()
     {
         $auth = new Authentication([
@@ -26,5 +25,4 @@ class AuthenticationTest extends BaseTestCase
         $this->assertEquals('aWZZRVBuQWNKYnBEVlIxdA==', $data['nonce'], 'Nonce matches');
         $this->assertEquals('Xi5xrRwrqPU21WE2JI4hyMaCvQ8=', $data['tranKey'], 'Trankey matches');
     }
-
 }

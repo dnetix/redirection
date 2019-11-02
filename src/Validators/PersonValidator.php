@@ -1,20 +1,16 @@
 <?php
 
-
 namespace Dnetix\Redirection\Validators;
-
 
 use Dnetix\Redirection\Document;
 use Dnetix\Redirection\Entities\Person;
 
 class PersonValidator extends Country
 {
-
     const PATTERN_NAME = '/^[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú\' ]+$/';
     const PATTERN_SURNAME = '/^[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú\' ]+$/';
     const PATTERN_EMAIL = '/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/';
     const PATTERN_MOBILE = PhoneNumber::VALIDATION_PATTERN;
-
     // Address Patterns
     const PATTERN_CITY = '/^[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú\'\.\, ]+$/';
     const PATTERN_STATE = '/^[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]+$/';

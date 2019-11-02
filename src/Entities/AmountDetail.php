@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\LoaderTrait;
@@ -10,7 +8,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class AmountDetail extends Entity
 {
     use LoaderTrait;
-
     protected $kind;
     protected $amount;
 
@@ -36,5 +33,4 @@ class AmountDetail extends Entity
             'amount' => $this->amount(),
         ]);
     }
-
 }

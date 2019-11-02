@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dnetix\Redirection\Message;
 
 use Dnetix\Redirection\Contracts\Entity;
@@ -14,7 +13,6 @@ use Dnetix\Redirection\Entities\Subscription;
 class RedirectRequest extends Entity
 {
     use LoaderTrait, FieldsTrait;
-
     protected $locale = 'es_CO';
     /**
      * @var Person
@@ -38,7 +36,6 @@ class RedirectRequest extends Entity
     protected $ipAddress;
     protected $userAgent;
     protected $expiration;
-
     protected $captureAddress;
     protected $skipResult = false;
     protected $noBuyerFill = false;
@@ -241,5 +238,4 @@ class RedirectRequest extends Entity
             'noBuyerFill' => $this->noBuyerFill(),
         ]);
     }
-
 }

@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Dnetix\Redirection\Validators;
-
 
 use Dnetix\Redirection\Entities\AmountBase;
 
 class AmountBaseValidator extends BaseValidator
 {
-
     /**
      * @param AmountBase $entity
      * @param $fields
@@ -31,5 +28,4 @@ class AmountBaseValidator extends BaseValidator
         }
         return true;
     }
-
 }

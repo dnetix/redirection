@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Traits\LoaderTrait;
@@ -8,7 +7,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class Discount
 {
     use LoaderTrait;
-
     protected $code;
     protected $type;
     protected $amount;

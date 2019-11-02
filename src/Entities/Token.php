@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\LoaderTrait;
@@ -10,7 +8,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class Token extends Entity
 {
     use LoaderTrait;
-
     /**
      * @var Status
      */
@@ -109,5 +106,4 @@ class Token extends Entity
             'installments' => $this->installments(),
         ]);
     }
-
 }

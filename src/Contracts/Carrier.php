@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Contracts;
-
 
 use Dnetix\Redirection\Carrier\Authentication;
 use Dnetix\Redirection\Message\CollectRequest;
@@ -60,5 +58,4 @@ abstract class Carrier
      * @return ReverseResponse
      */
     public abstract function reverse($transactionId);
-
 }

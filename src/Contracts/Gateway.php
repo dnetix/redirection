@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dnetix\Redirection\Contracts;
 
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
@@ -15,7 +14,6 @@ abstract class Gateway
 {
     const TP_SOAP = 'soap';
     const TP_REST = 'rest';
-
     protected $type = self::TP_REST;
     protected $carrier = null;
     protected $config;
@@ -103,5 +101,4 @@ abstract class Gateway
         }
         return $this;
     }
-
 }

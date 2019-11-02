@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
@@ -247,5 +246,4 @@ class Transaction extends Entity
             'processorFields' => $this->processorFieldsToArray(),
         ];
     }
-
 }

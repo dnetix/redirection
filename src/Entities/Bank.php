@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\LoaderTrait;
@@ -10,10 +8,8 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class Bank extends Entity
 {
     use LoaderTrait;
-
     const INT_PERSON = 0;
     const INT_BUSINESS = 1;
-
     protected $interface = 0;
     protected $code;
     protected $name;

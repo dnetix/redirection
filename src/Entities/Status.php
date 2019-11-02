@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 
@@ -18,7 +16,6 @@ class Status extends Entity
     const ST_REFUNDED = 'REFUNDED';
     const ST_ERROR = 'ERROR';
     const ST_UNKNOWN = 'UNKNOWN';
-
     /**
      * @var string
      */
@@ -32,7 +29,6 @@ class Status extends Entity
      */
     protected $message;
     protected $date;
-
     protected static $STATUSES = [
         self::ST_OK,
         self::ST_FAILED,
@@ -115,5 +111,4 @@ class Status extends Entity
             'date' => $this->date(),
         ];
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Contracts;
-
 
 use Dnetix\Redirection\Entities\Address;
 use Dnetix\Redirection\Entities\Amount;
@@ -185,5 +183,4 @@ abstract class Entity
             return !empty($item) || $item === false || $item === 0;
         });
     }
-
 }

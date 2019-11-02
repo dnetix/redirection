@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\LoaderTrait;
@@ -10,7 +8,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class Address extends Entity
 {
     use LoaderTrait;
-
     protected $street;
     protected $city;
     protected $state;
@@ -64,5 +61,4 @@ class Address extends Entity
             'phone' => $this->phone(),
         ]);
     }
-
 }

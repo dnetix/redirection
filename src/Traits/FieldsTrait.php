@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Traits;
-
 
 use Dnetix\Redirection\Entities\NameValuePair;
 
@@ -73,5 +71,4 @@ trait FieldsTrait
 
         return $this;
     }
-
 }

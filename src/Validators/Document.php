@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Dnetix\Redirection;
-
 
 class Document
 {
-
     const TYPE_CC = 'CC';
     const TYPE_CE = 'CE';
     const TYPE_NIT = 'NIT';
@@ -14,7 +11,6 @@ class Document
     const TYPE_TI = 'TI';
     const TYPE_SSN = 'SSN';
     const TYPE_PPN = 'PPN';
-
     protected static $DOCUMENT_TYPES = [
         self::TYPE_CC,
         self::TYPE_CE,
@@ -24,7 +20,6 @@ class Document
         self::TYPE_SSN,
         self::TYPE_PPN,
     ];
-
     public static $VALIDATION_PATTERNS = [
         self::TYPE_CC => '/^[1-9][0-9]{4,9}$/',
         self::TYPE_CE => '/^([a-zA-Z]{1,5})?[1-9][0-9]{3,7}$/',
@@ -58,5 +53,4 @@ class Document
 
         return !!preg_match($pattern, $document);
     }
-
 }

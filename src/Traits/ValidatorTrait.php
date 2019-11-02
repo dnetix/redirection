@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Traits;
-
 
 trait ValidatorTrait
 {
@@ -41,5 +39,4 @@ trait ValidatorTrait
 
         return sizeof($missing) > 0 ? $missing : false;
     }
-
 }

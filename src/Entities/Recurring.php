@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\LoaderTrait;
@@ -11,7 +9,6 @@ use Dnetix\Redirection\Validators\RecurringValidator;
 class Recurring extends Entity
 {
     use LoaderTrait;
-
     /**
      * Frequency to resubmit the transaction.
      * Y = annual  M = monthly  D = daily
@@ -83,5 +80,4 @@ class Recurring extends Entity
             'notificationUrl' => $this->notificationUrl(),
         ]);
     }
-
 }

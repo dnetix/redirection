@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection;
-
 
 use Dnetix\Redirection\Carrier\Authentication;
 use Dnetix\Redirection\Carrier\RestCarrier;
@@ -18,7 +16,6 @@ use Dnetix\Redirection\Message\ReverseResponse;
 
 class PlacetoPay extends Gateway
 {
-
     private function carrier()
     {
         if ($this->carrier instanceof Carrier)
@@ -94,5 +91,4 @@ class PlacetoPay extends Gateway
     {
         return $this->carrier()->reverse($internalReference);
     }
-
 }

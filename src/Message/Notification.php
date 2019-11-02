@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Message;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Status;
@@ -12,11 +10,9 @@ use Dnetix\Redirection\Traits\StatusTrait;
 class Notification extends Entity
 {
     use LoaderTrait, StatusTrait;
-
     protected $requestId;
     protected $reference;
     protected $signature;
-
     private $tranKey;
 
     public function __construct($data = [], $tranKey)

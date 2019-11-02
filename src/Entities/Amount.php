@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 class Amount extends AmountBase
 {
-
     /**
      * @var TaxDetail[]
      */
@@ -15,7 +12,6 @@ class Amount extends AmountBase
      * @var AmountDetail[]
      */
     protected $details = null;
-
     protected $taxAmount = 0;
 
     public function __construct($data = [])
@@ -119,5 +115,4 @@ class Amount extends AmountBase
             'details' => $this->detailsToArray(),
         ], parent::toArray()));
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\FieldsTrait;
@@ -11,7 +9,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class Payment extends Entity
 {
     use FieldsTrait, LoaderTrait;
-
     protected $reference;
     protected $description;
     /**
@@ -33,9 +30,7 @@ class Payment extends Entity
      * @var Instrument
      */
     protected $instrument;
-
     public $subscribe = false;
-
     protected $agreement;
     protected $agreementType;
     /**

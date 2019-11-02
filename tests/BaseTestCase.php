@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class BaseTestCase extends TestCase
 {
-
     /**
      * @return Gateway
      */
@@ -33,5 +32,4 @@ class BaseTestCase extends TestCase
             'userAgent' => 'PHPUnit',
         ], $request);
     }
-
 }

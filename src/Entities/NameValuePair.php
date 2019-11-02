@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Entities;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\LoaderTrait;
@@ -10,7 +8,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class NameValuePair extends Entity
 {
     use LoaderTrait;
-
     protected $keyword;
     protected $value;
     protected $displayOn = 'none';
@@ -43,5 +40,4 @@ class NameValuePair extends Entity
             'displayOn' => $this->displayOn(),
         ];
     }
-
 }

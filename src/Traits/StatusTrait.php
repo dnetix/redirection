@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Traits;
-
 
 use Dnetix\Redirection\Entities\Status;
 
@@ -20,5 +18,4 @@ trait StatusTrait
     {
         return $this->status;
     }
-
 }

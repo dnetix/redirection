@@ -8,7 +8,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class Person extends Entity
 {
     use LoaderTrait;
-
     protected $document;
     protected $documentType;
     protected $name;
@@ -86,5 +85,4 @@ class Person extends Entity
             'address' => $this->address() ? $this->address()->toArray() : null,
         ]);
     }
-
 }

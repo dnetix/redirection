@@ -2,7 +2,6 @@
 
 namespace Dnetix\Redirection\Entities;
 
-
 use Dnetix\Redirection\Contracts\Entity;
 
 class SubscriptionInformation extends Entity

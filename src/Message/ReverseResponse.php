@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Message;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Status;
@@ -12,12 +10,10 @@ use Dnetix\Redirection\Traits\StatusTrait;
 class ReverseResponse extends Entity
 {
     use StatusTrait;
-
     /**
      * @var Transaction
      */
     public $payment;
-
 
     public function status()
     {
@@ -49,5 +45,4 @@ class ReverseResponse extends Entity
             'payment' => $this->payment() ? $this->payment()->toArray() : null,
         ]);
     }
-
 }

@@ -1,17 +1,13 @@
 <?php
 
-
 namespace Dnetix\Redirection\Validators;
-
 
 class Currency extends BaseValidator
 {
-
     const CUR_COP = 'COP';
     const CUR_USD = 'USD';
     const CUR_MXN = 'MXN';
     const CUR_AUD = 'AUD';
-
     const CUR_AFN = 'AFN';
     const CUR_AED = 'AED';
     const CUR_ALL = 'ALL';
@@ -186,7 +182,6 @@ class Currency extends BaseValidator
     const CUR_ZAR = 'ZAR';
     const CUR_ZMW = 'ZMW';
     const CUR_ZWL = 'ZWL';
-
     public static $currencyNames = [
         self::CUR_AFN => 'Afghani',
         self::CUR_AED => 'UAE Dirham',
@@ -341,7 +336,7 @@ class Currency extends BaseValidator
         self::CUR_UYI => 'Uruguay Peso en Unidades Indexadas (URUIURUI)',
         self::CUR_UYU => 'Peso Uruguayo',
         self::CUR_UZS => 'Uzbekistan Sum',
-        self::CUR_VEF => 'Bolívar',
+        self::CUR_VEF => 'Bolï¿½var',
         self::CUR_VND => 'Dong',
         self::CUR_VUV => 'Vatu',
         self::CUR_WST => 'Tala',
@@ -367,7 +362,6 @@ class Currency extends BaseValidator
         self::CUR_ZMW => 'Zambian Kwacha',
         self::CUR_ZWL => 'Zimbabwe Dollar',
     ];
-
     public static $currencyNumericCodes = [
         self::CUR_AFN => '971',
         self::CUR_EUR => '978',
@@ -579,5 +573,4 @@ class Currency extends BaseValidator
     {
         return array_key_exists($currency, self::$currencyNames);
     }
-
 }

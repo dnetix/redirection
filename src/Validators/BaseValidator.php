@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Validators;
-
 
 use Dnetix\Redirection\Exceptions\EntityValidationFailException;
 

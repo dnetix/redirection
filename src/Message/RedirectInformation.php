@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Redirection\Message;
-
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Status;
@@ -13,7 +11,6 @@ use Dnetix\Redirection\Traits\StatusTrait;
 class RedirectInformation extends Entity
 {
     use StatusTrait;
-
     public $requestId;
     /**
      * @var RedirectRequest

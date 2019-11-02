@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Dnetix\Redirection\Traits;
-
 
 trait LoaderTrait
 {
-
     public function load($data, $keys)
     {
         if ($data && is_array($data)) {
@@ -17,5 +14,4 @@ trait LoaderTrait
             }
         }
     }
-
 }

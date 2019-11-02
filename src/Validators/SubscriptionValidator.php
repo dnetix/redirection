@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Dnetix\Redirection\Validators;
-
 
 use Dnetix\Redirection\Entities\Subscription;
 
 class SubscriptionValidator extends BaseValidator
 {
-
     /**
      * @param Subscription $entity
      * @param $fields
@@ -32,5 +29,4 @@ class SubscriptionValidator extends BaseValidator
         }
         return true;
     }
-
 }

@@ -2,14 +2,12 @@
 
 namespace Dnetix\Redirection\Entities;
 
-
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\LoaderTrait;
 
 class Account extends Entity
 {
     use LoaderTrait;
-
     /**
      * @var Status
      */
@@ -80,7 +78,6 @@ class Account extends Entity
     {
         return 'account';
     }
-
 
     /**
      * The subscription franchise name (VISA, Mastercard, Bancolombia)

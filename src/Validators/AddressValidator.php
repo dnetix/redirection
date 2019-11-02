@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Dnetix\Redirection\Validators;
-
 
 use Dnetix\Redirection\Entities\Address;
 
 class AddressValidator extends PersonValidator
 {
-
     /**
      * @param Address $entity
      * @param $fields
@@ -40,5 +37,4 @@ class AddressValidator extends PersonValidator
         }
         return true;
     }
-
 }
