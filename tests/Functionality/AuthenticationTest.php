@@ -1,9 +1,11 @@
 <?php
 
+namespace Tests\Functionality;
 
 use Dnetix\Redirection\Carrier\Authentication;
+use Tests\BaseTestCase;
 
-class AuthenticationTest extends TestCase
+class AuthenticationTest extends BaseTestCase
 {
 
     public function testItCreatesTheAuthenticationCorrectly()

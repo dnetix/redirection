@@ -1,11 +1,13 @@
 <?php
 
+namespace Tests\Messages;
 
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Entities\Token;
 use Dnetix\Redirection\Message\RedirectInformation;
+use Tests\BaseTestCase;
 
-class RedirectInformationTest extends TestCase
+class RedirectInformationTest extends BaseTestCase
 {
     public function testItParsesARestUpdatedResponse()
     {

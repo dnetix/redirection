@@ -1,10 +1,12 @@
 <?php
 
+namespace Tests\Messages;
 
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Message\Notification;
+use Tests\BaseTestCase;
 
-class NotificationTest extends TestCase
+class NotificationTest extends BaseTestCase
 {
 
     public function testItParsesCorrectlyTheNotification()

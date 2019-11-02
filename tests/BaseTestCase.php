@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests;
+
 use Dnetix\Redirection\Contracts\Gateway;
 use Dnetix\Redirection\PlacetoPay;
+use PHPUnit\Framework\TestCase;
 
-class TestCase extends PHPUnit_Framework_TestCase
+class BaseTestCase extends TestCase
 {
 
     /**

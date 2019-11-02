@@ -1,8 +1,11 @@
 <?php
 
-use Dnetix\Redirection\Message\RedirectRequest;
+namespace Tests\Messages;
 
-class RedirectRequestTest extends TestCase
+use Dnetix\Redirection\Message\RedirectRequest;
+use Tests\BaseTestCase;
+
+class RedirectRequestTest extends BaseTestCase
 {
     public function testItParsesCorrectlyAPaymentRequest()
     {

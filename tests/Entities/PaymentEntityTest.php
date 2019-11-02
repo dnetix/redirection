@@ -1,9 +1,11 @@
 <?php
 
+namespace Tests\Entities;
 
 use Dnetix\Redirection\Entities\Payment;
+use Tests\BaseTestCase;
 
-class PaymentEntityTest extends TestCase
+class PaymentEntityTest extends BaseTestCase
 {
     public function testItParsesTheDataCorrectly()
     {
