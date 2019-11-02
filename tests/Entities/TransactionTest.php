@@ -1,10 +1,12 @@
 <?php
 
+namespace Tests\Entities;
 
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Entities\Transaction;
+use Tests\BaseTestCase;
 
-class TransactionTest extends TestCase
+class TransactionTest extends BaseTestCase
 {
     public function testItParsesTheDataCorrectly()
     {
@@ -32,5 +34,4 @@ class TransactionTest extends TestCase
             ],
         ], $transaction->processorFieldsToArray());
     }
-
 }
