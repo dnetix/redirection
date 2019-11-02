@@ -34,20 +34,25 @@ class CollectRequest extends Entity
     {
         $this->load($data, ['locale']);
 
-        if (isset($data['payer']))
+        if (isset($data['payer'])) {
             $this->setPayer($data['payer']);
+        }
 
-        if (isset($data['buyer']))
+        if (isset($data['buyer'])) {
             $this->setBuyer($data['buyer']);
+        }
 
-        if (isset($data['payment']))
+        if (isset($data['payment'])) {
             $this->setPayment($data['payment']);
+        }
 
-        if (isset($data['instrument']))
+        if (isset($data['instrument'])) {
             $this->setInstrument($data['instrument']);
+        }
 
-        if (isset($data['fields']))
+        if (isset($data['fields'])) {
             $this->setFields($data['fields']);
+        }
     }
 
     public function locale()

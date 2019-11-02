@@ -42,16 +42,18 @@ class Amount extends AmountBase
 
     public function devolutionBase()
     {
-        if (!isset($this->vatDevolutionBase))
+        if (!isset($this->vatDevolutionBase)) {
             return 0;
+        }
 
         return $this->vatDevolutionBase;
     }
 
     public function subtotal()
     {
-        if (!isset($this->subtotal))
+        if (!isset($this->subtotal)) {
             return $this->total() - $this->taxAmount;
+        }
 
         return $this->subtotal;
     }
@@ -74,8 +76,9 @@ class Amount extends AmountBase
     {
         $return = [];
         foreach ($details as $detail) {
-            if (is_array($detail))
+            if (is_array($detail)) {
                 $detail = new AmountDetail($detail);
+            }
 
             $this->{$detail->kind()} = $detail->amount();
             $return[] = $detail;

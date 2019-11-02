@@ -15,8 +15,9 @@ class TaxDetailValidator extends BaseValidator
 
     public static function isValidKind($kind = null)
     {
-        if (!$kind)
+        if (!$kind) {
             return self::$TYPES;
+        }
 
         return in_array($kind, self::$TYPES);
     }
@@ -30,14 +31,17 @@ class TaxDetailValidator extends BaseValidator
     public static function isValid($entity, &$fields, $silent = true)
     {
         $errors = [];
-        if (!$entity->kind() || !self::isValidKind($entity->kind()))
+        if (!$entity->kind() || !self::isValidKind($entity->kind())) {
             $errors[] = 'kind';
+        }
 
-        if (!$entity->amount() || !is_numeric($entity->amount()) || $entity->amount() < 0)
+        if (!$entity->amount() || !is_numeric($entity->amount()) || $entity->amount() < 0) {
             $errors[] = 'amount';
+        }
 
-        if ($entity->base() && (!is_numeric($entity->base()) || $entity->base() < 0 || $entity->base() < $entity->amount()))
+        if ($entity->base() && (!is_numeric($entity->base()) || $entity->base() < 0 || $entity->base() < $entity->amount())) {
             $errors[] = 'base';
+        }
 
         if ($errors) {
             $fields = $errors;

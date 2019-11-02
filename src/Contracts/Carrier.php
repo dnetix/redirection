@@ -39,23 +39,23 @@ abstract class Carrier
      * @param RedirectRequest $redirectRequest
      * @return RedirectResponse
      */
-    public abstract function request(RedirectRequest $redirectRequest);
+    abstract public function request(RedirectRequest $redirectRequest);
 
     /**
      * @param int $requestId
      * @return RedirectInformation
      */
-    public abstract function query($requestId);
+    abstract public function query($requestId);
 
     /**
      * @param CollectRequest $collectRequest
      * @return RedirectInformation
      */
-    public abstract function collect(CollectRequest $collectRequest);
+    abstract public function collect(CollectRequest $collectRequest);
 
     /**
      * @param string $transactionId
      * @return ReverseResponse
      */
-    public abstract function reverse($transactionId);
+    abstract public function reverse($transactionId);
 }

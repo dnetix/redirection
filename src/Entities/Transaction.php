@@ -46,14 +46,17 @@ class Transaction extends Entity
     {
         $this->load($data, ['reference', 'internalReference', 'paymentMethod', 'paymentMethodName', 'issuerName', 'authorization', 'receipt', 'franchise', 'refunded']);
 
-        if (isset($data['status']))
+        if (isset($data['status'])) {
             $this->setStatus($data['status']);
+        }
 
-        if (isset($data['amount']))
+        if (isset($data['amount'])) {
             $this->setAmount($data['amount']);
+        }
 
-        if (isset($data['processorFields']))
+        if (isset($data['processorFields'])) {
             $this->setProcessorFields($data['processorFields']);
+        }
 
         if (isset($data['discount'])) {
             $this->setDiscount($data['discount']);
@@ -146,11 +149,13 @@ class Transaction extends Entity
 
     public function setAmount($amount)
     {
-        if (is_array($amount))
+        if (is_array($amount)) {
             $amount = new AmountConversion($amount);
+        }
 
-        if (!($amount instanceof AmountConversion))
+        if (!($amount instanceof AmountConversion)) {
             $amount = null;
+        }
 
         $this->amount = $amount;
         return $this;
@@ -177,11 +182,13 @@ class Transaction extends Entity
      */
     public function setAmountBase($base)
     {
-        if (is_array($base))
+        if (is_array($base)) {
             $base = new AmountBase($base);
+        }
 
-        if (!($base instanceof AmountBase))
+        if (!($base instanceof AmountBase)) {
             $base = null;
+        }
 
         $this->amount = (new AmountConversion())->setAmountBase($base);
         return $this;
@@ -189,8 +196,9 @@ class Transaction extends Entity
 
     public function setProcessorFields($data)
     {
-        if (isset($data['item']))
+        if (isset($data['item'])) {
             $data = $data['item'];
+        }
 
         if (is_array($data)) {
             foreach ($data as $nvp) {

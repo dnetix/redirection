@@ -23,7 +23,7 @@ abstract class Entity
      * Extracts the information for the entity
      * @return array
      */
-    public abstract function toArray();
+    abstract public function toArray();
 
     public function setPayer($person)
     {
@@ -31,8 +31,9 @@ abstract class Entity
             $person = new Person($person);
         }
 
-        if (!($person instanceof Person))
+        if (!($person instanceof Person)) {
             $person = null;
+        }
 
         $this->payer = $person;
         return $this;
@@ -44,8 +45,9 @@ abstract class Entity
             $person = new Person($person);
         }
 
-        if (!($person instanceof Person))
+        if (!($person instanceof Person)) {
             $person = null;
+        }
 
         $this->buyer = $person;
         return $this;
@@ -67,11 +69,13 @@ abstract class Entity
 
     public function setStatus($status)
     {
-        if (is_array($status))
+        if (is_array($status)) {
             $status = new Status($status);
+        }
 
-        if (!($status instanceof Status))
+        if (!($status instanceof Status)) {
             $status = null;
+        }
 
         $this->status = $status;
         return $this;
@@ -79,11 +83,13 @@ abstract class Entity
 
     public function setAmount($amount)
     {
-        if (is_array($amount))
+        if (is_array($amount)) {
             $amount = new Amount($amount);
+        }
 
-        if (!($amount instanceof Amount))
+        if (!($amount instanceof Amount)) {
             $amount = null;
+        }
 
         $this->amount = $amount;
         return $this;
@@ -91,11 +97,13 @@ abstract class Entity
 
     public function setRecurring($recurring)
     {
-        if (is_array($recurring))
+        if (is_array($recurring)) {
             $recurring = new Recurring($recurring);
+        }
 
-        if (!($recurring instanceof Recurring))
+        if (!($recurring instanceof Recurring)) {
             $recurring = null;
+        }
 
         $this->recurring = $recurring;
         return $this;
@@ -103,11 +111,13 @@ abstract class Entity
 
     public function setShipping($shipping)
     {
-        if (is_array($shipping))
+        if (is_array($shipping)) {
             $shipping = new Person($shipping);
+        }
 
-        if (!($shipping instanceof Person))
+        if (!($shipping instanceof Person)) {
             $shipping = null;
+        }
 
         $this->shipping = $shipping;
         return $this;
@@ -115,11 +125,13 @@ abstract class Entity
 
     public function setInstrument($instrument)
     {
-        if (is_array($instrument))
+        if (is_array($instrument)) {
             $instrument = new Instrument($instrument);
+        }
 
-        if (!($instrument instanceof Instrument))
+        if (!($instrument instanceof Instrument)) {
             $instrument = null;
+        }
 
         $this->instrument = $instrument;
         return $this;
@@ -131,8 +143,9 @@ abstract class Entity
             $bank = new Bank($bank);
         }
 
-        if (!($bank instanceof Bank))
+        if (!($bank instanceof Bank)) {
             $bank = null;
+        }
 
         $this->bank = $bank;
         return $this;
@@ -144,8 +157,9 @@ abstract class Entity
             $token = new Token($token);
         }
 
-        if (!($token instanceof Token))
+        if (!($token instanceof Token)) {
             $token = null;
+        }
 
         $this->token = $token;
         return $this;
@@ -157,8 +171,9 @@ abstract class Entity
             $card = new Card($card);
         }
 
-        if (!($card instanceof Card))
+        if (!($card instanceof Card)) {
             $card = null;
+        }
 
         $this->card = $card;
         return $this;
@@ -170,8 +185,9 @@ abstract class Entity
             $address = new Address($address);
         }
 
-        if (!($address instanceof Address))
+        if (!($address instanceof Address)) {
             $address = null;
+        }
 
         $this->address = $address;
         return $this;

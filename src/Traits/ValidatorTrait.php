@@ -8,8 +8,9 @@ trait ValidatorTrait
 
     public function getValidator()
     {
-        if (!$this->validatorInstance)
+        if (!$this->validatorInstance) {
             $this->validatorInstance = new $this->validator();
+        }
         return $this->validatorInstance;
     }
 
@@ -33,8 +34,9 @@ trait ValidatorTrait
     {
         $missing = [];
         foreach ($requiredFields as $field) {
-            if (empty($this->$field))
+            if (empty($this->$field)) {
                 $missing[] = $field;
+            }
         }
 
         return sizeof($missing) > 0 ? $missing : false;

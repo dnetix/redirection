@@ -24,11 +24,13 @@ trait FieldsTrait
         if (is_array($fieldsData)) {
             $this->fields = [];
             foreach ($fieldsData as $nvp) {
-                if (is_array($nvp))
+                if (is_array($nvp)) {
                     $nvp = new NameValuePair($nvp);
+                }
 
-                if ($nvp instanceof NameValuePair)
+                if ($nvp instanceof NameValuePair) {
                     $this->fields[] = $nvp;
+                }
             }
         }
         return $this;
@@ -48,8 +50,9 @@ trait FieldsTrait
 
     public function fieldsToKeyValue($nvps = null)
     {
-        if (!$nvps)
+        if (!$nvps) {
             $nvps = $this->fields();
+        }
 
         if ($nvps) {
             $fields = [];
@@ -63,11 +66,13 @@ trait FieldsTrait
 
     public function addField($nvp)
     {
-        if (is_array($nvp))
+        if (is_array($nvp)) {
             $nvp = new NameValuePair($nvp);
+        }
 
-        if ($nvp instanceof NameValuePair)
+        if ($nvp instanceof NameValuePair) {
             $this->fields[] = $nvp;
+        }
 
         return $this;
     }

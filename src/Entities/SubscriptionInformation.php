@@ -22,14 +22,17 @@ class SubscriptionInformation extends Entity
 
     public function __construct($data)
     {
-        if (isset($data['type']))
+        if (isset($data['type'])) {
             $this->type = $data['type'];
+        }
 
-        if (isset($data['status']))
+        if (isset($data['status'])) {
             $this->setStatus($data['status']);
+        }
 
-        if (isset($data['instrument']))
+        if (isset($data['instrument'])) {
             $this->setInstrument($data['instrument']);
+        }
     }
 
     public function type()
@@ -50,15 +53,18 @@ class SubscriptionInformation extends Entity
     public function setInstrument($instrumentData)
     {
         $this->instrument = [];
-        if (isset($instrumentData['item']))
+        if (isset($instrumentData['item'])) {
             $instrumentData = $instrumentData['item'];
+        }
 
         foreach ($instrumentData as $nvp) {
-            if (is_array($nvp))
+            if (is_array($nvp)) {
                 $nvp = new NameValuePair($nvp);
+            }
 
-            if ($nvp instanceof NameValuePair)
+            if ($nvp instanceof NameValuePair) {
                 $this->instrument[] = $nvp;
+            }
         }
         return $this;
     }
@@ -83,8 +89,9 @@ class SubscriptionInformation extends Entity
     public function parseInstrument()
     {
         $instrumentNVP = $this->instrument();
-        if (!$instrumentNVP)
+        if (!$instrumentNVP) {
             return null;
+        }
 
         $data = [
             'status' => $this->status(),

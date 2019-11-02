@@ -43,32 +43,41 @@ class RedirectRequest extends Entity
     public function __construct($data = [])
     {
         // Setting the default values
-        if (!isset($data['expiration']))
+        if (!isset($data['expiration'])) {
             $this->expiration = date('c', strtotime('+1 day'));
-        if (!isset($data['userAgent']))
+        }
+        if (!isset($data['userAgent'])) {
             $this->userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null;
-        if (!isset($data['ipAddress']))
+        }
+        if (!isset($data['ipAddress'])) {
             $this->ipAddress = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : $_SERVER['REMOTE_ADDR'];
+        }
 
         $this->load($data, ['returnUrl', 'paymentMethod', 'cancelUrl', 'ipAddress', 'userAgent', 'expiration', 'captureAddress', 'skipResult', 'noBuyerFill']);
 
-        if (isset($data['locale']))
+        if (isset($data['locale'])) {
             $this->setLocale($data['locale']);
+        }
 
-        if (isset($data['payer']))
+        if (isset($data['payer'])) {
             $this->setPayer($data['payer']);
+        }
 
-        if (isset($data['buyer']))
+        if (isset($data['buyer'])) {
             $this->setBuyer($data['buyer']);
+        }
 
-        if (isset($data['payment']))
+        if (isset($data['payment'])) {
             $this->setPayment($data['payment']);
+        }
 
-        if (isset($data['subscription']))
+        if (isset($data['subscription'])) {
             $this->setSubscription($data['subscription']);
+        }
 
-        if (isset($data['fields']))
+        if (isset($data['fields'])) {
             $this->setFields($data['fields']);
+        }
     }
 
     public function locale()
@@ -134,8 +143,9 @@ class RedirectRequest extends Entity
      */
     public function reference()
     {
-        if ($this->payment())
+        if ($this->payment()) {
             return $this->payment()->reference();
+        }
 
         return $this->subscription()->reference();
     }
@@ -152,8 +162,9 @@ class RedirectRequest extends Entity
             $subscription = new Subscription($subscription);
         }
 
-        if (!($subscription instanceof Subscription))
+        if (!($subscription instanceof Subscription)) {
             $subscription = null;
+        }
 
         $this->subscription = $subscription;
         return $this;

@@ -20,17 +20,21 @@ abstract class Gateway
 
     public function __construct($config = [])
     {
-        if (!isset($config['login']) || !isset($config['tranKey']))
+        if (!isset($config['login']) || !isset($config['tranKey'])) {
             throw new PlacetoPayException('No login or tranKey provided on gateway');
+        }
 
-        if (!isset($config['url']) || !filter_var($config['url'], FILTER_VALIDATE_URL))
+        if (!isset($config['url']) || !filter_var($config['url'], FILTER_VALIDATE_URL)) {
             throw new PlacetoPayException('No service URL provided to use');
+        }
 
-        if (substr($config['url'], -1) != '/')
+        if (substr($config['url'], -1) != '/') {
             $config['url'] .= '/';
+        }
 
-        if (isset($config['type']) && in_array($config['type'], [self::TP_SOAP, self::TP_REST]))
+        if (isset($config['type']) && in_array($config['type'], [self::TP_SOAP, self::TP_REST])) {
             $this->type = $config['type'];
+        }
 
         $this->config = $config;
     }
@@ -39,25 +43,25 @@ abstract class Gateway
      * @param RedirectRequest|array $redirectRequest
      * @return RedirectResponse
      */
-    public abstract function request($redirectRequest);
+    abstract public function request($redirectRequest);
 
     /**
      * @param int $requestId
      * @return RedirectInformation
      */
-    public abstract function query($requestId);
+    abstract public function query($requestId);
 
     /**
      * @param CollectRequest|array $collectRequest
      * @return RedirectInformation
      */
-    public abstract function collect($collectRequest);
+    abstract public function collect($collectRequest);
 
     /**
      * @param string $internalReference
      * @return ReverseResponse
      */
-    public abstract function reverse($internalReference);
+    abstract public function reverse($internalReference);
 
     /**
      * Change the web service to use for the connection

@@ -30,10 +30,12 @@ class BaseValidator
 
     public static function isValidString($value, $min, $required)
     {
-        if ($required && self::isEmpty($value))
+        if ($required && self::isEmpty($value)) {
             return false;
-        if (!$value || !is_string($value) || strlen($value) < $min)
+        }
+        if (!$value || !is_string($value) || strlen($value) < $min) {
             return false;
+        }
 
         return true;
     }
@@ -51,14 +53,16 @@ class BaseValidator
     public static function parseDate($date, $format = 'c')
     {
         $time = strtotime($date);
-        if (!$time)
+        if (!$time) {
             return false;
+        }
         return date($format, $time);
     }
 
     public static function throwValidationException($fields, $from, $silent = true, $message = null)
     {
-        if (!$silent)
+        if (!$silent) {
             throw new EntityValidationFailException($fields, $from, $message);
+        }
     }
 }

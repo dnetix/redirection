@@ -33,10 +33,12 @@ class Recurring extends Entity
     public function __construct($data = [])
     {
         $this->load($data, ['periodicity', 'interval', 'maxPeriods', 'notificationUrl']);
-        if (isset($data['nextPayment']))
+        if (isset($data['nextPayment'])) {
             $this->nextPayment = RecurringValidator::parseDate($data['nextPayment'], 'Y-m-d');
-        if (isset($data['dueDate']))
+        }
+        if (isset($data['dueDate'])) {
             $this->dueDate = RecurringValidator::parseDate($data['dueDate'], 'Y-m-d');
+        }
     }
 
     public function periodicity()

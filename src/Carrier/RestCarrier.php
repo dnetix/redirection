@@ -22,8 +22,9 @@ class RestCarrier extends Carrier
     {
         parent::__construct($auth, $config);
 
-        if (!isset($config['url']))
+        if (!isset($config['url'])) {
             throw new PlacetoPayException('Base URL not found for this');
+        }
 
         $this->baseUrl = $config['url'];
     }
@@ -45,11 +46,11 @@ class RestCarrier extends Carrier
                 $response = $client->post($url, [
                     'json' => $data,
                 ]);
-            } else if ($method == 'GET') {
+            } elseif ($method == 'GET') {
                 $response = $client->get($url, [
                     'json' => $data,
                 ]);
-            } else if ($method == 'PUT') {
+            } elseif ($method == 'PUT') {
                 $response = $client->put($url, [
                     'json' => $data,
                 ]);

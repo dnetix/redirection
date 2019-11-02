@@ -27,19 +27,23 @@ class RedirectInformation extends Entity
 
     public function __construct($data = [])
     {
-        if (isset($data['requestId']))
+        if (isset($data['requestId'])) {
             $this->requestId = $data['requestId'];
+        }
 
         $this->setStatus($data['status']);
 
-        if (isset($data['request']))
+        if (isset($data['request'])) {
             $this->setRequest($data['request']);
+        }
 
-        if (isset($data['payment']))
+        if (isset($data['payment'])) {
             $this->setPayment($data['payment']);
+        }
 
-        if (isset($data['subscription']))
+        if (isset($data['subscription'])) {
             $this->setSubscription($data['subscription']);
+        }
     }
 
     public function requestId()
@@ -81,8 +85,9 @@ class RedirectInformation extends Entity
 
     public function setRequest($request)
     {
-        if (is_array($request))
+        if (is_array($request)) {
             $request = new RedirectRequest($request);
+        }
         $this->request = $request;
         return $this;
     }
@@ -92,8 +97,9 @@ class RedirectInformation extends Entity
         if ($payments) {
             $this->payment = [];
 
-            if (isset($payments['transaction']) && $payments['transaction'])
+            if (isset($payments['transaction']) && $payments['transaction']) {
                 $payments = $payments['transaction'];
+            }
 
             foreach ($payments as $payment) {
                 $this->payment[] = new Transaction($payment);
@@ -108,11 +114,13 @@ class RedirectInformation extends Entity
      */
     public function setSubscription($subscription)
     {
-        if (is_array($subscription))
+        if (is_array($subscription)) {
             $subscription = new SubscriptionInformation($subscription);
+        }
 
-        if (!($subscription instanceof SubscriptionInformation))
+        if (!($subscription instanceof SubscriptionInformation)) {
             $subscription = null;
+        }
 
         $this->subscription = $subscription;
         return $this;
@@ -120,8 +128,9 @@ class RedirectInformation extends Entity
 
     private function paymentToArray()
     {
-        if (!$this->payment() || !is_array($this->payment()))
+        if (!$this->payment() || !is_array($this->payment())) {
             return null;
+        }
 
         $payments = [];
         foreach ($this->payment() as $payment) {

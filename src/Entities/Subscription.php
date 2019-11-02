@@ -15,8 +15,9 @@ class Subscription extends Entity
     public function __construct($data = [])
     {
         $this->load($data, ['reference', 'description']);
-        if (isset($data['fields']))
+        if (isset($data['fields'])) {
             $this->setFields($data['fields']);
+        }
     }
 
     public function reference()

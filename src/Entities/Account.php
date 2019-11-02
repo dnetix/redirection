@@ -21,8 +21,9 @@ class Account extends Entity
     {
         $this->load($data, ['bankCode', 'bankName', 'accountType', 'accountNumber']);
 
-        if (isset($data['status']))
+        if (isset($data['status'])) {
             $this->setStatus($data['status']);
+        }
     }
 
     public function status()

@@ -29,8 +29,9 @@ class ReverseResponse extends Entity
     {
         $this->setStatus($data['status']);
 
-        if (isset($data['payment']))
+        if (isset($data['payment'])) {
             $this->setPayment($data['payment']);
+        }
     }
 
     public function isSuccessful()

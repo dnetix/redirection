@@ -38,11 +38,13 @@ class AmountDetailValidator extends BaseValidator
     public static function isValid($entity, &$fields, $silent = true)
     {
         $errors = [];
-        if (!$entity->kind() || !in_array($entity->kind(), self::$TYPES))
+        if (!$entity->kind() || !in_array($entity->kind(), self::$TYPES)) {
             $errors[] = 'kind';
+        }
 
-        if (!$entity->amount() || !is_numeric($entity->amount()))
+        if (!$entity->amount() || !is_numeric($entity->amount())) {
             $errors[] = 'amount';
+        }
 
         if ($errors) {
             $fields = $errors;

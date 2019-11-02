@@ -33,28 +33,33 @@ class Authentication
 
     public function __construct($config)
     {
-        if (!isset($config['login']) || !isset($config['tranKey']))
+        if (!isset($config['login']) || !isset($config['tranKey'])) {
             throw new PlacetoPayException('No login or tranKey provided on authentication');
+        }
 
         $this->login = $config['login'];
         $this->tranKey = $config['tranKey'];
 
         if (isset($config['auth'])) {
-            if ((!isset($config['auth']['seed']) || !isset($config['auth']['seed'])))
+            if ((!isset($config['auth']['seed']) || !isset($config['auth']['seed']))) {
                 throw new PlacetoPayException('Bad definition for the override');
+            }
 
             $this->auth = $config['auth'];
             $this->overrided = true;
         }
 
-        if (isset($config['auth_type']))
+        if (isset($config['auth_type'])) {
             $this->type = $config['auth_type'];
+        }
 
-        if (isset($config['auth_additional']))
+        if (isset($config['auth_additional'])) {
             $this->additional = $config['auth_additional'];
+        }
 
-        if (isset($config['algorithm']))
+        if (isset($config['algorithm'])) {
             $this->additional = $config['algorithm'];
+        }
 
         $this->generate();
     }
@@ -73,16 +78,18 @@ class Authentication
             }
         }
 
-        if ($encoded)
+        if ($encoded) {
             return base64_encode($nonce);
+        }
 
         return $nonce;
     }
 
     public function getSeed()
     {
-        if ($this->auth)
+        if ($this->auth) {
             return $this->auth['seed'];
+        }
 
         return date('c');
     }
@@ -95,8 +102,9 @@ class Authentication
             $digest = hash($this->algorithm, $this->getSeed() . $this->tranKey(), false);
         }
 
-        if ($encoded)
+        if ($encoded) {
             return base64_encode($digest);
+        }
 
         return $digest;
     }

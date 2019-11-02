@@ -15,11 +15,13 @@ class AmountBaseValidator extends BaseValidator
     public static function isValid($entity, &$fields, $silent = true)
     {
         $errors = [];
-        if (!$entity->currency() || !Currency::isValidCurrency($entity->currency()))
+        if (!$entity->currency() || !Currency::isValidCurrency($entity->currency())) {
             $errors[] = 'currency';
+        }
 
-        if (!$entity->total() || !is_numeric($entity->total()))
+        if (!$entity->total() || !is_numeric($entity->total())) {
             $errors[] = 'total';
+        }
 
         if ($errors) {
             $fields = $errors;

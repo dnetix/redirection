@@ -15,7 +15,7 @@ class Notification extends Entity
     protected $signature;
     private $tranKey;
 
-    public function __construct($data = [], $tranKey)
+    public function __construct($data = [], $tranKey = '')
     {
         $this->load($data, ['requestId', 'reference', 'signature']);
         $this->setStatus($data['status']);

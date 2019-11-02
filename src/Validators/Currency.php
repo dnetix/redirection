@@ -545,16 +545,18 @@ class Currency extends BaseValidator
 
     public static function currencyName($currency)
     {
-        if (isset(self::$currencyNames[$currency]))
+        if (isset(self::$currencyNames[$currency])) {
             return self::$currencyNames[$currency];
+        }
 
         return null;
     }
 
     public static function currencyNumericCode($currency)
     {
-        if (isset(self::$currencyNumericCodes[$currency]))
+        if (isset(self::$currencyNumericCodes[$currency])) {
             return self::$currencyNumericCodes[$currency];
+        }
 
         return null;
     }
@@ -563,8 +565,9 @@ class Currency extends BaseValidator
     {
         $currencies = array_flip(self::$currencyNumericCodes);
 
-        if (isset($currencies[$numericCode]))
+        if (isset($currencies[$numericCode])) {
             return $currencies[$numericCode];
+        }
 
         return null;
     }

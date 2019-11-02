@@ -252,8 +252,9 @@ class Country extends BaseValidator
 
     public static function isValidCountryCode($countryCode, $iso = 2)
     {
-        if ($iso == 2)
+        if ($iso == 2) {
             return array_key_exists($countryCode, self::$ISO2_ISO3);
+        }
 
         return array_has($countryCode, self::$ISO2_ISO3);
     }

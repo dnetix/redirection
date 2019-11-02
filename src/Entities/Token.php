@@ -27,8 +27,9 @@ class Token extends Entity
     {
         $this->load($data, ['token', 'subtoken', 'franchise', 'franchiseName', 'issuerName', 'lastDigits', 'validUntil', 'cvv', 'installments']);
 
-        if (isset($data['status']))
+        if (isset($data['status'])) {
             $this->setStatus($data['status']);
+        }
     }
 
     public function status()

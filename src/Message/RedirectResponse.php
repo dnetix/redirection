@@ -22,8 +22,9 @@ class RedirectResponse extends Entity
     public function __construct($data = [])
     {
         $this->load($data, ['requestId', 'processUrl']);
-        if (isset($data['status']))
+        if (isset($data['status'])) {
             $this->setStatus($data['status']);
+        }
     }
 
     /**

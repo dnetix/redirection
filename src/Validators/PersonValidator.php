@@ -24,8 +24,9 @@ class PersonValidator extends Country
         try {
             $name = 'PATTERN_' . strtoupper($field);
             $pattern = constant(self::class . '::' . $name);
-            if ($cleanLimiters)
+            if ($cleanLimiters) {
                 return substr($pattern, 1, -1);
+            }
             return $pattern;
         } catch (\Exception $e) {
             return null;
@@ -41,14 +42,17 @@ class PersonValidator extends Country
     public static function isValid($entity, &$fields, $silent = true)
     {
         $errors = [];
-        if (!$entity->name() || !self::matchPattern($entity->name(), self::PATTERN_NAME))
+        if (!$entity->name() || !self::matchPattern($entity->name(), self::PATTERN_NAME)) {
             $errors[] = 'name';
+        }
 
-        if ($entity->surname() && !self::matchPattern($entity->surname(), self::PATTERN_SURNAME))
+        if ($entity->surname() && !self::matchPattern($entity->surname(), self::PATTERN_SURNAME)) {
             $errors[] = 'surname';
+        }
 
-        if (!$entity->email() || !self::matchPattern($entity->email(), self::PATTERN_EMAIL))
+        if (!$entity->email() || !self::matchPattern($entity->email(), self::PATTERN_EMAIL)) {
             $errors[] = 'email';
+        }
 
         if ($entity->document()) {
             if (!$entity->documentType()) {
@@ -58,8 +62,9 @@ class PersonValidator extends Country
                 $errors[] = 'document';
             }
         }
-        if ($entity->mobile() && !PhoneNumber::isValidNumber($entity->mobile()))
+        if ($entity->mobile() && !PhoneNumber::isValidNumber($entity->mobile())) {
             $errors[] = 'mobile';
+        }
 
         if ($errors) {
             $fields = $errors;

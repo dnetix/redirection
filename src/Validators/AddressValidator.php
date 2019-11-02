@@ -15,20 +15,25 @@ class AddressValidator extends PersonValidator
     public static function isValid($entity, &$fields, $silent = true)
     {
         $errors = [];
-        if (!$entity->street())
+        if (!$entity->street()) {
             $errors[] = 'street';
+        }
 
-        if (!$entity->city() || !self::matchPattern($entity->city(), self::PATTERN_CITY))
+        if (!$entity->city() || !self::matchPattern($entity->city(), self::PATTERN_CITY)) {
             $errors[] = 'city';
+        }
 
-        if (!$entity->country() || !Country::isValidCountryCode($entity->country()))
+        if (!$entity->country() || !Country::isValidCountryCode($entity->country())) {
             $errors[] = 'country';
+        }
 
-        if ($entity->phone() && !PhoneNumber::isValidNumber($entity->phone()))
+        if ($entity->phone() && !PhoneNumber::isValidNumber($entity->phone())) {
             $errors[] = 'phone';
+        }
 
-        if ($entity->postalCode() && !self::matchPattern($entity->postalCode(), self::PATTERN_POSTALCODE))
+        if ($entity->postalCode() && !self::matchPattern($entity->postalCode(), self::PATTERN_POSTALCODE)) {
             $errors[] = 'postalCode';
+        }
 
         if ($errors) {
             $fields = $errors;

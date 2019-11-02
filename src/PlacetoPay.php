@@ -18,8 +18,9 @@ class PlacetoPay extends Gateway
 {
     private function carrier()
     {
-        if ($this->carrier instanceof Carrier)
+        if ($this->carrier instanceof Carrier) {
             return $this->carrier;
+        }
 
         $config = $this->config;
         $auth = new Authentication($config);
@@ -76,11 +77,13 @@ class PlacetoPay extends Gateway
      */
     public function collect($collectRequest)
     {
-        if (is_array($collectRequest))
+        if (is_array($collectRequest)) {
             $collectRequest = new CollectRequest($collectRequest);
+        }
 
-        if (!($collectRequest instanceof CollectRequest))
+        if (!($collectRequest instanceof CollectRequest)) {
             throw new PlacetoPayException('Wrong collect request');
+        }
 
         return $this->carrier()->collect($collectRequest);
     }

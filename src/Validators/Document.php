@@ -44,12 +44,14 @@ class Document
 
     public static function isValidDocument($type, $document)
     {
-        if (!self::isValidType($type))
+        if (!self::isValidType($type)) {
             return false;
+        }
 
         $pattern = isset(self::$VALIDATION_PATTERNS[$type]) ? self::$VALIDATION_PATTERNS[$type] : null;
-        if (!$pattern)
+        if (!$pattern) {
             return true;
+        }
 
         return !!preg_match($pattern, $document);
     }

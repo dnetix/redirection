@@ -16,14 +16,17 @@ class PaymentValidator extends BaseValidator
     {
         $errors = [];
 
-        if (!$entity->reference() || self::matchPattern($entity->reference(), '/[ ]/'))
+        if (!$entity->reference() || self::matchPattern($entity->reference(), '/[ ]/')) {
             $errors[] = 'reference';
+        }
 
-        if ($entity->description() && !self::matchPattern($entity->description(), self::PATTERN_DESCRIPTION))
+        if ($entity->description() && !self::matchPattern($entity->description(), self::PATTERN_DESCRIPTION)) {
             $errors[] = 'description';
+        }
 
-        if (!$entity->amount())
+        if (!$entity->amount()) {
             $errors[] = 'amount';
+        }
 
         if ($errors) {
             $fields = $errors;

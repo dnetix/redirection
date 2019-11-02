@@ -23,16 +23,21 @@ class Instrument extends Entity
 
     public function __construct($data = [])
     {
-        if (isset($data['bank']))
+        if (isset($data['bank'])) {
             $this->setBank($data['bank']);
-        if (isset($data['card']))
+        }
+        if (isset($data['card'])) {
             $this->setCard($data['card']);
-        if (isset($data['token']))
+        }
+        if (isset($data['token'])) {
             $this->setToken($data['token']);
-        if (isset($data['pin']))
+        }
+        if (isset($data['pin'])) {
             $this->pin = $data['pin'];
-        if (isset($data['password']))
+        }
+        if (isset($data['password'])) {
             $this->password = $data['password'];
+        }
     }
 
     public function bank()

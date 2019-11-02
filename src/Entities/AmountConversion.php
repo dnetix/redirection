@@ -18,14 +18,17 @@ class AmountConversion extends Entity
 
     public function __construct($data = [])
     {
-        if (isset($data['from']))
+        if (isset($data['from'])) {
             $this->setFrom($data['from']);
+        }
 
-        if (isset($data['to']))
+        if (isset($data['to'])) {
             $this->setTo($data['to']);
+        }
 
-        if (isset($data['factor']))
+        if (isset($data['factor'])) {
             $this->setFactor($data['factor']);
+        }
     }
 
     /**
@@ -35,8 +38,9 @@ class AmountConversion extends Entity
      */
     public function setAmountBase($base)
     {
-        if (is_array($base))
+        if (is_array($base)) {
             $base = new AmountBase($base);
+        }
 
         $this->setTo($base);
         $this->setFrom($base);
@@ -67,11 +71,13 @@ class AmountConversion extends Entity
 
     public function setFrom($from)
     {
-        if (is_array($from))
+        if (is_array($from)) {
             $from = new AmountBase($from);
+        }
 
-        if (!($from instanceof AmountBase))
+        if (!($from instanceof AmountBase)) {
             $from = null;
+        }
 
         $this->from = $from;
         return $this;
@@ -79,11 +85,13 @@ class AmountConversion extends Entity
 
     public function setTo($to)
     {
-        if (is_array($to))
+        if (is_array($to)) {
             $to = new AmountBase($to);
+        }
 
-        if (!($to instanceof AmountBase))
+        if (!($to instanceof AmountBase)) {
             $to = null;
+        }
 
         $this->to = $to;
         return $this;
