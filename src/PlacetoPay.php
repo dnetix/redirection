@@ -49,11 +49,13 @@ class PlacetoPay extends Gateway
      */
     public function request($redirectRequest)
     {
-        if (is_array($redirectRequest))
+        if (is_array($redirectRequest)) {
             $redirectRequest = new RedirectRequest($redirectRequest);
+        }
 
-        if (!($redirectRequest instanceof RedirectRequest))
+        if (!($redirectRequest instanceof RedirectRequest)) {
             throw new PlacetoPayException('Wrong class request');
+        }
 
         return $this->carrier()->request($redirectRequest);
     }

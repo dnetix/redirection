@@ -25,7 +25,6 @@ class DispersionPayment extends Payment
 
     public function setDispersion($data)
     {
-        // TODO: Check possible failure
         foreach ($data as $payment) {
             $entity = new Payment($payment);
             $entity->setReference($this->reference())

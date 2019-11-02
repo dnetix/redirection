@@ -92,7 +92,7 @@ class RedirectRequest extends Entity
     }
 
     /**
-     * @return Payment
+     * @return DispersionPayment
      */
     public function payment()
     {

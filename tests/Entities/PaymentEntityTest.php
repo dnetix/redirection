@@ -3,6 +3,7 @@
 namespace Tests\Entities;
 
 use Dnetix\Redirection\Entities\Payment;
+use Dnetix\Redirection\Message\RedirectRequest;
 use Tests\BaseTestCase;
 
 class PaymentEntityTest extends BaseTestCase
@@ -38,5 +39,130 @@ class PaymentEntityTest extends BaseTestCase
         $payment = new Payment($data);
         $this->assertEquals(1, sizeof($payment->fields()));
         $this->assertEquals($data, $payment->toArray());
+    }
+
+    public function testItParsesCorrectlyADispersion()
+    {
+        $data = [
+            'buyer' => [
+                'name' => 'Diego',
+                'email' => 'diego.calle@placetopay.com',
+            ],
+            'payment' => [
+                'reference' => 'TEST_3',
+                'description' => 'Testing Payment',
+                'amount' => [
+                    'currency' => 'COP',
+                    'total' => 243590,
+                ],
+                'dispersion' => [
+                    [
+                        'agreement' => 29,
+                        'agreementType' => 'AIRLINE',
+                        'amount' => [
+                            'taxes' => [
+                                [
+                                    'kind' => 'valueAddedTax',
+                                    'amount' => 30590,
+                                ],
+                                [
+                                    'kind' => 'airportTax',
+                                    'amount' => 16300,
+                                ],
+                            ],
+                            'currency' => 'COP',
+                            'total' => 207890,
+                        ],
+                    ],
+                    [
+                        'agreement' => null,
+                        'agreementType' => 'MERCHANT',
+                        'amount' => [
+                            'taxes' => [
+                                [
+                                    'kind' => 'valueAddedTax',
+                                    'amount' => 5700,
+                                ],
+                            ],
+                            'currency' => 'COP',
+                            'total' => 35700,
+                        ],
+                    ],
+                ],
+            ],
+            'expiration' => date('c', strtotime('+1 day')),
+            'returnUrl' => 'https://dnetix.co/ping/rtest',
+            'ipAddress' => '127.0.0.1',
+            'userAgent' => 'Testing',
+        ];
+        $request = new RedirectRequest($data);
+
+        $conversion = [
+            'buyer' => [
+                'name' => 'Diego',
+                'email' => 'diego.calle@placetopay.com',
+            ],
+            'payment' => [
+                'reference' => 'TEST_3',
+                'description' => 'Testing Payment',
+                'amount' => [
+                    'currency' => 'COP',
+                    'total' => 243590,
+                ],
+                'dispersion' => [
+                    [
+                        'reference' => 'TEST_3',
+                        'description' => 'Testing Payment',
+                        'agreement' => 29,
+                        'agreementType' => 'AIRLINE',
+                        'amount' => [
+                            'taxes' => [
+                                [
+                                    'kind' => 'valueAddedTax',
+                                    'amount' => 30590,
+                                ],
+                                [
+                                    'kind' => 'airportTax',
+                                    'amount' => 16300,
+                                ],
+                            ],
+                            'currency' => 'COP',
+                            'total' => 207890,
+                        ],
+                        'allowPartial' => false,
+                        'subscribe' => false,
+                    ],
+                    [
+                        'reference' => 'TEST_3',
+                        'description' => 'Testing Payment',
+                        'agreementType' => 'MERCHANT',
+                        'amount' => [
+                            'taxes' => [
+                                [
+                                    'kind' => 'valueAddedTax',
+                                    'amount' => 5700,
+                                ],
+                            ],
+                            'currency' => 'COP',
+                            'total' => 35700,
+                        ],
+                        'allowPartial' => false,
+                        'subscribe' => false,
+                    ],
+                ],
+                'allowPartial' => false,
+                'subscribe' => false,
+            ],
+            'expiration' => date('c', strtotime('+1 day')),
+            'returnUrl' => 'https://dnetix.co/ping/rtest',
+            'ipAddress' => '127.0.0.1',
+            'userAgent' => 'Testing',
+            'locale' => 'es_CO',
+            'captureAddress' => false,
+            'skipResult' => false,
+            'noBuyerFill' => false,
+        ];
+
+        $this->assertEquals($conversion, $request->toArray());
     }
 }

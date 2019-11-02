@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": ">=5.4",
+    "php": ">=7.0",
     "ext-soap": "*",
     "ext-json": "*",
     "guzzlehttp/guzzle": ">=5.3"
