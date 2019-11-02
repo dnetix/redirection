@@ -12,11 +12,13 @@
   "require": {
     "php": ">=5.4",
     "ext-soap": "*",
+    "ext-json": "*",
     "guzzlehttp/guzzle": ">=5.3"
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.8",
-    "illuminate/support": "^5.4"
+    "phpunit/phpunit": "^7.4",
+    "squizlabs/php_codesniffer": "3.*",
+    "symfony/var-dumper": "^4.3"
   },
   "autoload": {
     "psr-4": {
@@ -24,8 +26,11 @@
     }
   },
   "autoload-dev": {
-    "classmap": [
-      "tests/"
-    ]
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "phpcs": "phpcs --standard=PSR2 --exclude=Generic.Files.LineLength --ignore=tests/coverage src/ tests/"
   }
 }
