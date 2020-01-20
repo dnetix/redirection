@@ -4,9 +4,11 @@ namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\LoaderTrait;
+use Dnetix\Redirection\Validators\AddressValidator;
 
 class Address extends Entity
 {
+    protected $validator = AddressValidator::class;
     use LoaderTrait;
     protected $street;
     protected $city;
@@ -18,6 +20,7 @@ class Address extends Entity
     public function __construct($data = [])
     {
         $this->load($data, ['street', 'city', 'state', 'postalCode', 'phone', 'country']);
+        parent::__construct($data);
     }
 
     public function street()
@@ -47,7 +50,7 @@ class Address extends Entity
 
     public function phone()
     {
-        return $this->phone;
+        return AddressValidator::normalizePhone($this->phone);
     }
 
     public function toArray()

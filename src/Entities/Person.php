@@ -3,10 +3,13 @@
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
+use Dnetix\Redirection\Helpers\DocumentHelper;
 use Dnetix\Redirection\Traits\LoaderTrait;
+use Dnetix\Redirection\Validators\PersonValidator;
 
 class Person extends Entity
 {
+    protected $validator = PersonValidator::class;
     use LoaderTrait;
     protected $document;
     protected $documentType;
@@ -69,7 +72,29 @@ class Person extends Entity
 
     public function mobile()
     {
-        return $this->mobile;
+        return PersonValidator::normalizePhone($this->mobile);
+    }
+
+    public function isBusiness()
+    {
+        return $this->documentType() && DocumentHelper::businessDocument($this->documentType());
+    }
+
+    public function fullDocument()
+    {
+        if ($this->document()) {
+            return $this->documentType() . ' ' . $this->document();
+        }
+        return null;
+    }
+
+    public function getRequiredFields()
+    {
+        $rf = ['document', 'documentType', 'name', 'email'];
+        if (!$this->isBusiness()) {
+            $rf[] = 'surname';
+        }
+        return $rf;
     }
 
     public function toArray()

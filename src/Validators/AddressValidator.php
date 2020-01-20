@@ -19,7 +19,7 @@ class AddressValidator extends PersonValidator
             $errors[] = 'street';
         }
 
-        if (!$entity->city() || !self::matchPattern($entity->city(), self::PATTERN_CITY)) {
+        if ($entity->city() && !self::matchPattern($entity->city(), self::PATTERN_CITY)) {
             $errors[] = 'city';
         }
 

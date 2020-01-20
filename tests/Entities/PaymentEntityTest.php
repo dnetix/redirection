@@ -2,12 +2,124 @@
 
 namespace Tests\Entities;
 
+use Dnetix\Redirection\Entities\Item;
 use Dnetix\Redirection\Entities\Payment;
 use Dnetix\Redirection\Message\RedirectRequest;
 use Tests\BaseTestCase;
 
 class PaymentEntityTest extends BaseTestCase
 {
+    public function testItAddsAField()
+    {
+        $payment = new Payment();
+        $this->assertNull($payment->fields());
+
+        $payment->addField(['keyword' => 'testing', 'value' => 'value']);
+        $this->assertEquals(1, sizeof($payment->fields()));
+
+        $payment->addField(['keyword' => 'testing2', 'value' => 'value2']);
+        $this->assertEquals(2, sizeof($payment->fields()));
+
+        $data = [
+            'reference' => 'required',
+            'amount' => [
+                'total' => 10000,
+                'currency' => 'COP'
+            ],
+            'fields' => [
+                [
+                    'keyword' => 'no_empty',
+                    'value' => 'no_empty_value',
+                    'displayOn' => 'none'
+                ]
+            ],
+            'items' => [
+                [
+                    'sku' => '1234',
+                    'name' => 'Testing1'
+                ],
+                [
+                    'sku' => '1111',
+                    'name' => 'Testing2'
+                ]
+            ],
+            'allowPartial' => false,
+            'subscribe' => false,
+        ];
+        $payment = new Payment($data);
+        $this->assertEquals(1, sizeof($payment->fields()));
+        $this->assertEquals($data, $payment->toArray());
+
+        $payment->addField(['keyword' => 'testing', 'value' => 'value']);
+        $this->assertEquals(2, sizeof($payment->fields()));
+        $this->assertEquals([
+            [
+                'displayOn' => 'none',
+                'keyword' => 'no_empty',
+                'value' => 'no_empty_value'
+            ],
+            [
+                'displayOn' => 'none',
+                'keyword' => 'testing',
+                'value' => 'value'
+            ]
+        ], $payment->fieldsToArray());
+
+        $this->assertEquals(2, sizeof($payment->items()));
+    }
+
+    public function testItParsesCorrectlyTheItems()
+    {
+        $payment = new Payment([
+            'reference' => 'required',
+            'amount' => [
+                'total' => 10000
+            ],
+            'fields' => [
+                [
+                    'keyword' => 'no_empty',
+                    'value' => 'no_empty_value'
+                ]
+            ],
+            'items' => [
+                [
+                    'sku' => '1234',
+                    'name' => 'Testing1'
+                ],
+                new Item([
+                    'sku' => '1111',
+                    'name' => 'Testing2'
+                ])
+            ]
+        ]);
+
+        if (sizeof($payment->items()) == 2 && is_array($payment->items())) {
+            foreach ($payment->items() as $item) {
+                $this->assertInstanceOf(Item::class, $item);
+            }
+        } else {
+            $this->fail('Items not an array');
+        }
+    }
+
+    public function testItAcceptsNoItems()
+    {
+        $payment = new Payment([
+            'reference' => 'required',
+            'amount' => [
+                'total' => 10000
+            ],
+            'fields' => [
+                [
+                    'keyword' => 'no_empty',
+                    'value' => 'no_empty_value'
+                ]
+            ],
+            'subscribe' => false,
+        ]);
+        $this->assertNull($payment->items());
+    }
+
     public function testItParsesTheDataCorrectly()
     {
         $data = [
