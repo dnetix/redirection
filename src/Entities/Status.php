@@ -51,7 +51,10 @@ class Status extends Entity
 
     public function status()
     {
-        return $this->status;
+        if ($this->status) {
+            return $this->status;
+        }
+        return self::ST_ERROR;
     }
 
     public function reason()

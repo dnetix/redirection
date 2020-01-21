@@ -5,9 +5,11 @@ namespace Dnetix\Redirection\Entities;
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\FieldsTrait;
 use Dnetix\Redirection\Traits\LoaderTrait;
+use Dnetix\Redirection\Validators\PaymentValidator;
 
 class Payment extends Entity
 {
+    protected $validator = PaymentValidator::class;
     use FieldsTrait, LoaderTrait;
     protected $reference;
     protected $description;
@@ -20,6 +22,9 @@ class Payment extends Entity
      * @var Person
      */
     protected $shipping;
+    /**
+     * @var Item[]
+     */
     protected $items;
     /**
      * @var Recurring

@@ -8,16 +8,20 @@ use Dnetix\Redirection\Entities\Bank;
 use Dnetix\Redirection\Entities\Card;
 use Dnetix\Redirection\Entities\DispersionPayment;
 use Dnetix\Redirection\Entities\Instrument;
-use Dnetix\Redirection\Entities\Payment;
 use Dnetix\Redirection\Entities\Person;
 use Dnetix\Redirection\Entities\Recurring;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Entities\Token;
+use Dnetix\Redirection\Helpers\ArrayHelper;
 use Dnetix\Redirection\Traits\ValidatorTrait;
 
 abstract class Entity
 {
     use ValidatorTrait;
+
+    public function __construct($data = [])
+    {
+    }
 
     /**
      * Extracts the information for the entity
@@ -36,6 +40,20 @@ abstract class Entity
         }
 
         $this->payer = $person;
+        return $this;
+    }
+
+    public function setDebtor($person)
+    {
+        if (is_array($person)) {
+            $person = new Person($person);
+        }
+
+        if (!($person instanceof Person)) {
+            $person = null;
+        }
+
+        $this->debtor = $person;
         return $this;
     }
 
@@ -190,6 +208,17 @@ abstract class Entity
         }
 
         $this->address = $address;
+        return $this;
+    }
+
+    public function filter($array)
+    {
+        return ArrayHelper::filter($array);
+    }
+
+    public function voidProperty($property)
+    {
+        $this->{$property} = null;
         return $this;
     }
 
