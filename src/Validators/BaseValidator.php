@@ -3,15 +3,12 @@
 namespace Dnetix\Redirection\Validators;
 
 use Dnetix\Redirection\Exceptions\EntityValidationFailException;
+use Dnetix\Redirection\Exceptions\ValidationFailException;
 
 class BaseValidator
 {
-    const PATTERN_DESCRIPTION = '/^[\w\d\- \,\.\[\]\(\)\%ÑñÁÉÍÓÚáéíóú]+$/';
-
-    public static function isValidUrl($url)
-    {
-        return filter_var($url, FILTER_VALIDATE_URL);
-    }
+    const PATTERN_REFERENCE = '/^[\d\w\-\.,\$#\/\\\'!]{1,32}$/';
+    const PATTERN_DESCRIPTION = '/^.{1,255}$/i';
 
     public static function isValidIp($ip)
     {
@@ -25,6 +22,9 @@ class BaseValidator
 
     public static function matchPattern($value, $pattern)
     {
+        if (is_object($value) || is_array($value)) {
+            throw new ValidationFailException('Value should be string, object provided ' . serialize($value));
+        }
         return preg_match($pattern, $value);
     }
 
@@ -33,7 +33,19 @@ class BaseValidator
         if ($required && self::isEmpty($value)) {
             return false;
         }
-        if (!$value || !is_string($value) || strlen($value) < $min) {
+        if ($value && mb_strlen($value) < $min) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function isValidLengthString($value, $min, $max, $required = false)
+    {
+        if ($required && self::isEmpty($value)) {
+            return false;
+        }
+        if ($value && (mb_strlen($value) < $min || mb_strlen($value) > $max)) {
             return false;
         }
 
@@ -43,6 +55,11 @@ class BaseValidator
     public static function isInteger($value)
     {
         return !!filter_var($value, FILTER_VALIDATE_INT);
+    }
+
+    public static function isNumeric($value)
+    {
+        return is_numeric($value);
     }
 
     public static function isActualDate($date, $minDifference = -1)
