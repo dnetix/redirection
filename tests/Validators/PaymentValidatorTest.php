@@ -99,7 +99,7 @@ class PaymentValidatorTest extends BaseTestCase
         }
     }
 
-    public function testItPassesWhenDescriptionItsInvalid()
+    public function testItPassesWhenDescriptionOk()
     {
         $data = [
             'reference' => '1234567890',
