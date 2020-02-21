@@ -14,7 +14,7 @@ class PersonValidator extends Country
     // Address Patterns
     const PATTERN_CITY = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\'\. ]{2,50}$/i';
     const PATTERN_STATE = self::PATTERN_NAME;
-    const PATTERN_STREET = self::PATTERN_NAME;
+    const PATTERN_STREET = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\'\.\,\&\-\#\_\s\d\(\)]{2,250}$/i';
     const PATTERN_PHONE = PhoneNumber::VALIDATION_PATTERN;
     const PATTERN_POSTALCODE = '/^[0-9]{4,8}$/';
     const PATTERN_COUNTRY = '/^[A-Z]{2}$/';

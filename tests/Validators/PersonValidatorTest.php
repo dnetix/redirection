@@ -4,6 +4,7 @@ namespace Tests\Validators;
 
 use Dnetix\Redirection\Entities\Person;
 use Dnetix\Redirection\Exceptions\EntityValidationFailException;
+use Dnetix\Redirection\Validators\PersonValidator;
 use Tests\BaseTestCase;
 
 class PersonValidatorTest extends BaseTestCase
@@ -32,6 +33,16 @@ class PersonValidatorTest extends BaseTestCase
         $this->assertEquals($data['company'], $person->company());
 
         $this->assertEquals($data, $person->toArray());
+    }
+
+    public function testItPassesWhenStreetOk()
+    {
+        $this->assertEquals(1, preg_match(PersonValidator::getPattern('STREET'), 'Calle 5ta No 24 - 34, Unidad Bolivariana (Torre 24 apto 202)'));
+    }
+
+    public function testItFailWhenStreetItsInvalid()
+    {
+        $this->assertEquals(0, preg_match(PersonValidator::getPattern('STREET'), '<> Calle 5ta No 24 - 34, Unidad Bolivariana (Torre 24 apto 202)'));
     }
 
     public function testItAllowsEmptyInstantiation()
