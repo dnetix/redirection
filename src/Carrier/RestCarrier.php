@@ -38,7 +38,10 @@ class RestCarrier extends Carrier
     private function makeRequest($method, $url, $arguments)
     {
         try {
-            $client = new Client();
+            $client = new Client([
+                'timeout' => $this->config['timeout']?? 15,
+                'connect_timeout' => $this->config['connect_timeout']?? 5,
+            ]);
             $data = array_merge($arguments, [
                 'auth' => $this->authentication()->asArray(),
             ]);
