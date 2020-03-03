@@ -103,7 +103,7 @@ class PaymentValidatorTest extends BaseTestCase
     {
         $data = [
             'reference' => '1234567890',
-            'description' => 'Pago de prueba para la factura #2321 con ref. 43242342-3424_32.',
+            'description' => 'Pago de prueba para la factura #2321 con ref. 43242342-3424_32. ($50.000) 25/feb',
             'amount' => [
                 'currency' => 'COP',
                 'total' => 1000
