@@ -6,6 +6,7 @@ use Dnetix\Redirection\Entities\Address;
 use Dnetix\Redirection\Entities\Amount;
 use Dnetix\Redirection\Entities\Bank;
 use Dnetix\Redirection\Entities\Card;
+use Dnetix\Redirection\Entities\Credit;
 use Dnetix\Redirection\Entities\DispersionPayment;
 use Dnetix\Redirection\Entities\Instrument;
 use Dnetix\Redirection\Entities\Person;
@@ -166,6 +167,20 @@ abstract class Entity
         }
 
         $this->bank = $bank;
+        return $this;
+    }
+
+    public function setCredit($credit)
+    {
+        if (is_array($credit)) {
+            $credit = new Credit($credit);
+        }
+
+        if (!($credit instanceof Credit)) {
+            $credit = null;
+        }
+
+        $this->credit = $credit;
         return $this;
     }
 

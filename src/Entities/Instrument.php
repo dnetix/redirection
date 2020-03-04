@@ -18,6 +18,10 @@ class Instrument extends Entity
      * @var Token
      */
     protected $token;
+    /**
+     * @var Credit
+     */
+    protected $credit;
     protected $pin;
     protected $password;
 
@@ -28,6 +32,9 @@ class Instrument extends Entity
         }
         if (isset($data['card'])) {
             $this->setCard($data['card']);
+        }
+        if (isset($data['credit'])) {
+            $this->setCredit($data['credit']);
         }
         if (isset($data['token'])) {
             $this->setToken($data['token']);
@@ -50,6 +57,11 @@ class Instrument extends Entity
         return $this->card;
     }
 
+    public function credit()
+    {
+        return $this->credit;
+    }
+
     public function token()
     {
         return $this->token;
@@ -70,7 +82,10 @@ class Instrument extends Entity
         return $this->arrayFilter([
             'bank' => $this->bank() ? $this->bank()->toArray() : null,
             'card' => $this->card() ? $this->card()->toArray() : null,
+            'credit' => $this->credit() ? $this->credit()->toArray() : null,
             'token' => $this->token() ? $this->token()->toArray() : null,
+            'pin' => $this->pin(),
+            'password' => $this->password(),
         ]);
     }
 }
