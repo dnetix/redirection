@@ -23,7 +23,16 @@ class DocumentHelperTest extends BaseTestCase
 
     public function testItValidatesCorrectlyTheCI()
     {
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CI, '100260643-0'));
         $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CI, '1002606430'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CI, '178455996-4'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CI, '1784559964'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CI, '171111296-9'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CI, '090881351-2'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CI, '0908813512'));
+
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CI, '09088135-12'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CI, '090881351111'));
     }
 
     public function testItValidatesCorrectlyTheRUC()
@@ -37,6 +46,17 @@ class DocumentHelperTest extends BaseTestCase
         $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_NIT, '860000038'));
         $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_NIT, '86000003'));
         $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_NIT, '8600000384'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_NIT, '860000038-4'));
         $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_NIT, '8600000384-42'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_NIT, '0600000384'));
+    }
+
+    public function testItValidatesCorrectlyTheRUT()
+    {
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_RUT, '16863576-1'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_RUT, '168635761'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_RUT, '891180022-6'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_RUT, '8911800226'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_RUT, '0911800226'));
     }
 }

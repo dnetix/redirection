@@ -45,15 +45,15 @@ class DocumentHelper
         self::TYPE_CC => '/^[1-9][0-9]{3,9}$/',
         self::TYPE_CE => '/^([a-zA-Z]{1,5})?[1-9][0-9]{3,7}$/',
         self::TYPE_TI => '/^[1-9][0-9]{4,11}$/',
-        self::TYPE_NIT => '/^[1-9]\d{6,9}$/',
-        self::TYPE_RUT => '/^[1-9]\d{6,9}$/',
+        self::TYPE_NIT => '/^[1-9][0-9]{6,10}(\-[0-9])?$/',
+        self::TYPE_RUT => '/^[1-9][0-9]{4,9}(\-[0-9])?$/',
         self::TYPE_PPN => '/^[a-zA-Z0-9_]{4,16}$/',
         self::TYPE_TAX => '/^[a-zA-Z0-9_]{4,16}$/',
         self::TYPE_LIC => '/^[a-zA-Z0-9_]{4,16}$/',
         self::TYPE_SSN => '/^\d{3}\d{2,3}\d{4}$/',
         self::TYPE_CIP => '/^(PE|N|E|\d+)?\d{2,6}\d{2,6}$/',
         self::TYPE_CPF => '/^\d{10,11}$/',
-        self::TYPE_CI => '/^\d{10}$/',
+        self::TYPE_CI => '/^(\d{9}-?\d)$/',
         self::TYPE_RUC => '/^\d{13}$/',
     ];
 
