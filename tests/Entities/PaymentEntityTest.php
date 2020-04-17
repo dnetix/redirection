@@ -15,57 +15,57 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertNull($payment->fields());
 
         $payment->addField(['keyword' => 'testing', 'value' => 'value']);
-        $this->assertEquals(1, sizeof($payment->fields()));
+        $this->assertEquals(1, count($payment->fields()));
 
         $payment->addField(['keyword' => 'testing2', 'value' => 'value2']);
-        $this->assertEquals(2, sizeof($payment->fields()));
+        $this->assertEquals(2, count($payment->fields()));
 
         $data = [
             'reference' => 'required',
             'amount' => [
                 'total' => 10000,
-                'currency' => 'COP'
+                'currency' => 'COP',
             ],
             'fields' => [
                 [
                     'keyword' => 'no_empty',
                     'value' => 'no_empty_value',
-                    'displayOn' => 'none'
-                ]
+                    'displayOn' => 'none',
+                ],
             ],
             'items' => [
                 [
                     'sku' => '1234',
-                    'name' => 'Testing1'
+                    'name' => 'Testing1',
                 ],
                 [
                     'sku' => '1111',
-                    'name' => 'Testing2'
-                ]
+                    'name' => 'Testing2',
+                ],
             ],
             'allowPartial' => false,
             'subscribe' => false,
         ];
         $payment = new Payment($data);
-        $this->assertEquals(1, sizeof($payment->fields()));
+        $this->assertEquals(1, count($payment->fields()));
         $this->assertEquals($data, $payment->toArray());
 
         $payment->addField(['keyword' => 'testing', 'value' => 'value']);
-        $this->assertEquals(2, sizeof($payment->fields()));
+        $this->assertEquals(2, count($payment->fields()));
         $this->assertEquals([
             [
                 'displayOn' => 'none',
                 'keyword' => 'no_empty',
-                'value' => 'no_empty_value'
+                'value' => 'no_empty_value',
             ],
             [
                 'displayOn' => 'none',
                 'keyword' => 'testing',
-                'value' => 'value'
-            ]
+                'value' => 'value',
+            ],
         ], $payment->fieldsToArray());
 
-        $this->assertEquals(2, sizeof($payment->items()));
+        $this->assertEquals(2, count($payment->items()));
     }
 
     public function testItParsesCorrectlyTheItems()
@@ -73,27 +73,27 @@ class PaymentEntityTest extends BaseTestCase
         $payment = new Payment([
             'reference' => 'required',
             'amount' => [
-                'total' => 10000
+                'total' => 10000,
             ],
             'fields' => [
                 [
                     'keyword' => 'no_empty',
-                    'value' => 'no_empty_value'
-                ]
+                    'value' => 'no_empty_value',
+                ],
             ],
             'items' => [
                 [
                     'sku' => '1234',
-                    'name' => 'Testing1'
+                    'name' => 'Testing1',
                 ],
                 new Item([
                     'sku' => '1111',
-                    'name' => 'Testing2'
-                ])
-            ]
+                    'name' => 'Testing2',
+                ]),
+            ],
         ]);
 
-        if (sizeof($payment->items()) == 2 && is_array($payment->items())) {
+        if (count($payment->items()) == 2 && is_array($payment->items())) {
             foreach ($payment->items() as $item) {
                 $this->assertInstanceOf(Item::class, $item);
             }
@@ -107,13 +107,13 @@ class PaymentEntityTest extends BaseTestCase
         $payment = new Payment([
             'reference' => 'required',
             'amount' => [
-                'total' => 10000
+                'total' => 10000,
             ],
             'fields' => [
                 [
                     'keyword' => 'no_empty',
-                    'value' => 'no_empty_value'
-                ]
+                    'value' => 'no_empty_value',
+                ],
             ],
             'subscribe' => false,
         ]);
@@ -149,7 +149,7 @@ class PaymentEntityTest extends BaseTestCase
             'subscribe' => false,
         ];
         $payment = new Payment($data);
-        $this->assertEquals(1, sizeof($payment->fields()));
+        $this->assertEquals(1, count($payment->fields()));
         $this->assertEquals($data, $payment->toArray());
     }
 

@@ -59,7 +59,7 @@ class Notification extends Entity
     }
 
     /**
-     * Extracts the information for the entity
+     * Extracts the information for the entity.
      * @return array
      */
     public function toArray()

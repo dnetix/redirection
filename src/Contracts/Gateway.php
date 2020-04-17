@@ -64,7 +64,7 @@ abstract class Gateway
     abstract public function reverse($internalReference);
 
     /**
-     * Change the web service to use for the connection
+     * Change the web service to use for the connection.
      * @param string $type can be 'soap' or 'rest'
      * @return $this
      * @throws PlacetoPayException

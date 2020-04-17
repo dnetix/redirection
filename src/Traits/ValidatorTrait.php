@@ -15,7 +15,7 @@ trait ValidatorTrait
     }
 
     /**
-     * Validates if this entity contains the required information
+     * Validates if this entity contains the required information.
      * @param null $fields
      * @param bool $silent
      * @return bool
@@ -26,7 +26,7 @@ trait ValidatorTrait
     }
 
     /**
-     * Verifies if the object has all the values required, returns those who are lacking
+     * Verifies if the object has all the values required, returns those who are lacking.
      * @param array $requiredFields
      * @return array|bool
      */
@@ -39,6 +39,6 @@ trait ValidatorTrait
             }
         }
 
-        return sizeof($missing) > 0 ? $missing : false;
+        return count($missing) > 0 ? $missing : false;
     }
 }

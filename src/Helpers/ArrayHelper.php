@@ -5,7 +5,7 @@ namespace Dnetix\Redirection\Helpers;
 class ArrayHelper
 {
     /**
-     * Transforms the object passed as array
+     * Transforms the object passed as array.
      * @param $data
      * @return array
      */
@@ -15,7 +15,7 @@ class ArrayHelper
     }
 
     /**
-     * Returns only the values that match the provided keys
+     * Returns only the values that match the provided keys.
      * @param $array
      * @param $keys
      * @return array
@@ -26,7 +26,7 @@ class ArrayHelper
     }
 
     /**
-     * Filters an array looking for null values and remove it corresponding key
+     * Filters an array looking for null values and remove it corresponding key.
      * @param $array
      * @return array
      */

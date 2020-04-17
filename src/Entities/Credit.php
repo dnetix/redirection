@@ -13,7 +13,7 @@ class Credit extends Entity
     protected $type;
     protected $groupCode;
     /**
-     * When first created from the service
+     * When first created from the service.
      * @var int
      */
     protected $installment;
@@ -55,4 +55,3 @@ class Credit extends Entity
         ];
     }
 }
-

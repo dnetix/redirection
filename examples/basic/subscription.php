@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . "/../bootstrap.php");
+require_once __DIR__ . '/../bootstrap.php';
 
 // Creating a random reference for the test
 $reference = 'TEST_' . time();
@@ -36,4 +36,3 @@ try {
 } catch (Exception $e) {
     var_dump($e->getMessage());
 }
-

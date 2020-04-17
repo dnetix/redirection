@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . "/../bootstrap.php");
+require_once __DIR__ . '/../bootstrap.php';
 
 // Creating a random reference for the test
 $reference = 'TEST_' . time();
@@ -13,7 +13,7 @@ $request = [
         'email' => 'john.doe@example.com',
         'document' => '1040035000',
         'documentType' => 'CC',
-        'mobile' => '3006108300'
+        'mobile' => '3006108300',
     ],
     'payment' => [
         'reference' => $reference,
@@ -25,9 +25,9 @@ $request = [
     ],
     'instrument' => [
         'token' => [
-            'token' => 'YOUR_TOKEN_HERE'
-        ]
-    ]
+            'token' => 'YOUR_TOKEN_HERE',
+        ],
+    ],
 ];
 
 try {
@@ -43,11 +43,11 @@ try {
             print_r($requestId . " PAYMENT APPROVED\n");
             // This is additional information about it
             var_dump($response->payment());
-        }else{
+        } else {
             if ($response->status()->isRejected()) {
                 // This is why it has been rejected
                 print_r($response);
-            } else{
+            } else {
                 // Is pending so make a query for it later (see information.php example)
                 print_r($requestId . " PAYMENT PENDING\n");
             }
@@ -59,4 +59,3 @@ try {
 } catch (Exception $e) {
     var_dump($e->getMessage());
 }
-

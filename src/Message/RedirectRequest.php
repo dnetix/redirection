@@ -4,11 +4,11 @@ namespace Dnetix\Redirection\Message;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\DispersionPayment;
-use Dnetix\Redirection\Traits\FieldsTrait;
-use Dnetix\Redirection\Traits\LoaderTrait;
 use Dnetix\Redirection\Entities\Payment;
 use Dnetix\Redirection\Entities\Person;
 use Dnetix\Redirection\Entities\Subscription;
+use Dnetix\Redirection\Traits\FieldsTrait;
+use Dnetix\Redirection\Traits\LoaderTrait;
 
 class RedirectRequest extends Entity
 {
@@ -138,7 +138,7 @@ class RedirectRequest extends Entity
 
     /**
      * A redirect request itself doesnt have a reference, but it should
-     * know how to get it
+     * know how to get it.
      * @return mixed
      */
     public function reference()
@@ -201,7 +201,7 @@ class RedirectRequest extends Entity
     }
 
     /**
-     * Returns the expiration datetime for this request
+     * Returns the expiration datetime for this request.
      * @return string
      */
     public function expiration()
@@ -216,7 +216,7 @@ class RedirectRequest extends Entity
 
     public function captureAddress()
     {
-        return !!$this->captureAddress;
+        return (bool)$this->captureAddress;
     }
 
     public function skipResult()

@@ -35,7 +35,7 @@ class Card extends Entity
     }
 
     /**
-     * Returns the expiration year always with YYYY format
+     * Returns the expiration year always with YYYY format.
      * @return string
      */
     public function expirationYear()
@@ -47,7 +47,7 @@ class Card extends Entity
     }
 
     /**
-     * Returns the expiration year always with YY format
+     * Returns the expiration year always with YY format.
      * @return string
      */
     public function expirationYearShort()

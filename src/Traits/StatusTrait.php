@@ -23,7 +23,7 @@ trait StatusTrait
         return new Status([
             'status' => Status::ST_ERROR,
             'message' => 'No response status was provisioned',
-            'reason' => ''
+            'reason' => '',
         ]);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Dnetix\Redirection\Validators;
 
-use Dnetix\Redirection\Helpers\DocumentHelper;
 use Dnetix\Redirection\Entities\Person;
+use Dnetix\Redirection\Helpers\DocumentHelper;
 
 class PersonValidator extends Country
 {

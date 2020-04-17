@@ -8,6 +8,6 @@ class PhoneNumber
 
     public static function isValidNumber($number)
     {
-        return !!preg_match(self::VALIDATION_PATTERN, $number);
+        return (bool)preg_match(self::VALIDATION_PATTERN, $number);
     }
 }

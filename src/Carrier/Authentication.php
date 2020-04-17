@@ -9,7 +9,7 @@ use stdClass;
 
 /**
  * Class Authentication
- * Generates the needed authentication elements
+ * Generates the needed authentication elements.
  */
 class Authentication
 {
@@ -18,13 +18,13 @@ class Authentication
     private $login;
     private $tranKey;
     /**
-     * Overrides the authentication, for testing purposes
+     * Overrides the authentication, for testing purposes.
      * @var array
      */
     private $auth;
     private $overrided = false;
     /**
-     * It can be full or basic
+     * It can be full or basic.
      * @var string
      */
     private $type = 'full';
@@ -143,7 +143,7 @@ class Authentication
     }
 
     /**
-     * Parses the entity as a SOAP Header
+     * Parses the entity as a SOAP Header.
      * @return SoapHeader
      */
     public function asSoapHeader()
