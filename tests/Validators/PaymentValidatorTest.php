@@ -15,7 +15,7 @@ class PaymentValidatorTest extends BaseTestCase
             'reference' => '1234567890',
             'amount' => [
                 'currency' => 'COP',
-                'total' => 1000
+                'total' => 1000,
             ],
             'allowPartial' => true,
             'subscribe' => false,
@@ -40,14 +40,14 @@ class PaymentValidatorTest extends BaseTestCase
             'description' => 'Testing payment',
             'amount' => [
                 'currency' => 'COP',
-                'total' => 1000
+                'total' => 1000,
             ],
             'recurring' => [
                 'periodicity' => 'D',
                 'interval' => 4,
                 'nextPayment' => '2020-01-01',
                 'maxPeriods' => 4,
-                'dueDate' => '2022-01-01'
+                'dueDate' => '2022-01-01',
             ],
             'shipping' => [
                 'name' => 'James',
@@ -55,15 +55,15 @@ class PaymentValidatorTest extends BaseTestCase
                 'address' => [
                     'street' => '706 Evergreen',
                     'city' => 'Villa de Nuestra Señora de la Candelaria de Medellín',
-                    'country' => 'CO'
-                ]
+                    'country' => 'CO',
+                ],
             ],
             'fields' => [
                 [
                     'displayOn' => 'both',
                     'keyword' => 'testing',
-                    'value' => 'Testing value'
-                ]
+                    'value' => 'Testing value',
+                ],
             ],
             'allowPartial' => true,
             'subscribe' => false,
@@ -86,7 +86,7 @@ class PaymentValidatorTest extends BaseTestCase
             'description' => '<script> </script>',
             'amount' => [
                 'currency' => 'COP',
-                'total' => 1000
+                'total' => 1000,
             ],
             'allowPartial' => true,
             'subscribe' => false,
@@ -106,7 +106,7 @@ class PaymentValidatorTest extends BaseTestCase
             'description' => 'Pago de prueba para la factura #2321 con ref. 43242342-3424_32. ($50.000) 25/feb',
             'amount' => [
                 'currency' => 'COP',
-                'total' => 1000
+                'total' => 1000,
             ],
             'allowPartial' => true,
             'subscribe' => false,

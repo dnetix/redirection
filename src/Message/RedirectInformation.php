@@ -157,14 +157,14 @@ class RedirectInformation extends Entity
     }
 
     /**
-     * Obtains the last transaction made to the session
+     * Obtains the last transaction made to the session.
      * @param bool $approved
      * @return Transaction
      */
     public function lastTransaction($approved = false)
     {
         $transactions = $this->payment();
-        if (is_array($transactions) && sizeof($transactions) > 0) {
+        if (is_array($transactions) && count($transactions) > 0) {
             if ($approved) {
                 while ($transaction = array_shift($transactions)) {
                     if ($transaction->isApproved()) {
@@ -179,7 +179,7 @@ class RedirectInformation extends Entity
     }
 
     /**
-     * Returns the last authorization associated with the session
+     * Returns the last authorization associated with the session.
      */
     public function lastAuthorization()
     {

@@ -7,7 +7,6 @@ use Tests\BaseTestCase;
 
 class RedirectResponseTest extends BaseTestCase
 {
-
     public function testRedirectionResponseWithoutStatus()
     {
         $carrierResponse = new RedirectResponse([
@@ -27,10 +26,9 @@ class RedirectResponseTest extends BaseTestCase
                 'status' => 'OK',
                 'reason' => 2,
                 'message' => 'Aprobada',
-                'date' => '2019-03-10T12:36:36-05:00'
-            ]
+                'date' => '2019-03-10T12:36:36-05:00',
+            ],
         ]);
         $this->assertTrue($carrierResponse->isSuccessful());
     }
-
 }

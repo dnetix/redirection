@@ -32,7 +32,7 @@ class AmountConversion extends Entity
     }
 
     /**
-     * Helper function to quickly set all the values
+     * Helper function to quickly set all the values.
      * @param $base
      * @return $this
      */

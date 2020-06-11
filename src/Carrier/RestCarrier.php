@@ -39,8 +39,8 @@ class RestCarrier extends Carrier
     {
         try {
             $client = new Client([
-                'timeout' => $this->config['timeout']?? 15,
-                'connect_timeout' => $this->config['connect_timeout']?? 5,
+                'timeout' => $this->config['timeout'] ?? 15,
+                'connect_timeout' => $this->config['connect_timeout'] ?? 5,
             ]);
             $data = array_merge($arguments, [
                 'auth' => $this->authentication()->asArray(),
@@ -58,7 +58,7 @@ class RestCarrier extends Carrier
                     'json' => $data,
                 ]);
             } else {
-                throw new PlacetoPayException("No valid method for this request");
+                throw new PlacetoPayException('No valid method for this request');
             }
             return json_decode($response->getBody()->getContents(), true);
         } catch (ClientException $e) {

@@ -7,7 +7,7 @@ use Dnetix\Redirection\Contracts\Entity;
 class SubscriptionInformation extends Entity
 {
     /**
-     * The type of this subscription could be token or account for the time being
+     * The type of this subscription could be token or account for the time being.
      * @var string
      */
     public $type;
@@ -83,7 +83,7 @@ class SubscriptionInformation extends Entity
 
     /**
      * Parses the instrument as the proper entity, Keep in mind that can be null
-     * if no instrument its provided
+     * if no instrument its provided.
      * @return Account|Token|null
      */
     public function parseInstrument()

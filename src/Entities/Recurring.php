@@ -11,7 +11,7 @@ class Recurring extends Entity
     use LoaderTrait;
     /**
      * Frequency to resubmit the transaction.
-     * Y = annual  M = monthly  D = daily
+     * Y = annual  M = monthly  D = daily.
      * @var string
      */
     protected $periodicity;
@@ -23,8 +23,8 @@ class Recurring extends Entity
     /**
      * Depends on the number of times that it makes the charge, corresponds to maximum times that the recurrence
      * will happen. If you do not want to set up should indicated -1.
-     * You must specify this parameter or dueDate
-     * @var integer
+     * You must specify this parameter or dueDate.
+     * @var int
      */
     protected $maxPeriods;
     protected $dueDate;

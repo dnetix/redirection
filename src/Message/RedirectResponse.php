@@ -28,7 +28,7 @@ class RedirectResponse extends Entity
     }
 
     /**
-     * Unique transaction code for this request
+     * Unique transaction code for this request.
      * @return string
      */
     public function requestId()
@@ -37,7 +37,7 @@ class RedirectResponse extends Entity
     }
 
     /**
-     * URL to consume when the gateway requires redirection
+     * URL to consume when the gateway requires redirection.
      * @return string|null
      */
     public function processUrl()
@@ -51,7 +51,7 @@ class RedirectResponse extends Entity
     }
 
     /**
-     * Returns the contents for this response as an array
+     * Returns the contents for this response as an array.
      * @return array
      */
     public function toArray()

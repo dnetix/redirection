@@ -21,7 +21,7 @@ class BaseTestCase extends TestCase
     }
 
     /**
-     * Adds required data to the test request, given that PHPUnit does not have a userAgent or ipAddress
+     * Adds required data to the test request, given that PHPUnit does not have a userAgent or ipAddress.
      * @param $request
      * @return array
      */

@@ -52,7 +52,7 @@ class Account extends Entity
     }
 
     /**
-     * The subscription franchise code (CR_VS, RM_MC)
+     * The subscription franchise code (CR_VS, RM_MC).
      * @return string
      */
     public function franchise()
@@ -81,7 +81,7 @@ class Account extends Entity
     }
 
     /**
-     * The subscription franchise name (VISA, Mastercard, Bancolombia)
+     * The subscription franchise name (VISA, Mastercard, Bancolombia).
      * @return string
      */
     public function franchiseName()
@@ -91,7 +91,7 @@ class Account extends Entity
 
     /**
      * Last digits for the instrument subscribed in order to display to the
-     * user
+     * user.
      * @return string
      */
     public function lastDigits()
@@ -100,7 +100,7 @@ class Account extends Entity
     }
 
     /**
-     * Parses this entity as Name Value Pairs for the response
+     * Parses this entity as Name Value Pairs for the response.
      * @return array
      */
     public function asNameValuePairArray()

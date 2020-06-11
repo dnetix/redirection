@@ -21,8 +21,8 @@ class PersonValidatorTest extends BaseTestCase
             'address' => [
                 'street' => '707 Evergreen',
                 'city' => 'Medellín',
-                'country' => 'CO'
-            ]
+                'country' => 'CO',
+            ],
         ];
         $person = new Person($data);
         $this->assertEquals($data['name'], $person->name());
@@ -59,7 +59,7 @@ class PersonValidatorTest extends BaseTestCase
             'email' => 'johndoe@example.com',
             'document' => '1040035000',
             'documentType' => 'CC',
-            'company' => 'Acme S.A.S.'
+            'company' => 'Acme S.A.S.',
         ];
         try {
             $person = new Person($data);
@@ -78,7 +78,7 @@ class PersonValidatorTest extends BaseTestCase
             'email' => 'johndoe@example.com',
             'document' => '104003500000000000000000000',
             'documentType' => 'CC',
-            'company' => 'Acme S.A.S.'
+            'company' => 'Acme S.A.S.',
         ];
         try {
             $person = (new Person($data))->isValid($fields, false);
@@ -97,7 +97,7 @@ class PersonValidatorTest extends BaseTestCase
             'email' => 'johndoe@example.com',
             'document' => '1040035000',
             'documentType' => 'Cedula',
-            'company' => 'Acme S.A.S.'
+            'company' => 'Acme S.A.S.',
         ];
         try {
             $person = (new Person($data))->isValid($fields, false);
@@ -116,7 +116,7 @@ class PersonValidatorTest extends BaseTestCase
             'email' => 'johndoe@example.com',
             'document' => 'INVALID',
             'documentType' => 'CC',
-            'company' => 'Acme S.A.S.'
+            'company' => 'Acme S.A.S.',
         ];
         try {
             $person = (new Person($data))->isValid($fields, false);
@@ -135,7 +135,7 @@ class PersonValidatorTest extends BaseTestCase
             'email' => 'INVALID',
             'document' => '1040035000',
             'documentType' => 'CC',
-            'company' => 'Acme S.A.S.'
+            'company' => 'Acme S.A.S.',
         ];
         try {
             $person = (new Person($data))->isValid($fields, false);

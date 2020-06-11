@@ -1,8 +1,8 @@
 <?php
 
-require_once(__DIR__ . "/../bootstrap.php");
+require_once __DIR__ . '/../bootstrap.php';
 
-/**
+/*
  * IGNORE THIS PART, Just needed to obtain the requestId that will be queried
  */
 if (isset($argv)) {
@@ -16,12 +16,12 @@ if (isset($argv)) {
 } else {
     // Called from browser
     if (!isset($_GET['requestId']) || !is_numeric($_GET['requestId'])) {
-        print_r("Please include requestId as a GET parameter with the requestId to be queried");
+        print_r('Please include requestId as a GET parameter with the requestId to be queried');
         die();
     }
     $requestId = $_GET['requestId'];
 }
-/**
+/*
  * END OF IGNORE
  */
 
@@ -41,7 +41,6 @@ try {
         }
 
         print_r($response);
-
     } else {
         // There was some error with the connection so check the message
         print_r($response->status()->message() . "\n");
@@ -49,4 +48,3 @@ try {
 } catch (Exception $e) {
     var_dump($e->getMessage());
 }
-

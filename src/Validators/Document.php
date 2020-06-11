@@ -58,6 +58,6 @@ class Document
             return true;
         }
 
-        return !!preg_match($pattern, $document);
+        return (bool)preg_match($pattern, $document);
     }
 }

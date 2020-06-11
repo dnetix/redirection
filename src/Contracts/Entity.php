@@ -25,7 +25,7 @@ abstract class Entity
     }
 
     /**
-     * Extracts the information for the entity
+     * Extracts the information for the entity.
      * @return array
      */
     abstract public function toArray();

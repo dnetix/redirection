@@ -54,7 +54,7 @@ class BaseValidator
 
     public static function isInteger($value)
     {
-        return !!filter_var($value, FILTER_VALIDATE_INT);
+        return (bool)filter_var($value, FILTER_VALIDATE_INT);
     }
 
     public static function isNumeric($value)

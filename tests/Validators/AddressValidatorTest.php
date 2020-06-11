@@ -16,7 +16,7 @@ class AddressValidatorTest extends BaseTestCase
             'country' => 'CO',
             'state' => 'Antioquia',
             'postalCode' => '050012',
-            'phone' => '4442310'
+            'phone' => '4442310',
         ];
         $address = new Address($data);
         $this->assertEquals($data['street'], $address->street());
@@ -40,7 +40,7 @@ class AddressValidatorTest extends BaseTestCase
         $data = [
             'state' => 'Antioquia',
             'postalCode' => '050012',
-            'phone' => '+5744442310 ext 1503'
+            'phone' => '+5744442310 ext 1503',
         ];
         try {
             $address = (new Address($data))->isValid($fields, false);

@@ -16,29 +16,29 @@ class CollectRequestTest extends BaseTestCase
                 'surname' => 'Walsh',
                 'email' => 'lance04@lockman.com',
                 'document' => '1040035020',
-                'documentType' => 'CC'
+                'documentType' => 'CC',
             ],
             'payment' => [
                 'reference' => 'TEST_20200304_202408',
                 'description' => 'Et dolorem voluptate voluptatem porro delectus.',
                 'amount' => [
                     'currency' => 'COP',
-                    'total' => 143000
+                    'total' => 143000,
                 ],
                 'allowPartial' => false,
                 'subscribe' => false,
             ],
             'instrument' => [
                 'token' => [
-                    'token' => 'e317950201950c59e91b6a59b25d439888a504579715a09bc0862c76b64335d9'
+                    'token' => 'e317950201950c59e91b6a59b25d439888a504579715a09bc0862c76b64335d9',
                 ],
                 'credit' =>         [
                     'code' => 500,
                     'type' => '02',
                     'groupCode' => 'P',
-                    'installment' => 3
-                ]
-            ]
+                    'installment' => 3,
+                ],
+            ],
         ];
         $request = new CollectRequest($data);
 

@@ -13,12 +13,12 @@ class Transaction extends Entity
      */
     protected $status;
     /**
-     * Reference as the commerce provides
+     * Reference as the commerce provides.
      * @var string
      */
     protected $reference;
     /**
-     * Reference for PlacetoPay
+     * Reference for PlacetoPay.
      * @var string
      */
     protected $internalReference;
@@ -130,7 +130,7 @@ class Transaction extends Entity
 
     /**
      * Determines if the transaction information its valid, meaning the query was
-     * successful not the transaction
+     * successful not the transaction.
      * @return bool
      */
     public function isSuccessful()
@@ -139,7 +139,7 @@ class Transaction extends Entity
     }
 
     /**
-     * Determines if the transaction has been approved
+     * Determines if the transaction has been approved.
      * @return bool
      */
     public function isApproved()
@@ -176,7 +176,7 @@ class Transaction extends Entity
     }
 
     /**
-     * Sets the amount base as the amount conversion
+     * Sets the amount base as the amount conversion.
      * @param $base
      * @return $this
      */
@@ -222,7 +222,7 @@ class Transaction extends Entity
     }
 
     /**
-     * Parses the processorFields as a key value array
+     * Parses the processorFields as a key value array.
      */
     public function additionalData()
     {

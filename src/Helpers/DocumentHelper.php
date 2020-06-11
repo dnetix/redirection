@@ -46,7 +46,7 @@ class DocumentHelper
         self::TYPE_CIP,
         self::TYPE_CPF,
         self::TYPE_CI,
-        self::TYPE_RUC
+        self::TYPE_RUC,
     ];
     public static $VALIDATION_PATTERNS = [
         self::TYPE_CC => '/^[1-9][0-9]{3,9}$/',
@@ -89,7 +89,7 @@ class DocumentHelper
             return true;
         }
 
-        return !!preg_match($pattern, $document);
+        return (bool)preg_match($pattern, $document);
     }
 
     public static function businessDocument($document = null)

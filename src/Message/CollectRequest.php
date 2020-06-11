@@ -90,7 +90,7 @@ class CollectRequest extends Entity
 
     /**
      * A redirect request itself doesnt have a reference, but it should
-     * know how to get it
+     * know how to get it.
      * @return mixed
      */
     public function reference()

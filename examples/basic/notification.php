@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . "/../bootstrap.php");
+require_once __DIR__ . '/../bootstrap.php';
 
 try {
     // It if the data comes from the POST variable just leave it like this
@@ -16,11 +16,9 @@ try {
         } else {
             // Reject the order
         }
-
     } else {
         // There was some error or invalid structure
     }
 } catch (Exception $e) {
     var_dump($e->getMessage());
 }
-
