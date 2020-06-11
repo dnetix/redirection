@@ -13,7 +13,7 @@
     "php": ">=7.0",
     "ext-soap": "*",
     "ext-json": "*",
-    "guzzlehttp/guzzle": ">=5.3"
+    "guzzlehttp/guzzle": "^6.5"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^2.16",
