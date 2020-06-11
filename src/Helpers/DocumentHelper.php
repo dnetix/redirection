@@ -11,21 +11,28 @@ class DocumentHelper
     const TYPE_RC = 'RC';
     const TYPE_NIT = 'NIT';
     const TYPE_RUT = 'RUT';
+
     // Generic Documents
     const TYPE_PPN = 'PPN';
     const TYPE_TAX = 'TAX';
     const TYPE_LIC = 'LIC';
+
     // Carnet Diplomatico
     const TYPE_CD = 'CD';
+
     // USA Documents
     const TYPE_SSN = 'SSN';
+
     // Panama Documents
     const TYPE_CIP = 'CIP';
+
     // Brazil Documents
     const TYPE_CPF = 'CPF';
+
     // Ecuador Documents
     const TYPE_CI = 'CI';
     const TYPE_RUC = 'RUC';
+
     protected static $DOCUMENT_TYPES = [
         self::TYPE_CC,
         self::TYPE_CE,
