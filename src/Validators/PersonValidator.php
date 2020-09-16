@@ -7,7 +7,7 @@ use Dnetix\Redirection\Helpers\DocumentHelper;
 
 class PersonValidator extends Country
 {
-    const PATTERN_NAME = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã][a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\'\.\&\-\d ]{2,60}$/i';
+    const PATTERN_NAME = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã][a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\'\.\&\-\d ]{1,60}$/i';
     const PATTERN_SURNAME = self::PATTERN_NAME;
     const PATTERN_EMAIL = '/^([a-zA-Z0-9_\.\-])+[^\.\-\ ]\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/';
     const PATTERN_MOBILE = PhoneNumber::VALIDATION_PATTERN;
