@@ -39,4 +39,39 @@ class DocumentHelperTest extends BaseTestCase
         $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_NIT, '8600000384'));
         $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_NIT, '8600000384-42'));
     }
+
+    public function testItValidatesCorrectlyDNI()
+    {
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DNI, '12345678'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DNI, '1234859'));
+    }
+
+    public function testItValidatesCorrectlyCRCPF()
+    {
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CRCPF, '123485989'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CRCPF, '12348598'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CRCPF, '02348598'));
+    }
+
+    public function testItValidatesCorrectlyCPJ()
+    {
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CPJ, '1234567894'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CPJ, '123456789'));
+    }
+
+    public function testItValidatesCorrectlyDimex()
+    {
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DIMEX, '12345678949'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DIMEX, '123456789491'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DIMEX, '1234567894911'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DIMEX, '1234567894'));
+    }
+
+    public function testItValidatesCorrectlyDIDI()
+    {
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DIDI, '12345678949'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DIDI, '123456789491'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DIDI, '1234567894911'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DIDI, '1234567894'));
+    }
 }
