@@ -33,6 +33,15 @@ class DocumentHelper
     const TYPE_CI = 'CI';
     const TYPE_RUC = 'RUC';
 
+    // Peru Documents
+    const TYPE_DNI = 'DNI';
+
+    // Costa Rica Documents
+    const TYPE_CRCPF = 'CRCPF';
+    const TYPE_CPJ = 'CPJ';
+    const TYPE_DIMEX = 'DIMEX';
+    const TYPE_DIDI = 'DIDI';
+
     protected static $DOCUMENT_TYPES = [
         self::TYPE_CC,
         self::TYPE_CE,
@@ -47,6 +56,11 @@ class DocumentHelper
         self::TYPE_CPF,
         self::TYPE_CI,
         self::TYPE_RUC,
+        self::TYPE_DNI,
+        self::TYPE_CRCPF,
+        self::TYPE_CPJ,
+        self::TYPE_DIMEX,
+        self::TYPE_DIDI,
     ];
     public static $VALIDATION_PATTERNS = [
         self::TYPE_CC => '/^[1-9][0-9]{3,9}$/',
@@ -62,6 +76,11 @@ class DocumentHelper
         self::TYPE_CPF => '/^\d{10,11}$/',
         self::TYPE_CI => '/^\d{10}$/',
         self::TYPE_RUC => '/^\d{13}$/',
+        self::TYPE_DNI => '/^\d{8}$/',
+        self::TYPE_CRCPF => '/^[1-9][0-9]{8}$/',
+        self::TYPE_CPJ => '/^[1-9][0-9]{9}$/',
+        self::TYPE_DIMEX => '/^[1-9][0-9]{10,11}$/',
+        self::TYPE_DIDI => '/^[1-9][0-9]{10,11}$/',
     ];
 
     public static function documentTypes($exclude = [])
