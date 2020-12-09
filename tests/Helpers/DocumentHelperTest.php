@@ -74,4 +74,11 @@ class DocumentHelperTest extends BaseTestCase
         $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DIDI, '1234567894911'));
         $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_DIDI, '1234567894'));
     }
+
+    public function testItValidatesCorrectlyTheChileanRUT()
+    {
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CL_RUT, '30.686.957-4'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CL_RUT, '13.342.430-K'));
+        $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CL_RUT, '1798288377'));
+    }
 }

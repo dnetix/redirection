@@ -42,6 +42,9 @@ class DocumentHelper
     const TYPE_DIMEX = 'DIMEX';
     const TYPE_DIDI = 'DIDI';
 
+    // Chile Documents
+    const TYPE_CL_RUT = 'CL_RUT';
+
     protected static $DOCUMENT_TYPES = [
         self::TYPE_CC,
         self::TYPE_CE,
@@ -61,6 +64,7 @@ class DocumentHelper
         self::TYPE_CPJ,
         self::TYPE_DIMEX,
         self::TYPE_DIDI,
+        self::TYPE_CL_RUT,
     ];
     public static $VALIDATION_PATTERNS = [
         self::TYPE_CC => '/^[1-9][0-9]{3,9}$/',
@@ -81,6 +85,7 @@ class DocumentHelper
         self::TYPE_CPJ => '/^[1-9][0-9]{9}$/',
         self::TYPE_DIMEX => '/^[1-9][0-9]{10,11}$/',
         self::TYPE_DIDI => '/^[1-9][0-9]{10,11}$/',
+        self::TYPE_CL_RUT => '/^(\d{1,3}(?:\.\d{1,3}){2}-[\dkK])$/',
     ];
 
     public static function documentTypes($exclude = [])
