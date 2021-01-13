@@ -113,7 +113,9 @@ class DocumentHelper
             return true;
         }
 
-        return (bool)preg_match($pattern, $document);
+        $isValid = (bool)preg_match($pattern, $document);
+
+        return ($isValid && $type == self::TYPE_CL_RUT) ? self::isValidCheckDigitForClRut($document) : $isValid;
     }
 
     public static function businessDocument($document = null)
@@ -127,5 +129,32 @@ class DocumentHelper
             return in_array($document, $businessDocuments);
         }
         return $businessDocuments;
+    }
+
+    public static function isValidCheckDigitForClRut(string $rut): bool
+    {
+        $rut = preg_replace('/[^k0-9]/i', '', $rut);
+        $dv = substr($rut, -1);
+        $nb = substr($rut, 0, strlen($rut) - 1);
+        $i = 2;
+        $sum = 0;
+
+        foreach (array_reverse(str_split($nb)) as $v) {
+            if ($i == 8) {
+                $i = 2;
+            }
+            $sum += $v * $i;
+            $i++;
+        }
+
+        $dvr = 11 - ($sum % 11);
+
+        if ($dvr == 11) {
+            $dvr = 0;
+        } elseif ($dvr == 10) {
+            $dvr = 'K';
+        }
+
+        return $dvr == strtoupper($dv);
     }
 }
