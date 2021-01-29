@@ -81,6 +81,8 @@ class DocumentHelperTest extends BaseTestCase
         $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CLRUT, '30.686.957-4'));
         $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CLRUT, '13.342.430-K'));
         $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CLRUT, '13.342.430-L'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CLRUT, '15127983-k'));
+        $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CLRUT, '14096336-4'));
         $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CLRUT, '1798288377'));
         $this->assertFalse(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CLRUT, 'Gdsdfgdfghfg'));
     }

@@ -85,7 +85,7 @@ class DocumentHelper
         self::TYPE_CPJ => '/^[1-9][0-9]{9}$/',
         self::TYPE_DIMEX => '/^[1-9][0-9]{10,11}$/',
         self::TYPE_DIDI => '/^[1-9][0-9]{10,11}$/',
-        self::TYPE_CLRUT => '/^(\d{1,3}(?:\.\d{1,3}){2}-[\dkK])$/',
+        self::TYPE_CLRUT => '/^(\d{1,3}(?:\.?\d{1,3}){2}-[\dkK])$/',
     ];
 
     public static function documentTypes($exclude = [])
