@@ -43,7 +43,7 @@ class DocumentHelper
     const TYPE_DIDI = 'DIDI';
 
     // Chile Documents
-    const TYPE_CL_RUT = 'CL_RUT';
+    const TYPE_CLRUT = 'CL_RUT';
 
     protected static $DOCUMENT_TYPES = [
         self::TYPE_CC,
@@ -64,7 +64,7 @@ class DocumentHelper
         self::TYPE_CPJ,
         self::TYPE_DIMEX,
         self::TYPE_DIDI,
-        self::TYPE_CL_RUT,
+        self::TYPE_CLRUT,
     ];
     public static $VALIDATION_PATTERNS = [
         self::TYPE_CC => '/^[1-9][0-9]{3,9}$/',
@@ -85,7 +85,7 @@ class DocumentHelper
         self::TYPE_CPJ => '/^[1-9][0-9]{9}$/',
         self::TYPE_DIMEX => '/^[1-9][0-9]{10,11}$/',
         self::TYPE_DIDI => '/^[1-9][0-9]{10,11}$/',
-        self::TYPE_CL_RUT => '/^(\d{1,3}(?:\.\d{1,3}){2}-[\dkK])$/',
+        self::TYPE_CLRUT => '/^(\d{1,3}(?:\.\d{1,3}){2}-[\dkK])$/',
     ];
 
     public static function documentTypes($exclude = [])
@@ -113,9 +113,7 @@ class DocumentHelper
             return true;
         }
 
-        $isValid = (bool)preg_match($pattern, $document);
-
-        return ($isValid && $type == self::TYPE_CL_RUT) ? self::isValidCheckDigitForClRut($document) : $isValid;
+        return (bool)preg_match($pattern, $document);
     }
 
     public static function businessDocument($document = null)
@@ -124,37 +122,11 @@ class DocumentHelper
             self::TYPE_NIT,
             self::TYPE_RUT,
             self::TYPE_RUC,
+            self::TYPE_CLRUT,
         ];
         if ($document) {
             return in_array($document, $businessDocuments);
         }
         return $businessDocuments;
-    }
-
-    public static function isValidCheckDigitForClRut(string $rut): bool
-    {
-        $rut = preg_replace('/[^k0-9]/i', '', $rut);
-        $dv = substr($rut, -1);
-        $nb = substr($rut, 0, strlen($rut) - 1);
-        $i = 2;
-        $sum = 0;
-
-        foreach (array_reverse(str_split($nb)) as $v) {
-            if ($i == 8) {
-                $i = 2;
-            }
-            $sum += $v * $i;
-            $i++;
-        }
-
-        $dvr = 11 - ($sum % 11);
-
-        if ($dvr == 11) {
-            $dvr = 0;
-        } elseif ($dvr == 10) {
-            $dvr = 'K';
-        }
-
-        return $dvr == strtoupper($dv);
     }
 }
