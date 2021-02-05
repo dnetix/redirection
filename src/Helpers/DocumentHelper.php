@@ -43,7 +43,7 @@ class DocumentHelper
     const TYPE_DIDI = 'DIDI';
 
     // Chile Documents
-    const TYPE_CLRUT = 'CL_RUT';
+    const TYPE_CLRUT = 'CLRUT';
 
     protected static $DOCUMENT_TYPES = [
         self::TYPE_CC,
