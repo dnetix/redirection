@@ -16,21 +16,16 @@ trait ValidatorTrait
 
     /**
      * Validates if this entity contains the required information.
-     * @param null $fields
-     * @param bool $silent
-     * @return bool
      */
-    public function isValid(&$fields = null, $silent = true)
+    public function isValid(&$fields = null, bool $silent = true): bool
     {
         return $this->getValidator()->isValid($this, $fields, $silent);
     }
 
     /**
      * Verifies if the object has all the values required, returns those who are lacking.
-     * @param array $requiredFields
-     * @return array|bool
      */
-    public function checkMissingFields($requiredFields = [])
+    public function checkMissingFields($requiredFields = []): array
     {
         $missing = [];
         foreach ($requiredFields as $field) {
@@ -38,7 +33,6 @@ trait ValidatorTrait
                 $missing[] = $field;
             }
         }
-
-        return count($missing) > 0 ? $missing : false;
+        return $missing;
     }
 }
