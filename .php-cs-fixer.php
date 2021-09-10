@@ -4,14 +4,15 @@ use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
 $rules = [
+    '@PSR12' => true,
     'phpdoc_indent' => true,
     'binary_operator_spaces' => [
-        'operators' => ['=>' => null]
+        'operators' => ['=>' => null],
     ],
     'blank_line_after_namespace' => true,
     'blank_line_after_opening_tag' => true,
     'blank_line_before_statement' => [
-        'statements' => ['declare']
+        'statements' => ['declare'],
     ],
     'braces' => true,
     'cast_spaces' => [
@@ -28,14 +29,13 @@ $rules = [
     'function_declaration' => true,
     'function_typehint_space' => true,
     'single_line_comment_style' => [
-        'comment_types' => ['hash']
+        'comment_types' => ['hash'],
     ],
     'heredoc_to_nowdoc' => true,
     'include' => true,
     'indentation_type' => true,
     'linebreak_after_opening_tag' => true,
     'lowercase_cast' => true,
-    'lowercase_constants' => true,
     'lowercase_keywords' => true,
     'lowercase_static_reference' => true, // added from Symfony
     'magic_constant_casing' => true,
@@ -45,14 +45,6 @@ $rules = [
     'visibility_required' => true,
     'native_function_casing' => true,
     'no_alias_functions' => true,
-    'no_extra_blank_lines' => [
-        'tokens' => [
-            'extra',
-            'throw',
-            'use',
-            'use_trait',
-        ]
-    ],
     'no_blank_lines_after_class_opening' => true,
     'no_blank_lines_after_phpdoc' => true,
     'no_closing_tag' => true,
@@ -69,7 +61,6 @@ $rules = [
     'no_spaces_around_offset' => true,
     'no_spaces_inside_parenthesis' => true,
     'no_trailing_comma_in_list_call' => true,
-    'no_trailing_comma_in_singleline_array' => true,
     'no_trailing_whitespace' => true,
     'no_trailing_whitespace_in_comment' => true,
     'no_unneeded_control_parentheses' => true,
@@ -80,28 +71,23 @@ $rules = [
     'normalize_index_brace' => true,
     'not_operator_with_successor_space' => false,
     'object_operator_without_whitespace' => true,
-    'ordered_imports' => ['sortAlgorithm' => 'alpha'],
-    'phpdoc_indent' => true,
-    'phpdoc_inline_tag' => true,
+    'ordered_imports' => ['sort_algorithm' => 'alpha'],
     'phpdoc_no_access' => true,
     'phpdoc_no_package' => true,
     'phpdoc_no_useless_inheritdoc' => true,
     'phpdoc_scalar' => true,
     'phpdoc_single_line_var_spacing' => true,
     'phpdoc_summary' => true,
-    'phpdoc_to_comment' => true,
+    'phpdoc_to_comment' => false,
     'phpdoc_trim' => true,
     'phpdoc_types' => true,
-    'phpdoc_var_without_name' => true,
+    'phpdoc_var_without_name' => false,
     'increment_style' => ['style' => 'post'],
     'no_mixed_echo_print' => true,
-    'psr4' => true,
     'self_accessor' => true,
     'array_syntax' => ['syntax' => 'short'],
-    'short_scalar_cast' => true,
     'simplified_null_return' => false,
     'single_blank_line_at_eof' => true,
-    'single_blank_line_before_namespace' => true,
     'single_class_element_per_statement' => true,
     'single_import_per_statement' => true,
     'single_line_after_imports' => true,
@@ -111,7 +97,7 @@ $rules = [
     'switch_case_semicolon_to_colon' => true,
     'switch_case_space' => true,
     'ternary_operator_spaces' => true,
-    'trailing_comma_in_multiline_array' => true,
+    'trailing_comma_in_multiline' => true,
     'trim_array_spaces' => true,
     'unary_operator_spaces' => true,
     'line_ending' => true,
@@ -134,7 +120,7 @@ $finder = Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return Config::create()
+return (new Config())
     ->setFinder($finder)
     ->setRules($rules)
     ->setRiskyAllowed(true)
