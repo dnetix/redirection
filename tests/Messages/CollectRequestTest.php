@@ -31,14 +31,20 @@ class CollectRequestTest extends BaseTestCase
             'instrument' => [
                 'token' => [
                     'token' => 'e317950201950c59e91b6a59b25d439888a504579715a09bc0862c76b64335d9',
+                    'installments' => 3,
                 ],
-                'credit' =>         [
+                'credit' => [
                     'code' => 500,
                     'type' => '02',
                     'groupCode' => 'P',
                     'installment' => 3,
                 ],
             ],
+            // This data was inherited from redirect request
+            'expiration' => '2021-09-11T20:33:55+00:00',
+            'captureAddress' => false,
+            'skipResult' => false,
+            'noBuyerFill' => false,
         ];
         $request = new CollectRequest($data);
 

@@ -3,11 +3,32 @@
 namespace Tests\Functionality;
 
 use Dnetix\Redirection\Carrier\Authentication;
+use Dnetix\Redirection\Exceptions\PlacetoPayException;
 use Tests\BaseTestCase;
 
 class AuthenticationTest extends BaseTestCase
 {
-    public function testItCreatesTheAuthenticationCorrectly()
+    public function testItHandlesNoLoginProvided()
+    {
+        $this->expectException(PlacetoPayException::class);
+        new Authentication([]);
+    }
+
+    public function testItGeneratesNewAuthentications()
+    {
+        $auth = new Authentication([
+            'login' => 'login_here',
+            'tranKey' => 'ABCD1234',
+        ]);
+
+        $generated = $auth->asArray();
+        $this->assertEquals('login_here', $generated['login']);
+        $this->assertNotEquals('ABCD1234', $generated['tranKey']);
+        $this->assertNotEmpty($generated['seed']);
+        $this->assertNotEmpty($generated['nonce']);
+    }
+
+    public function testItOverridesTheAuthenticationSeedAndNonce()
     {
         $auth = new Authentication([
             'login' => 'login',

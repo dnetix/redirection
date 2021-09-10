@@ -91,6 +91,7 @@ class RedirectRequestTest extends BaseTestCase
                     ],
                 ],
                 'allowPartial' => true,
+                'subscribe' => true,
             ],
             'expiration' => '2018-05-18T21:42:21+00:00',
             'ipAddress' => '127.0.0.1',
@@ -110,6 +111,8 @@ class RedirectRequestTest extends BaseTestCase
         $this->assertTrue($request->payment()->allowPartial());
         $this->assertEquals($data['returnUrl'], $request->returnUrl());
         $this->assertEquals($data['cancelUrl'], $request->cancelUrl());
+
+        $this->assertEquals($data, $request->toArray());
     }
 
     public function testItParsesCorrectlyASubscriptionRequest()

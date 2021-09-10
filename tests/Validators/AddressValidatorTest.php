@@ -32,7 +32,7 @@ class AddressValidatorTest extends BaseTestCase
     public function testItAllowsEmptyInstantiation()
     {
         $address = new Address();
-        $this->assertNull($address->street());
+        $this->assertEmpty($address->street());
     }
 
     public function testItFailsWhenNoRequiredProvided()

@@ -48,7 +48,7 @@ class PersonValidatorTest extends BaseTestCase
     public function testItAllowsEmptyInstantiation()
     {
         $person = new Person();
-        $this->assertNull($person->name());
+        $this->assertEmpty($person->name());
     }
 
     public function testItPassesAPortugueseName()

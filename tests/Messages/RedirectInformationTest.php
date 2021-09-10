@@ -25,7 +25,7 @@ class RedirectInformationTest extends BaseTestCase
 
         $this->assertNull($information->lastApprovedTransaction());
         $this->assertEquals('1495054597', $information->lastTransaction()->receipt());
-        $this->assertNull($information->lastAuthorization());
+        $this->assertEmpty($information->lastAuthorization());
     }
 
     public function testItParsesARestCreatedResponse()
@@ -43,7 +43,7 @@ class RedirectInformationTest extends BaseTestCase
         $this->assertEquals('1040035000', $information->request()->buyer()->document());
 
         $this->assertNull($information->lastApprovedTransaction());
-        $this->assertNull($information->lastAuthorization());
+        $this->assertEmpty($information->lastAuthorization());
         $this->assertNull($information->lastTransaction());
 
         $this->assertArrayHasKey('requestId', $information->toArray());
@@ -98,7 +98,6 @@ class RedirectInformationTest extends BaseTestCase
          */
         $token = $information->subscription()->parseInstrument();
         $this->assertInstanceOf(Token::class, $token);
-        $this->assertTrue($token->isSuccessful());
 
         $this->assertEquals('4b85ecd661bd6b2e1e69dbd42473c52ed9209c17f5157ede301fde94f66c5a2a', $token->token());
         $this->assertEquals('0751944147051111', $token->subtoken());
@@ -109,12 +108,6 @@ class RedirectInformationTest extends BaseTestCase
         $this->assertEquals(1, $token->installments());
 
         $this->assertEquals([
-            'status' => [
-                'status' => 'OK',
-                'reason' => '00',
-                'message' => 'Token generated successfully',
-                'date' => '2017-05-17T16:00:42-05:00',
-            ],
             'token' => '4b85ecd661bd6b2e1e69dbd42473c52ed9209c17f5157ede301fde94f66c5a2a',
             'subtoken' => '0751944147051111',
             'franchise' => 'CR_VS',

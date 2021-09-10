@@ -2,19 +2,21 @@
 
 namespace Tests\Messages;
 
+use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Message\RedirectResponse;
 use Tests\BaseTestCase;
 
 class RedirectResponseTest extends BaseTestCase
 {
-    public function testRedirectionResponseWithoutStatus()
+    public function testRedirectionResponse()
     {
         $carrierResponse = new RedirectResponse([
+            'status' => Status::quick(Status::ST_OK, '00'),
             'requestId' => rand(0, 100000),
             'processUrl' => 'http://localhost/payment/process',
         ]);
 
-        $this->assertFalse($carrierResponse->isSuccessful());
+        $this->assertTrue($carrierResponse->isSuccessful());
     }
 
     public function testRedirectionResponseWithStatus()

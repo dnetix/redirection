@@ -34,5 +34,6 @@ class NotificationTest extends BaseTestCase
 
         $this->assertTrue($notification->isValidNotification(), 'Its a valid notification');
         $this->assertEquals(Status::ST_REJECTED, $notification->status()->status());
+        $this->assertFalse($notification->isApproved());
     }
 }
