@@ -78,7 +78,7 @@ class Card extends Entity
         return $this->cvv;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'name' => $this->name(),

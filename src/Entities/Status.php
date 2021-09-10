@@ -16,20 +16,13 @@ class Status extends Entity
     public const ST_REFUNDED = 'REFUNDED';
     public const ST_ERROR = 'ERROR';
     public const ST_UNKNOWN = 'UNKNOWN';
-    /**
-     * @var string
-     */
-    protected $status;
-    /**
-     * @var string
-     */
-    protected $reason;
-    /**
-     * @var string
-     */
-    protected $message;
-    protected $date;
-    protected static $STATUSES = [
+
+    protected string $status;
+    protected string $reason;
+    protected string $message = '';
+    protected string $date = '';
+
+    protected static array $STATUSES = [
         self::ST_OK,
         self::ST_FAILED,
         self::ST_APPROVED,
@@ -42,62 +35,52 @@ class Status extends Entity
         self::ST_UNKNOWN,
     ];
 
-    public function __construct($data = [])
+    public function __construct(array $data)
     {
-        foreach ($data as $key => $value) {
-            $this->$key = $value;
-        }
+        $this->load($data, ['status', 'reason', 'message', 'date']);
     }
 
-    public function status()
+    public function status(): string
     {
-        if ($this->status) {
-            return $this->status;
-        }
-        return self::ST_ERROR;
+        return $this->status ?? self::ST_ERROR;
     }
 
-    public function reason()
+    public function reason(): string
     {
         return $this->reason;
     }
 
-    public function message()
+    public function message(): string
     {
         return $this->message;
     }
 
-    public function date()
+    public function date(): string
     {
         return $this->date;
     }
 
-    public function isFailed()
-    {
-        return $this->status() == self::ST_FAILED;
-    }
-
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return $this->status() == self::ST_OK;
     }
 
-    public function isApproved()
+    public function isApproved(): bool
     {
         return $this->status() == self::ST_APPROVED;
     }
 
-    public function isRejected()
+    public function isRejected(): bool
     {
         return $this->status() == self::ST_REJECTED;
     }
 
-    public function isError()
+    public function isError(): bool
     {
         return $this->status() == self::ST_ERROR;
     }
 
-    public static function validStatus($status = null)
+    public static function validStatus(string $status = '')
     {
         if ($status) {
             return in_array($status, self::$STATUSES);
@@ -105,7 +88,7 @@ class Status extends Entity
         return self::$STATUSES;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'status' => $this->status(),
@@ -113,5 +96,15 @@ class Status extends Entity
             'message' => $this->message(),
             'date' => $this->date(),
         ];
+    }
+
+    public static function quick(string $status, string $reason, string $message = '', string $date = ''): self
+    {
+        return new self([
+            'status' => $status,
+            'reason' => $reason,
+            'message' => $message,
+            'date' => $date ?: date('c'),
+        ]);
     }
 }

@@ -32,7 +32,7 @@ class NameValuePair extends Entity
         return $this->displayOn;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'keyword' => $this->keyword(),

@@ -5,43 +5,43 @@ namespace Dnetix\Redirection\Helpers;
 class DocumentHelper
 {
     // Colombia Documents
-    const TYPE_CC = 'CC';
-    const TYPE_CE = 'CE';
-    const TYPE_TI = 'TI';
-    const TYPE_RC = 'RC';
-    const TYPE_NIT = 'NIT';
-    const TYPE_RUT = 'RUT';
+    public const TYPE_CC = 'CC';
+    public const TYPE_CE = 'CE';
+    public const TYPE_TI = 'TI';
+    public const TYPE_RC = 'RC';
+    public const TYPE_NIT = 'NIT';
+    public const TYPE_RUT = 'RUT';
 
     // Generic Documents
-    const TYPE_PPN = 'PPN';
-    const TYPE_TAX = 'TAX';
-    const TYPE_LIC = 'LIC';
-    const TYPE_CD = 'CD';
+    public const TYPE_PPN = 'PPN';
+    public const TYPE_TAX = 'TAX';
+    public const TYPE_LIC = 'LIC';
+    public const TYPE_CD = 'CD';
 
     // USA Documents
-    const TYPE_SSN = 'SSN';
+    public const TYPE_SSN = 'SSN';
 
     // Panama Documents
-    const TYPE_CIP = 'CIP';
+    public const TYPE_CIP = 'CIP';
 
     // Brazil Documents
-    const TYPE_CPF = 'CPF';
+    public const TYPE_CPF = 'CPF';
 
     // Ecuador Documents
-    const TYPE_CI = 'CI';
-    const TYPE_RUC = 'RUC';
+    public const TYPE_CI = 'CI';
+    public const TYPE_RUC = 'RUC';
 
     // Peru Documents
-    const TYPE_DNI = 'DNI';
+    public const TYPE_DNI = 'DNI';
 
     // Costa Rica Documents
-    const TYPE_CRCPF = 'CRCPF';    // Cédula personal física
-    const TYPE_CPJ = 'CPJ';    // Cedula personal juridica
-    const TYPE_DIMEX = 'DIMEX';    // Documento de identificación de Migración y Extranjería
-    const TYPE_DIDI = 'DIDI';    // Documento de identificación de diplomáticos
+    public const TYPE_CRCPF = 'CRCPF';    // Cédula personal física
+    public const TYPE_CPJ = 'CPJ';    // Cedula personal juridica
+    public const TYPE_DIMEX = 'DIMEX';    // Documento de identificación de Migración y Extranjería
+    public const TYPE_DIDI = 'DIDI';    // Documento de identificación de diplomáticos
 
     // Chile Documents
-    const TYPE_CLRUT = 'CLRUT'; // Rol Único Tributario
+    public const TYPE_CLRUT = 'CLRUT'; // Rol Único Tributario
 
     protected static $DOCUMENT_TYPES = [
         self::TYPE_CC,
@@ -116,7 +116,7 @@ class DocumentHelper
     }
 
     /**
-     * Checks if a document is a business one or returns an array of business documents
+     * Checks if a document is a business one or returns an array of business documents.
      * @param string $document
      * @return bool|string[]
      */

@@ -60,7 +60,7 @@ class Account extends Entity
         return '_' . $this->bankCode() . '_';
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return array_filter([
             'status' => $this->status() ? $this->status()->toArray() : null,

@@ -26,7 +26,7 @@ class AmountDetail extends Entity
         return $this->amount;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'kind' => $this->kind(),

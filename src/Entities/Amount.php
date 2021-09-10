@@ -111,7 +111,7 @@ class Amount extends AmountBase
         return null;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter(array_merge([
             'taxes' => $this->taxesToArray(),

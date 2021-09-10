@@ -71,7 +71,7 @@ class Recurring extends Entity
         return $this->notificationUrl;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'periodicity' => $this->periodicity(),

@@ -4,66 +4,56 @@ namespace Dnetix\Redirection\Message;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\Status;
-use Dnetix\Redirection\Traits\LoaderTrait;
 use Dnetix\Redirection\Traits\StatusTrait;
 
 class Notification extends Entity
 {
-    use LoaderTrait;
     use StatusTrait;
-    protected $requestId;
-    protected $reference;
-    protected $signature;
-    private $tranKey;
 
-    public function __construct($data = [], $tranKey = '')
+    protected string $requestId;
+    protected string $reference;
+    protected string $signature;
+
+    private string $tranKey;
+
+    public function __construct(array $data, string $tranKey)
     {
         $this->load($data, ['requestId', 'reference', 'signature']);
-        $this->setStatus($data['status']);
+        $this->loadEntity($data['status'], 'status', Status::class);
 
         $this->tranKey = $tranKey;
     }
 
-    public function requestId()
+    public function requestId(): string
     {
         return $this->requestId;
     }
 
-    public function reference()
+    public function reference(): string
     {
         return $this->reference;
     }
 
-    public function signature()
+    public function signature(): string
     {
         return $this->signature;
     }
 
-    public function makeSignature()
+    public function makeSignature(): string
     {
         return sha1($this->requestId() . $this->status()->status() . $this->status()->date() . $this->tranKey);
     }
 
-    public function isValidNotification()
+    public function isValidNotification(): bool
     {
         return $this->signature() == $this->makeSignature();
-    }
-
-    public function isApproved()
-    {
-        return $this->status()->status() == Status::ST_APPROVED;
-    }
-
-    public function isRejected()
-    {
-        return $this->status()->status() == Status::ST_REJECTED;
     }
 
     /**
      * Extracts the information for the entity.
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'status' => $this->status() ? $this->status()->toArray() : null,

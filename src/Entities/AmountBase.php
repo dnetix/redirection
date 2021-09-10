@@ -26,7 +26,7 @@ class AmountBase extends Entity
         return $this->total;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'currency' => $this->currency(),

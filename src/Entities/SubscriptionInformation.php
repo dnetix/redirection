@@ -3,54 +3,42 @@
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
+use Dnetix\Redirection\Traits\StatusTrait;
 
 class SubscriptionInformation extends Entity
 {
+    use StatusTrait;
+
     /**
      * The type of this subscription could be token or account for the time being.
-     * @var string
      */
-    public $type;
-    /**
-     * @var Status
-     */
-    public $status;
+    public string $type;
     /**
      * @var NameValuePair[]
      */
     public $instrument;
 
-    public function __construct($data)
+    public function __construct(array $data)
     {
-        if (isset($data['type'])) {
-            $this->type = $data['type'];
-        }
-
-        if (isset($data['status'])) {
-            $this->setStatus($data['status']);
-        }
+        $this->type = $data['type'] ?? '';
+        $this->loadEntity($data['status'], 'status', Status::class);
 
         if (isset($data['instrument'])) {
             $this->setInstrument($data['instrument']);
         }
     }
 
-    public function type()
+    public function type(): string
     {
         return $this->type;
     }
 
-    public function status()
-    {
-        return $this->status;
-    }
-
-    public function instrument()
+    public function instrument(): array
     {
         return $this->instrument;
     }
 
-    public function setInstrument($instrumentData)
+    public function setInstrument($instrumentData): self
     {
         $this->instrument = [];
         if (isset($instrumentData['item'])) {
@@ -69,7 +57,7 @@ class SubscriptionInformation extends Entity
         return $this;
     }
 
-    public function instrumentToArray()
+    public function instrumentToArray(): array
     {
         if ($this->instrument()) {
             $instrument = [];
@@ -78,7 +66,7 @@ class SubscriptionInformation extends Entity
             }
             return $instrument;
         }
-        return null;
+        return [];
     }
 
     /**
@@ -108,7 +96,7 @@ class SubscriptionInformation extends Entity
         return null;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return array_filter([
             'type' => $this->type(),

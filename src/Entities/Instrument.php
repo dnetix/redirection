@@ -6,78 +6,55 @@ use Dnetix\Redirection\Contracts\Entity;
 
 class Instrument extends Entity
 {
-    /**
-     * @var Bank
-     */
-    protected $bank;
-    /**
-     * @var Card
-     */
-    protected $card;
-    /**
-     * @var Token
-     */
-    protected $token;
-    /**
-     * @var Credit
-     */
-    protected $credit;
-    protected $pin;
-    protected $password;
+    protected ?Bank $bank = null;
+    protected ?Card $card = null;
+    protected ?Token $token = null;
+    protected ?Credit $credit = null;
+    protected string $pin;
+    protected string $password;
 
     public function __construct($data = [])
     {
-        if (isset($data['bank'])) {
-            $this->setBank($data['bank']);
-        }
-        if (isset($data['card'])) {
-            $this->setCard($data['card']);
-        }
-        if (isset($data['credit'])) {
-            $this->setCredit($data['credit']);
-        }
-        if (isset($data['token'])) {
-            $this->setToken($data['token']);
-        }
-        if (isset($data['pin'])) {
-            $this->pin = $data['pin'];
-        }
-        if (isset($data['password'])) {
-            $this->password = $data['password'];
-        }
+        $this->loadEntity($data['bank'] ?? null, 'bank', Bank::class);
+        $this->loadEntity($data['card'] ?? null, 'card', Card::class);
+        $this->loadEntity($data['credit'] ?? null, 'credit', Credit::class);
+        $this->loadEntity($data['token'] ?? null, 'token', Token::class);
+
+        $this->pin = $data['pin'] ?? '';
+        $this->password = $data['password'] ?? '';
     }
 
-    public function bank()
+    public function bank(): ?Bank
     {
         return $this->bank;
     }
 
-    public function card()
+    public function card(): ?Card
     {
         return $this->card;
     }
 
-    public function credit()
+    public function credit(): ?Credit
     {
         return $this->credit;
     }
 
-    public function token()
+    public function token(): ?Token
     {
         return $this->token;
     }
 
-    public function pin()
+    public function pin(): string
     {
         return $this->pin;
     }
 
-    public function password()
+    public function password(): string
     {
         return $this->password;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'bank' => $this->bank() ? $this->bank()->toArray() : null,

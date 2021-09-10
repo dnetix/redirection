@@ -32,7 +32,7 @@ class TaxDetail extends Entity
         return $this->base;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'kind' => $this->kind(),

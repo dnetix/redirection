@@ -3,49 +3,44 @@
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
-use Dnetix\Redirection\Traits\LoaderTrait;
 
 class Credit extends Entity
 {
-    use LoaderTrait;
-
-    protected $code;
-    protected $type;
-    protected $groupCode;
+    protected string $code;
+    protected string $type;
+    protected string $groupCode;
     /**
      * When first created from the service.
      * @var int
      */
-    protected $installment;
+    protected int $installment;
 
-    public function __construct($data)
+    public function __construct(array $data = [])
     {
         $this->load($data, ['code', 'type', 'groupCode', 'installment']);
-
-        parent::__construct($data);
     }
 
-    public function code()
+    public function code(): string
     {
         return $this->code;
     }
 
-    public function type()
+    public function type(): string
     {
         return $this->type;
     }
 
-    public function groupCode()
+    public function groupCode(): string
     {
         return $this->groupCode;
     }
 
-    public function installment()
+    public function installment(): int
     {
         return $this->installment;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'code' => $this->code(),

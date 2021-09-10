@@ -31,7 +31,7 @@ class Subscription extends Entity
         return $this->description;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'reference' => $this->reference(),

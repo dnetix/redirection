@@ -34,7 +34,7 @@ class Bank extends Entity
         return $this->name;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'interface' => $this->interface,

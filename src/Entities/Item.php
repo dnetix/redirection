@@ -50,7 +50,7 @@ class Item extends Entity
         return $this->tax;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'sku' => $this->sku(),

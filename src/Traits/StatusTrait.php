@@ -9,12 +9,9 @@ trait StatusTrait
     /**
      * @var Status
      */
-    protected $status;
+    protected Status $status;
 
-    /**
-     * @return Status
-     */
-    public function status()
+    public function status(): Status
     {
         if ($this->status instanceof Status) {
             return $this->status;
@@ -25,5 +22,20 @@ trait StatusTrait
             'message' => 'No response status was provisioned',
             'reason' => '',
         ]);
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->status()->status() == Status::ST_APPROVED;
+    }
+
+    public function isSuccessful(): bool
+    {
+        return !in_array($this->status()->status(), [Status::ST_ERROR, Status::ST_FAILED]);
+    }
+
+    public function isRejected(): bool
+    {
+        return $this->status()->status() == Status::ST_REJECTED;
     }
 }
