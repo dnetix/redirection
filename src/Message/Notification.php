@@ -9,7 +9,8 @@ use Dnetix\Redirection\Traits\StatusTrait;
 
 class Notification extends Entity
 {
-    use LoaderTrait, StatusTrait;
+    use LoaderTrait;
+    use StatusTrait;
     protected $requestId;
     protected $reference;
     protected $signature;

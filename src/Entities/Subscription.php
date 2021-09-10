@@ -8,7 +8,8 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 
 class Subscription extends Entity
 {
-    use FieldsTrait, LoaderTrait;
+    use FieldsTrait;
+    use LoaderTrait;
     protected $reference;
     protected $description;
 

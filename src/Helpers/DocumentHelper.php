@@ -5,45 +5,45 @@ namespace Dnetix\Redirection\Helpers;
 class DocumentHelper
 {
     // Colombia Documents
-    const TYPE_CC = 'CC';
-    const TYPE_CE = 'CE';
-    const TYPE_TI = 'TI';
-    const TYPE_RC = 'RC';
-    const TYPE_NIT = 'NIT';
-    const TYPE_RUT = 'RUT';
+    public const TYPE_CC = 'CC';
+    public const TYPE_CE = 'CE';
+    public const TYPE_TI = 'TI';
+    public const TYPE_RC = 'RC';
+    public const TYPE_NIT = 'NIT';
+    public const TYPE_RUT = 'RUT';
 
     // Generic Documents
-    const TYPE_PPN = 'PPN';
-    const TYPE_TAX = 'TAX';
-    const TYPE_LIC = 'LIC';
+    public const TYPE_PPN = 'PPN';
+    public const TYPE_TAX = 'TAX';
+    public const TYPE_LIC = 'LIC';
 
     // Carnet Diplomatico
-    const TYPE_CD = 'CD';
+    public const TYPE_CD = 'CD';
 
     // USA Documents
-    const TYPE_SSN = 'SSN';
+    public const TYPE_SSN = 'SSN';
 
     // Panama Documents
-    const TYPE_CIP = 'CIP';
+    public const TYPE_CIP = 'CIP';
 
     // Brazil Documents
-    const TYPE_CPF = 'CPF';
+    public const TYPE_CPF = 'CPF';
 
     // Ecuador Documents
-    const TYPE_CI = 'CI';
-    const TYPE_RUC = 'RUC';
+    public const TYPE_CI = 'CI';
+    public const TYPE_RUC = 'RUC';
 
     // Peru Documents
-    const TYPE_DNI = 'DNI';
+    public const TYPE_DNI = 'DNI';
 
     // Costa Rica Documents
-    const TYPE_CRCPF = 'CRCPF';
-    const TYPE_CPJ = 'CPJ';
-    const TYPE_DIMEX = 'DIMEX';
-    const TYPE_DIDI = 'DIDI';
+    public const TYPE_CRCPF = 'CRCPF';
+    public const TYPE_CPJ = 'CPJ';
+    public const TYPE_DIMEX = 'DIMEX';
+    public const TYPE_DIDI = 'DIDI';
 
     // Chile Documents
-    const TYPE_CLRUT = 'CLRUT';
+    public const TYPE_CLRUT = 'CLRUT';
 
     protected static $DOCUMENT_TYPES = [
         self::TYPE_CC,

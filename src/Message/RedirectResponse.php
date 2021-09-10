@@ -9,7 +9,8 @@ use Dnetix\Redirection\Traits\StatusTrait;
 
 class RedirectResponse extends Entity
 {
-    use LoaderTrait, StatusTrait;
+    use LoaderTrait;
+    use StatusTrait;
     /**
      * @var string
      */

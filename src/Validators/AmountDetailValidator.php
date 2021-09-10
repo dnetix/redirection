@@ -6,16 +6,16 @@ use Dnetix\Redirection\Entities\AmountDetail;
 
 class AmountDetailValidator extends BaseValidator
 {
-    const TP_DISCOUNT = 'discount';
-    const TP_ADDITIONAL = 'additional';
-    const TP_DEVOLUTION_BASE = 'vatDevolutionBase';
-    const TP_SHIPPING = 'shipping';
-    const TP_HANDLING_FEE = 'handlingFee';
-    const TP_INSURANCE = 'insurance';
-    const TP_GIFT_WRAP = 'giftWrap';
-    const TP_SUBTOTAL = 'subtotal';
-    const TP_FEE = 'fee';
-    const TP_TIP = 'tip';
+    public const TP_DISCOUNT = 'discount';
+    public const TP_ADDITIONAL = 'additional';
+    public const TP_DEVOLUTION_BASE = 'vatDevolutionBase';
+    public const TP_SHIPPING = 'shipping';
+    public const TP_HANDLING_FEE = 'handlingFee';
+    public const TP_INSURANCE = 'insurance';
+    public const TP_GIFT_WRAP = 'giftWrap';
+    public const TP_SUBTOTAL = 'subtotal';
+    public const TP_FEE = 'fee';
+    public const TP_TIP = 'tip';
     public static $TYPES = [
         self::TP_DISCOUNT,
         self::TP_ADDITIONAL,

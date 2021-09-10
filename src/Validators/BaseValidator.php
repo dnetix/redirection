@@ -7,8 +7,8 @@ use Dnetix\Redirection\Exceptions\ValidationFailException;
 
 class BaseValidator
 {
-    const PATTERN_REFERENCE = '/^[\d\w\-\.,\$#\/\\\'!\| ]{1,32}$/';
-    const PATTERN_DESCRIPTION = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\s\d\.,\$#\&\-\_(\)\/\%\+\\\':;\|\@]{2,250}$/i';
+    public const PATTERN_REFERENCE = '/^[\d\w\-\.,\$#\/\\\'!\| ]{1,32}$/';
+    public const PATTERN_DESCRIPTION = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\s\d\.,\$#\&\-\_(\)\/\%\+\\\':;\|\@]{2,250}$/i';
 
     public static function isValidIp($ip)
     {

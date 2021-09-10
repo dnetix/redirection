@@ -7,17 +7,17 @@ use Dnetix\Redirection\Helpers\DocumentHelper;
 
 class PersonValidator extends Country
 {
-    const PATTERN_NAME = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã][a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\'\.\&\-\d ]{1,60}$/i';
-    const PATTERN_SURNAME = self::PATTERN_NAME;
-    const PATTERN_EMAIL = '/^([a-zA-Z0-9_\.\-])+[^\.\-\ ]\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/';
-    const PATTERN_MOBILE = PhoneNumber::VALIDATION_PATTERN;
+    public const PATTERN_NAME = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã][a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\'\.\&\-\d ]{1,60}$/i';
+    public const PATTERN_SURNAME = self::PATTERN_NAME;
+    public const PATTERN_EMAIL = '/^([a-zA-Z0-9_\.\-])+[^\.\-\ ]\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/';
+    public const PATTERN_MOBILE = PhoneNumber::VALIDATION_PATTERN;
     // Address Patterns
-    const PATTERN_CITY = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\'\. ]{2,50}$/i';
-    const PATTERN_STATE = self::PATTERN_NAME;
-    const PATTERN_STREET = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\'\.\,\&\-\#\_\s\d\(\)]{2,250}$/i';
-    const PATTERN_PHONE = PhoneNumber::VALIDATION_PATTERN;
-    const PATTERN_POSTALCODE = '/^[0-9]{4,8}$/';
-    const PATTERN_COUNTRY = '/^[A-Z]{2}$/';
+    public const PATTERN_CITY = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\'\. ]{2,50}$/i';
+    public const PATTERN_STATE = self::PATTERN_NAME;
+    public const PATTERN_STREET = '/^[a-zñáéíóúäëïöüàèìòùÑÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÇçÃã\'\.\,\&\-\#\_\s\d\(\)]{2,250}$/i';
+    public const PATTERN_PHONE = PhoneNumber::VALIDATION_PATTERN;
+    public const PATTERN_POSTALCODE = '/^[0-9]{4,8}$/';
+    public const PATTERN_COUNTRY = '/^[A-Z]{2}$/';
 
     public static function getPattern($field, $cleanLimiters = false)
     {

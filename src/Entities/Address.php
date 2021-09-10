@@ -8,8 +8,8 @@ use Dnetix\Redirection\Validators\AddressValidator;
 
 class Address extends Entity
 {
-    protected $validator = AddressValidator::class;
     use LoaderTrait;
+    protected $validator = AddressValidator::class;
     protected $street;
     protected $city;
     protected $state;

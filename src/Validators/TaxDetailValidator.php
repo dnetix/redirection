@@ -6,8 +6,8 @@ use Dnetix\Redirection\Entities\TaxDetail;
 
 class TaxDetailValidator extends BaseValidator
 {
-    const TP_IVA = 'valueAddedTax';
-    const TP_IPO = 'exciseDuty';
+    public const TP_IVA = 'valueAddedTax';
+    public const TP_IPO = 'exciseDuty';
     public static $TYPES = [
         self::TP_IVA,
         self::TP_IPO,

@@ -11,7 +11,8 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 
 class CollectRequest extends Entity
 {
-    use LoaderTrait, FieldsTrait;
+    use LoaderTrait;
+    use FieldsTrait;
     protected $locale = 'es_CO';
     /**
      * @var Person

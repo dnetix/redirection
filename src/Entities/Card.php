@@ -8,9 +8,9 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 class Card extends Entity
 {
     use LoaderTrait;
-    const TP_CREDIT = 'C';
-    const TP_DEBIT_SAVINGS = 'A';
-    const TP_DEBIT_CURRENT = 'R';
+    public const TP_CREDIT = 'C';
+    public const TP_DEBIT_SAVINGS = 'A';
+    public const TP_DEBIT_CURRENT = 'R';
     protected $name;
     private $number;
     private $cvv;

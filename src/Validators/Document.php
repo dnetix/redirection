@@ -7,13 +7,13 @@ namespace Dnetix\Redirection\Validators;
  */
 class Document
 {
-    const TYPE_CC = 'CC';
-    const TYPE_CE = 'CE';
-    const TYPE_NIT = 'NIT';
-    const TYPE_RUT = 'RUT';
-    const TYPE_TI = 'TI';
-    const TYPE_SSN = 'SSN';
-    const TYPE_PPN = 'PPN';
+    public const TYPE_CC = 'CC';
+    public const TYPE_CE = 'CE';
+    public const TYPE_NIT = 'NIT';
+    public const TYPE_RUT = 'RUT';
+    public const TYPE_TI = 'TI';
+    public const TYPE_SSN = 'SSN';
+    public const TYPE_PPN = 'PPN';
 
     protected static $DOCUMENT_TYPES = [
         self::TYPE_CC,

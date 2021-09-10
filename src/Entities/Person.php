@@ -9,8 +9,8 @@ use Dnetix\Redirection\Validators\PersonValidator;
 
 class Person extends Entity
 {
-    protected $validator = PersonValidator::class;
     use LoaderTrait;
+    protected $validator = PersonValidator::class;
     protected $document;
     protected $documentType;
     protected $name;

@@ -9,8 +9,9 @@ use Dnetix\Redirection\Validators\PaymentValidator;
 
 class Payment extends Entity
 {
+    use FieldsTrait;
+    use LoaderTrait;
     protected $validator = PaymentValidator::class;
-    use FieldsTrait, LoaderTrait;
     protected $reference;
     protected $description;
     /**

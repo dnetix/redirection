@@ -6,9 +6,9 @@ use Dnetix\Redirection\Entities\Recurring;
 
 class RecurringValidator extends BaseValidator
 {
-    const PERIOD_DAY = 'D';
-    const PERIOD_MONTH = 'M';
-    const PERIOD_YEAR = 'Y';
+    public const PERIOD_DAY = 'D';
+    public const PERIOD_MONTH = 'M';
+    public const PERIOD_YEAR = 'Y';
     public static $PERIODS = [
         self::PERIOD_DAY,
         self::PERIOD_MONTH,

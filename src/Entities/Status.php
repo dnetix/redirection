@@ -6,16 +6,16 @@ use Dnetix\Redirection\Contracts\Entity;
 
 class Status extends Entity
 {
-    const ST_OK = 'OK';
-    const ST_FAILED = 'FAILED';
-    const ST_APPROVED = 'APPROVED';
-    const ST_APPROVED_PARTIAL = 'APPROVED_PARTIAL';
-    const ST_REJECTED = 'REJECTED';
-    const ST_PENDING = 'PENDING';
-    const ST_PENDING_VALIDATION = 'PENDING_VALIDATION';
-    const ST_REFUNDED = 'REFUNDED';
-    const ST_ERROR = 'ERROR';
-    const ST_UNKNOWN = 'UNKNOWN';
+    public const ST_OK = 'OK';
+    public const ST_FAILED = 'FAILED';
+    public const ST_APPROVED = 'APPROVED';
+    public const ST_APPROVED_PARTIAL = 'APPROVED_PARTIAL';
+    public const ST_REJECTED = 'REJECTED';
+    public const ST_PENDING = 'PENDING';
+    public const ST_PENDING_VALIDATION = 'PENDING_VALIDATION';
+    public const ST_REFUNDED = 'REFUNDED';
+    public const ST_ERROR = 'ERROR';
+    public const ST_UNKNOWN = 'UNKNOWN';
     /**
      * @var string
      */

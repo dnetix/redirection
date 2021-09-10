@@ -4,7 +4,6 @@ namespace Dnetix\Redirection\Message;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\DispersionPayment;
-use Dnetix\Redirection\Entities\Payment;
 use Dnetix\Redirection\Entities\Person;
 use Dnetix\Redirection\Entities\Subscription;
 use Dnetix\Redirection\Traits\FieldsTrait;
@@ -12,7 +11,8 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 
 class RedirectRequest extends Entity
 {
-    use LoaderTrait, FieldsTrait;
+    use LoaderTrait;
+    use FieldsTrait;
     protected $locale = 'es_CO';
     /**
      * @var Person

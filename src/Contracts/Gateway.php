@@ -12,8 +12,8 @@ use Dnetix\Redirection\Message\ReverseResponse;
 
 abstract class Gateway
 {
-    const TP_SOAP = 'soap';
-    const TP_REST = 'rest';
+    public const TP_SOAP = 'soap';
+    public const TP_REST = 'rest';
     protected $type = self::TP_REST;
     protected $carrier = null;
     protected $config;

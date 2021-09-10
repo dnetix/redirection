@@ -4,14 +4,14 @@ namespace Dnetix\Redirection\Validators;
 
 class CardValidator
 {
-    const VISA = 'visa';
-    const VISA_ELECTRON = 'visa_electron';
-    const AMEX = 'amex';
-    const MASTERCARD = 'master';
-    const CODENSA = 'codensa';
-    const DINERS = 'diners';
-    const JBC = 'jbc';
-    const DISCOVER = 'discover';
+    public const VISA = 'visa';
+    public const VISA_ELECTRON = 'visa_electron';
+    public const AMEX = 'amex';
+    public const MASTERCARD = 'master';
+    public const CODENSA = 'codensa';
+    public const DINERS = 'diners';
+    public const JBC = 'jbc';
+    public const DISCOVER = 'discover';
     public static $PATTERNS = [
         self::VISA_ELECTRON => '/^(4026|417500|4508|4844|491(3|7))/',
         self::VISA => '/^4([0-9]{12}|[0-9]{15})$/',
