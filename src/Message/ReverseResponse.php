@@ -10,36 +10,21 @@ use Dnetix\Redirection\Traits\StatusTrait;
 class ReverseResponse extends Entity
 {
     use StatusTrait;
-    /**
-     * @var Transaction
-     */
-    public $payment;
 
-    public function status()
-    {
-        return $this->status;
-    }
+    public Transaction $payment;
 
-    public function payment()
+    public function payment(): ?Transaction
     {
         return $this->payment;
     }
 
     public function __construct($data = [])
     {
-        $this->setStatus($data['status']);
-
-        if (isset($data['payment'])) {
-            $this->setPayment($data['payment']);
-        }
+        $this->loadEntity($data['status'] ?? null, 'status', Status::class);
+        $this->loadEntity($data['payment'] ?? null, 'payment', Transaction::class);
     }
 
-    public function isSuccessful()
-    {
-        return $this->status()->status() != Status::ST_ERROR;
-    }
-
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'status' => $this->status() ? $this->status()->toArray() : null,
