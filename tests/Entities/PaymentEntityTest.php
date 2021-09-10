@@ -12,7 +12,7 @@ class PaymentEntityTest extends BaseTestCase
     public function testItAddsAField()
     {
         $payment = new Payment();
-        $this->assertNull($payment->fields());
+        $this->assertEmpty($payment->fields());
 
         $payment->addField(['keyword' => 'testing', 'value' => 'value']);
         $this->assertEquals(1, count($payment->fields()));

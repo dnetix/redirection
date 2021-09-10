@@ -9,34 +9,32 @@ trait FieldsTrait
     /**
      * @var NameValuePair[]
      */
-    protected $fields;
+    protected array $fields = [];
 
     /**
      * @return NameValuePair[]
      */
-    public function fields()
+    public function fields(): array
     {
         return $this->fields;
     }
 
-    public function setFields($fieldsData)
+    public function setFields(array $fieldsData)
     {
-        if (is_array($fieldsData)) {
-            $this->fields = [];
-            foreach ($fieldsData as $nvp) {
-                if (is_array($nvp)) {
-                    $nvp = new NameValuePair($nvp);
-                }
+        $this->fields = [];
+        foreach ($fieldsData as $nvp) {
+            if (is_array($nvp)) {
+                $nvp = new NameValuePair($nvp);
+            }
 
-                if ($nvp instanceof NameValuePair) {
-                    $this->fields[] = $nvp;
-                }
+            if ($nvp instanceof NameValuePair) {
+                $this->fields[] = $nvp;
             }
         }
         return $this;
     }
 
-    public function fieldsToArray()
+    public function fieldsToArray(): array
     {
         if ($this->fields()) {
             $fields = [];
@@ -45,10 +43,10 @@ trait FieldsTrait
             }
             return $fields;
         }
-        return null;
+        return [];
     }
 
-    public function fieldsToKeyValue($nvps = null)
+    public function fieldsToKeyValue($nvps = null): array
     {
         if (!$nvps) {
             $nvps = $this->fields();
@@ -61,10 +59,11 @@ trait FieldsTrait
             }
             return $fields;
         }
-        return null;
+
+        return [];
     }
 
-    public function addField($nvp)
+    public function addField($nvp): self
     {
         if (is_array($nvp)) {
             $nvp = new NameValuePair($nvp);
