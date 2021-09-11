@@ -8,13 +8,13 @@ use PHPUnit\Framework\TestCase;
 
 class BaseTestCase extends TestCase
 {
-    public function getGateway($data = []): Gateway
+    public function getGateway($overrides = []): PlacetoPay
     {
         return new PlacetoPay(array_merge([
-            'login' => getenv('P2P_LOGIN'),
-            'tranKey' => getenv('P2P_TRANKEY'),
-            'url' => getenv('P2P_URL'),
-        ], $data));
+            'login' => 'not_the_real_login_obviously',
+            'tranKey' => 'kXf6FDYdQTH4dhwWs3Ue',
+            'url' => 'https://checkout-test.placetopay.com',
+        ], $overrides));
     }
 
     /**
