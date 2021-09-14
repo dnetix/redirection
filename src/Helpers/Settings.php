@@ -2,6 +2,7 @@
 
 namespace Dnetix\Redirection\Helpers;
 
+use Dnetix\Redirection\Carrier\Authentication;
 use Dnetix\Redirection\Carrier\RestCarrier;
 use Dnetix\Redirection\Carrier\SoapCarrier;
 use Dnetix\Redirection\Contracts\Carrier;
@@ -40,11 +41,12 @@ class Settings extends Entity
             throw PlacetoPayException::forDataNotProvided('No login or tranKey provided on gateway');
         }
 
-        if (isset($data['baseUrl']) && !filter_var($data['baseUrl'], FILTER_VALIDATE_URL)) {
-            if (substr($data['baseUrl'], -1) != '/') {
-                $data['baseUrl'] .= '/';
-            }
+        if (!isset($data['baseUrl']) || !filter_var($data['baseUrl'], FILTER_VALIDATE_URL)) {
             throw PlacetoPayException::forDataNotProvided('No service URL provided to use');
+        }
+
+        if (substr($data['baseUrl'], -1) != '/') {
+            $data['baseUrl'] .= '/';
         }
 
         if (isset($data['type']) && in_array($data['type'], [self::TP_SOAP, self::TP_REST])) {
@@ -61,16 +63,16 @@ class Settings extends Entity
             'login',
             'tranKey',
             'headers',
-            'carrier',
+            'client',
         ];
 
         $this->load($data, $allowedKeys);
         $this->logger = new Logger($data['logger'] ?? null);
     }
 
-    public function baseUrl(): string
+    public function baseUrl(string $endpoint = ''): string
     {
-        return $this->baseUrl;
+        return $this->baseUrl . $endpoint;
     }
 
     public function wsdl(): string
@@ -93,9 +95,25 @@ class Settings extends Entity
         return $this->verifySsl;
     }
 
+    public function login(): string
+    {
+        return $this->login;
+    }
+
     public function tranKey(): string
     {
         return $this->tranKey;
+    }
+
+    public function client(): Client
+    {
+        if (!$this->client) {
+            $this->client = new Client([
+                'timeout' => $this->timeout(),
+                'connect_timeout' => $this->timeout(),
+            ]);
+        }
+        return $this->client;
     }
 
     public function logger(): Logger
@@ -108,7 +126,7 @@ class Settings extends Entity
         return [];
     }
 
-    private function carrier(): Carrier
+    public function carrier(): Carrier
     {
         if ($this->carrier instanceof Carrier) {
             return $this->carrier;
@@ -121,5 +139,13 @@ class Settings extends Entity
         }
 
         return $this->carrier;
+    }
+
+    public function authentication(): array
+    {
+        return (new Authentication([
+            'login' => $this->login(),
+            'tranKey' => $this->tranKey(),
+        ]))->asArray();
     }
 }
