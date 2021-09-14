@@ -5,6 +5,7 @@ namespace Dnetix\Redirection\Carrier;
 use Dnetix\Redirection\Contracts\Carrier;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
+use Dnetix\Redirection\Helpers\Settings;
 use Dnetix\Redirection\Message\CollectRequest;
 use Dnetix\Redirection\Message\RedirectInformation;
 use Dnetix\Redirection\Message\RedirectRequest;
@@ -18,9 +19,9 @@ class RestCarrier extends Carrier
 {
     protected $baseUrl;
 
-    public function __construct(Authentication $auth, $config)
+    public function __construct(Settings $settings)
     {
-        parent::__construct($auth, $config);
+        parent::__construct($settings);
 
         if (!isset($config['url'])) {
             throw new PlacetoPayException('Base URL not found for this');
