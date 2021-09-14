@@ -74,16 +74,8 @@ class PlacetoPay
         return $this->settings->carrier()->reverse($internalReference);
     }
 
-    public function readNotification(array $data = []): Notification
+    public function readNotification(array $data): Notification
     {
-        if (!$data) {
-            try {
-                $data = json_decode(file_get_contents('php://input'), true);
-            } catch (\Exception $e) {
-                throw new PlacetoPayException('Error constructing the information from the input');
-            }
-        }
-
         return new Notification($data, $this->settings->tranKey());
     }
 }
