@@ -105,6 +105,11 @@ class Settings extends Entity
         return $this->tranKey;
     }
 
+    public function headers(): array
+    {
+        return $this->headers;
+    }
+
     public function client(): Client
     {
         if (!$this->client) {

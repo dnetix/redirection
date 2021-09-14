@@ -21,6 +21,7 @@ class RestCarrier extends Carrier
             $data = array_merge($arguments, ['auth' => $this->settings->authentication()]);
             $response = $this->settings->client()->post($url, [
                 'json' => $data,
+                'headers' => $this->settings->headers(),
             ]);
             $result = $response->getBody()->getContents();
         } catch (BadResponseException $exception) {
