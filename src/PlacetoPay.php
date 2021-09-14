@@ -35,7 +35,7 @@ class PlacetoPay
             throw PlacetoPayException::forDataNotProvided('Wrong class request');
         }
 
-        return $this->carrier()->request($redirectRequest);
+        return $this->settings->carrier()->request($redirectRequest);
     }
 
     /**
@@ -44,7 +44,7 @@ class PlacetoPay
      */
     public function query($requestId)
     {
-        return $this->carrier()->query($requestId);
+        return $this->settings->carrier()->query($requestId);
     }
 
     /**
@@ -62,7 +62,7 @@ class PlacetoPay
             throw new PlacetoPayException('Wrong collect request');
         }
 
-        return $this->carrier()->collect($collectRequest);
+        return $this->settings->carrier()->collect($collectRequest);
     }
 
     /**
@@ -71,7 +71,7 @@ class PlacetoPay
      */
     public function reverse($internalReference)
     {
-        return $this->carrier()->reverse($internalReference);
+        return $this->settings->carrier()->reverse($internalReference);
     }
 
     public function readNotification(array $data = []): Notification
