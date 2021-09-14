@@ -5,122 +5,62 @@ namespace Dnetix\Redirection\Carrier;
 use Dnetix\Redirection\Contracts\Carrier;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
-use Dnetix\Redirection\Helpers\Settings;
 use Dnetix\Redirection\Message\CollectRequest;
 use Dnetix\Redirection\Message\RedirectInformation;
 use Dnetix\Redirection\Message\RedirectRequest;
 use Dnetix\Redirection\Message\RedirectResponse;
 use Dnetix\Redirection\Message\ReverseResponse;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Exception\BadResponseException;
+use Throwable;
 
 class RestCarrier extends Carrier
 {
-    protected $baseUrl;
-
-    public function __construct(Settings $settings)
-    {
-        parent::__construct($settings);
-
-        if (!isset($config['url'])) {
-            throw new PlacetoPayException('Base URL not found for this');
-        }
-
-        $this->baseUrl = $config['url'];
-    }
-
-    /**
-     * @param $method
-     * @param $url
-     * @param $arguments
-     * @return array|mixed
-     */
-    private function makeRequest($method, $url, $arguments)
+    private function makeRequest(string $url, array $arguments): array
     {
         try {
-            $client = new Client([
-                'timeout' => $this->config['timeout'] ?? 15,
-                'connect_timeout' => $this->config['connect_timeout'] ?? 5,
-            ]);
             $data = array_merge($arguments, [
-                'auth' => $this->authentication()->asArray(),
+                'auth' => $this->settings->authentication(),
             ]);
-            if ($method == 'POST') {
-                $response = $client->post($url, [
-                    'json' => $data,
-                ]);
-            } elseif ($method == 'GET') {
-                $response = $client->get($url, [
-                    'json' => $data,
-                ]);
-            } elseif ($method == 'PUT') {
-                $response = $client->put($url, [
-                    'json' => $data,
-                ]);
-            } else {
-                throw new PlacetoPayException('No valid method for this request');
-            }
+            $response = $this->settings->client()->post($url, [
+                'json' => $data,
+            ]);
             return json_decode($response->getBody()->getContents(), true);
-        } catch (ClientException $e) {
-            return json_decode($e->getResponse()->getBody()->getContents(), true);
-        } catch (ServerException $e) {
-            return json_decode($e->getResponse()->getBody()->getContents(), true);
-        } catch (\Exception $e) {
+        } catch (BadResponseException $exception) {
+            return json_decode($exception->getResponse()->getBody()->getContents(), true);
+        } catch (Throwable $exception) {
             return [
                 'status' => [
                     'status' => Status::ST_ERROR,
                     'reason' => 'WR',
-                    'message' => PlacetoPayException::readException($e),
+                    'message' => PlacetoPayException::readException($exception),
                     'date' => date('c'),
                 ],
             ];
         }
     }
 
-    private function url($endpoint)
+    public function request(RedirectRequest $redirectRequest): RedirectResponse
     {
-        return $this->baseUrl . $endpoint;
-    }
-
-    /**
-     * @param RedirectRequest $redirectRequest
-     * @return RedirectResponse
-     */
-    public function request(RedirectRequest $redirectRequest)
-    {
-        $result = $this->makeRequest('POST', $this->url('api/session'), $redirectRequest->toArray());
+        $result = $this->makeRequest($this->settings->baseUrl('api/session'), $redirectRequest->toArray());
         return new RedirectResponse($result);
     }
 
-    /**
-     * @param int $requestId
-     * @return RedirectInformation
-     */
-    public function query($requestId)
+    public function query(string $requestId): RedirectInformation
     {
-        $result = $this->makeRequest('POST', $this->url('api/session/' . $requestId), []);
+        $result = $this->makeRequest($this->settings->baseUrl('api/session/' . $requestId), []);
         return new RedirectInformation($result);
     }
 
-    /**
-     * @param CollectRequest $collectRequest
-     * @return RedirectInformation
-     */
-    public function collect(CollectRequest $collectRequest)
+    public function collect(CollectRequest $collectRequest): RedirectInformation
     {
-        $result = $this->makeRequest('POST', $this->url('api/collect'), $collectRequest->toArray());
+        $result = $this->makeRequest($this->settings->baseUrl('api/collect'), $collectRequest->toArray());
         return new RedirectInformation($result);
     }
 
-    /**
-     * @param string $internalReference
-     * @return ReverseResponse
-     */
-    public function reverse($internalReference)
+    public function reverse(string $transactionId): ReverseResponse
     {
-        $result = $this->makeRequest('POST', $this->url('api/reverse'), [
-            'internalReference' => $internalReference,
+        $result = $this->makeRequest($this->settings->baseUrl('api/reverse'), [
+            'internalReference' => $transactionId,
         ]);
         return new ReverseResponse($result);
     }
