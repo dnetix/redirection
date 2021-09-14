@@ -5,15 +5,17 @@ namespace Tests;
 use Dnetix\Redirection\Helpers\Settings;
 use Dnetix\Redirection\PlacetoPay;
 use PHPUnit\Framework\TestCase;
+use Tests\Mocks\RestCarrierMock;
 
 class BaseTestCase extends TestCase
 {
     public function getDefaultSettings(array $overrides = []): array
     {
-        return array_merge([
+        return array_replace([
+            'client' => RestCarrierMock::client(),
             'login' => 'not_the_real_login_obviously',
             'tranKey' => 'kXf6FDYdQTH4dhwWs3Ue',
-            'url' => 'https://checkout-test.placetopay.com',
+            'baseUrl' => 'https://checkout-test.placetopay.com',
         ], $overrides);
     }
 
