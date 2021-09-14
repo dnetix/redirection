@@ -4,12 +4,9 @@ namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Helpers\DocumentHelper;
-use Dnetix\Redirection\Validators\PersonValidator;
 
 class Person extends Entity
 {
-    protected string $validator = PersonValidator::class;
-
     protected string $document = '';
     protected string $documentType = '';
     protected string $name = '';
@@ -65,7 +62,7 @@ class Person extends Entity
 
     public function mobile(): string
     {
-        return PersonValidator::normalizePhone($this->mobile);
+        return $this->mobile;
     }
 
     public function isBusiness(): bool

@@ -3,7 +3,6 @@
 namespace Tests\Validators;
 
 use Dnetix\Redirection\Entities\Address;
-use Dnetix\Redirection\Exceptions\EntityValidationFailException;
 use Tests\BaseTestCase;
 
 class AddressValidatorTest extends BaseTestCase
@@ -33,37 +32,5 @@ class AddressValidatorTest extends BaseTestCase
     {
         $address = new Address();
         $this->assertEmpty($address->street());
-    }
-
-    public function testItFailsWhenNoRequiredProvided()
-    {
-        $data = [
-            'state' => 'Antioquia',
-            'postalCode' => '050012',
-            'phone' => '+5744442310 ext 1503',
-        ];
-        try {
-            $address = (new Address($data))->isValid($fields, false);
-            $this->fail('Entity person should not be validated');
-        } catch (EntityValidationFailException $e) {
-            $this->assertEquals(['street', 'country'], $e->fields());
-            $this->assertEquals('Address', $e->from());
-        }
-    }
-
-    public function testItFailsWhenWrongCountryProvided()
-    {
-        $data = [
-            'street' => '707 Evergreen',
-            'city' => 'Medellín',
-            'country' => 'Colombia',
-        ];
-        try {
-            $address = (new Address($data))->isValid($fields, false);
-            $this->fail('Entity person should not be validated');
-        } catch (EntityValidationFailException $e) {
-            $this->assertEquals(['country'], $e->fields());
-            $this->assertEquals('Address', $e->from());
-        }
     }
 }

@@ -4,7 +4,6 @@ namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\LoaderTrait;
-use Dnetix\Redirection\Validators\RecurringValidator;
 
 class Recurring extends Entity
 {
@@ -32,13 +31,7 @@ class Recurring extends Entity
 
     public function __construct($data = [])
     {
-        $this->load($data, ['periodicity', 'interval', 'maxPeriods', 'notificationUrl']);
-        if (isset($data['nextPayment'])) {
-            $this->nextPayment = RecurringValidator::parseDate($data['nextPayment'], 'Y-m-d');
-        }
-        if (isset($data['dueDate'])) {
-            $this->dueDate = RecurringValidator::parseDate($data['dueDate'], 'Y-m-d');
-        }
+        $this->load($data, ['periodicity', 'interval', 'maxPeriods', 'nextPayment', 'dueDate', 'notificationUrl']);
     }
 
     public function periodicity()

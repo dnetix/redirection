@@ -4,11 +4,9 @@ namespace Dnetix\Redirection\Contracts;
 
 use Dnetix\Redirection\Helpers\ArrayHelper;
 use Dnetix\Redirection\Traits\LoaderTrait;
-use Dnetix\Redirection\Traits\ValidatorTrait;
 
 abstract class Entity
 {
-    use ValidatorTrait;
     use LoaderTrait;
 
     /**

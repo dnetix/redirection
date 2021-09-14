@@ -3,11 +3,9 @@
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
-use Dnetix\Redirection\Validators\AddressValidator;
 
 class Address extends Entity
 {
-    protected string $validator = AddressValidator::class;
     protected string $street = '';
     protected string $city = '';
     protected string $state = '';
