@@ -12,25 +12,28 @@ use Dnetix\Redirection\Message\RedirectResponse;
 use Dnetix\Redirection\Message\ReverseResponse;
 use SoapClient;
 
+/**
+ * @deprecated
+ */
 class SoapCarrier extends Carrier
 {
     private function client()
     {
-        $config = $this->config();
-
-        $config = array_merge([
+        $config = [
             'soap_version' => SOAP_1_2,
             'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
             'cache_wsdl' => WSDL_CACHE_NONE,
             'trace' => false,
             'encoding' => 'UTF-8',
-        ], $config);
+            'location' => $this->settings->location(),
+            'wsdl' => $this->settings->wsdl(),
+        ];
 
         $wsdl = $config['wsdl'];
         unset($config['wsdl']);
 
         $client = new SoapClient($wsdl, $config);
-        $client->__setSoapHeaders($this->authentication()->asSoapHeader());
+        $client->__setSoapHeaders($this->settings->authentication()->asSoapHeader());
 
         return $client;
     }
@@ -40,11 +43,7 @@ class SoapCarrier extends Carrier
         return json_decode(json_encode($arguments));
     }
 
-    /**
-     * @param RedirectRequest $redirectRequest
-     * @return RedirectResponse
-     */
-    public function request(RedirectRequest $redirectRequest)
+    public function request(RedirectRequest $redirectRequest): RedirectResponse
     {
         try {
             $arguments = $this->parseArguments([
@@ -64,11 +63,7 @@ class SoapCarrier extends Carrier
         }
     }
 
-    /**
-     * @param int $requestId
-     * @return RedirectInformation
-     */
-    public function query($requestId)
+    public function query(string $requestId): RedirectInformation
     {
         try {
             $arguments = $this->parseArguments([
@@ -88,11 +83,7 @@ class SoapCarrier extends Carrier
         }
     }
 
-    /**
-     * @param CollectRequest $collectRequest
-     * @return RedirectInformation
-     */
-    public function collect(CollectRequest $collectRequest)
+    public function collect(CollectRequest $collectRequest): RedirectInformation
     {
         try {
             $arguments = $this->parseArguments([
@@ -112,15 +103,11 @@ class SoapCarrier extends Carrier
         }
     }
 
-    /**
-     * @param string $internalReference
-     * @return ReverseResponse
-     */
-    public function reverse($internalReference)
+    public function reverse(string $transactionId): ReverseResponse
     {
         try {
             $arguments = $this->parseArguments([
-                'internalReference' => $internalReference,
+                'internalReference' => $transactionId,
             ]);
             $result = $this->client()->reversePayment($arguments)->reversePaymentResult;
             return new ReverseResponse($this->asArray($result));

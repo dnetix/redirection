@@ -18,7 +18,7 @@ class RestCarrier extends Carrier
     private function makeRequest(string $url, array $arguments): array
     {
         try {
-            $data = array_merge($arguments, ['auth' => $this->settings->authentication()]);
+            $data = array_merge($arguments, ['auth' => $this->settings->authentication()->asArray()]);
             $response = $this->settings->client()->post($url, [
                 'json' => $data,
                 'headers' => $this->settings->headers(),

@@ -146,11 +146,11 @@ class Settings extends Entity
         return $this->carrier;
     }
 
-    public function authentication(): array
+    public function authentication(): Authentication
     {
-        return (new Authentication([
+        return new Authentication([
             'login' => $this->login(),
             'tranKey' => $this->tranKey(),
-        ]))->asArray();
+        ]);
     }
 }
