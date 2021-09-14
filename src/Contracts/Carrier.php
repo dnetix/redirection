@@ -2,7 +2,7 @@
 
 namespace Dnetix\Redirection\Contracts;
 
-use Dnetix\Redirection\Carrier\Authentication;
+use Dnetix\Redirection\Helpers\Settings;
 use Dnetix\Redirection\Message\CollectRequest;
 use Dnetix\Redirection\Message\RedirectInformation;
 use Dnetix\Redirection\Message\RedirectRequest;
@@ -11,51 +11,18 @@ use Dnetix\Redirection\Message\ReverseResponse;
 
 abstract class Carrier
 {
-    protected $auth;
-    protected $config;
+    protected Settings $settings;
 
-    public function __construct(Authentication $auth, $config = [])
+    public function __construct(Settings $settings)
     {
-        $this->auth = $auth;
-        $this->config = $config;
+        $this->settings = $settings;
     }
 
-    protected function config()
-    {
-        return $this->config;
-    }
+    abstract public function request(RedirectRequest $redirectRequest): RedirectResponse;
 
-    protected function asArray($object)
-    {
-        return json_decode(json_encode($object), true);
-    }
+    abstract public function query(string $requestId): RedirectInformation;
 
-    protected function authentication()
-    {
-        return $this->auth;
-    }
+    abstract public function collect(CollectRequest $collectRequest): RedirectInformation;
 
-    /**
-     * @param RedirectRequest $redirectRequest
-     * @return RedirectResponse
-     */
-    abstract public function request(RedirectRequest $redirectRequest);
-
-    /**
-     * @param int $requestId
-     * @return RedirectInformation
-     */
-    abstract public function query($requestId);
-
-    /**
-     * @param CollectRequest $collectRequest
-     * @return RedirectInformation
-     */
-    abstract public function collect(CollectRequest $collectRequest);
-
-    /**
-     * @param string $transactionId
-     * @return ReverseResponse
-     */
-    abstract public function reverse($transactionId);
+    abstract public function reverse(string $transactionId): ReverseResponse;
 }
