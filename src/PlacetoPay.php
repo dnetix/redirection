@@ -22,10 +22,9 @@ class PlacetoPay
 
     /**
      * @param RedirectRequest|array $redirectRequest
-     * @return RedirectResponse
      * @throws PlacetoPayException
      */
-    public function request($redirectRequest)
+    public function request($redirectRequest): RedirectResponse
     {
         if (is_array($redirectRequest)) {
             $redirectRequest = new RedirectRequest($redirectRequest);
@@ -38,21 +37,16 @@ class PlacetoPay
         return $this->settings->carrier()->request($redirectRequest);
     }
 
-    /**
-     * @param int $requestId
-     * @return RedirectInformation
-     */
-    public function query($requestId)
+    public function query(int $requestId): RedirectInformation
     {
         return $this->settings->carrier()->query($requestId);
     }
 
     /**
      * @param CollectRequest|array $collectRequest
-     * @return RedirectInformation
      * @throws PlacetoPayException
      */
-    public function collect($collectRequest)
+    public function collect($collectRequest): RedirectInformation
     {
         if (is_array($collectRequest)) {
             $collectRequest = new CollectRequest($collectRequest);
@@ -65,11 +59,7 @@ class PlacetoPay
         return $this->settings->carrier()->collect($collectRequest);
     }
 
-    /**
-     * @param string $internalReference
-     * @return ReverseResponse
-     */
-    public function reverse($internalReference)
+    public function reverse(string $internalReference): ReverseResponse
     {
         return $this->settings->carrier()->reverse($internalReference);
     }
