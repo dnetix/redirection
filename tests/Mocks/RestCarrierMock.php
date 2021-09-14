@@ -3,6 +3,8 @@
 namespace Tests\Mocks;
 
 use Dnetix\Redirection\Entities\Status;
+use Dnetix\Redirection\Message\RedirectRequest;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Promise\FulfilledPromise;
@@ -13,13 +15,10 @@ class RestCarrierMock
 {
     protected static ?self $_instance = null;
 
-    /**
-     * @var RequestInterface
-     */
-    protected $request;
+    protected RequestInterface $request;
 
-    protected $parameters;
-    protected $headers;
+    protected array $parameters = [];
+    protected array $headers = [];
 
     private function __construct()
     {
@@ -46,6 +45,12 @@ class RestCarrierMock
 
         $this->parameters = json_decode($request->getBody()->getContents(), true);
         $this->headers = $request->getHeaders();
+
+        try {
+            $this->handleAuthentication();
+        } catch (Exception $e) {
+            return $this->response(401, $e->getMessage());
+        }
 
         switch ($request->getUri()->getPath()) {
             case '/api/session':
@@ -76,10 +81,29 @@ class RestCarrierMock
 
     private function createSession()
     {
+        $request = new RedirectRequest($this->parameters);
+
+        $requestId = time();
+        if (preg_match('/_(\d+)$/', $request->reference(), $matches)) {
+            $requestId = $matches[1];
+        }
+
         return $this->response(200, [
             'status' => Status::quick(Status::ST_OK, '00', 'La petición se ha creado exitosamente')->toArray(),
-            'requestId' => '120000',
-            'processUrl' => 'https://checkout.com',
+            'requestId' => $requestId,
+            'processUrl' => 'https://' . $this->request->getUri()->getHost() . '/session/' . $requestId . '/' . sha1($requestId),
         ]);
+    }
+
+    private function handleAuthentication(): void
+    {
+        $auth = $this->parameters['auth'] ?? null;
+        if (!$auth || !isset($auth['login']) || !isset($auth['tranKey']) || !isset($auth['seed']) || !isset($auth['nonce'])) {
+            throw new Exception('Autenticación fallida 106', 106);
+        }
+
+        if ($auth['login'] == 'failed_login') {
+            throw new Exception('Autenticación fallida 101', 101);
+        }
     }
 }
