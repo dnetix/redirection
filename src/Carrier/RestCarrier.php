@@ -18,15 +18,13 @@ class RestCarrier extends Carrier
     private function makeRequest(string $url, array $arguments): array
     {
         try {
-            $data = array_merge($arguments, [
-                'auth' => $this->settings->authentication(),
-            ]);
+            $data = array_merge($arguments, ['auth' => $this->settings->authentication()]);
             $response = $this->settings->client()->post($url, [
                 'json' => $data,
             ]);
-            return json_decode($response->getBody()->getContents(), true);
+            $result = $response->getBody()->getContents();
         } catch (BadResponseException $exception) {
-            return json_decode($exception->getResponse()->getBody()->getContents(), true);
+            $result = $exception->getResponse()->getBody()->getContents();
         } catch (Throwable $exception) {
             return [
                 'status' => [
@@ -37,6 +35,8 @@ class RestCarrier extends Carrier
                 ],
             ];
         }
+
+        return json_decode($result, true);
     }
 
     public function request(RedirectRequest $redirectRequest): RedirectResponse
