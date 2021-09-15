@@ -5,6 +5,7 @@ namespace Dnetix\Redirection\Carrier;
 use Dnetix\Redirection\Contracts\Carrier;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
+use Dnetix\Redirection\Helpers\ArrayHelper;
 use Dnetix\Redirection\Message\CollectRequest;
 use Dnetix\Redirection\Message\RedirectInformation;
 use Dnetix\Redirection\Message\RedirectRequest;
@@ -50,7 +51,7 @@ class SoapCarrier extends Carrier
                 'payload' => $redirectRequest->toArray(),
             ]);
             $result = $this->client()->createRequest($arguments)->createRequestResult;
-            return new RedirectResponse($this->asArray($result));
+            return new RedirectResponse(ArrayHelper::asArray($result));
         } catch (\Exception $e) {
             return new RedirectResponse([
                 'status' => [
@@ -70,7 +71,7 @@ class SoapCarrier extends Carrier
                 'requestId' => $requestId,
             ]);
             $result = $this->client()->getRequestInformation($arguments)->getRequestInformationResult;
-            return new RedirectInformation($this->asArray($result));
+            return new RedirectInformation(ArrayHelper::asArray($result));
         } catch (\Exception $e) {
             return new RedirectInformation([
                 'status' => [
@@ -90,7 +91,7 @@ class SoapCarrier extends Carrier
                 'payload' => $collectRequest->toArray(),
             ]);
             $result = $this->client()->collect($arguments)->collectResult;
-            return new RedirectInformation($this->asArray($result));
+            return new RedirectInformation(ArrayHelper::asArray($result));
         } catch (\Exception $e) {
             return new RedirectInformation([
                 'status' => [
@@ -110,7 +111,7 @@ class SoapCarrier extends Carrier
                 'internalReference' => $transactionId,
             ]);
             $result = $this->client()->reversePayment($arguments)->reversePaymentResult;
-            return new ReverseResponse($this->asArray($result));
+            return new ReverseResponse(ArrayHelper::asArray($result));
         } catch (\Exception $e) {
             return new ReverseResponse([
                 'status' => [
