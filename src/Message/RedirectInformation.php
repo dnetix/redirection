@@ -12,19 +12,19 @@ class RedirectInformation extends Entity
 {
     use StatusTrait;
 
-    public string $requestId;
-    public RedirectRequest $request;
+    protected string $requestId;
+    protected ?RedirectRequest $request = null;
     /**
      * @var Transaction[]
      */
-    public array $payment = [];
-    public ?SubscriptionInformation $subscription = null;
+    protected array $payment = [];
+    protected ?SubscriptionInformation $subscription = null;
 
     public function __construct($data = [])
     {
         $this->requestId = $data['requestId'] ?? '';
         $this->loadEntity($data['status'], 'status', Status::class);
-        $this->loadEntity($data['request'], 'request', RedirectRequest::class);
+        $this->loadEntity($data['request'] ?? null, 'request', RedirectRequest::class);
 
         if (isset($data['payment'])) {
             $this->setPayment($data['payment']);
