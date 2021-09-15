@@ -33,7 +33,7 @@
   },
   "scripts": {
     "test": "vendor/bin/phpunit",
-    "testdox": "vendor/bin/phpunit --testdox",
+    "testdox": "XDEBUG_MODE=coverage vendor/bin/phpunit --testdox --coverage-clover coverage.xml",
     "php-cs-fixer": "vendor/bin/php-cs-fixer fix --stop-on-violation --using-cache=no"
   }
 }

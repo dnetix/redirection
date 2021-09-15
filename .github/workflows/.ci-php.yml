@@ -13,3 +13,5 @@ jobs:
         run: composer run-script php-cs-fixer
       - name: Run test suite
         run: composer run-script testdox
+      - name: Upload coverage
+        run: bash <(curl -s https://codecov.io/bash)
