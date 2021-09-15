@@ -57,7 +57,8 @@ class RestCarrierMock
         switch ($path) {
             case '/api/session':
                 return $this->createSession();
-                break;
+            case '/api/reverse':
+                return $this->reverse();
             default:
                 if (preg_match('/api\/session\/(\d+)/', $path, $matches)) {
                     return $this->query($matches[1]);
@@ -124,6 +125,25 @@ class RestCarrierMock
                 break;
         }
 
+        return $this->response(200, json_decode($response, true));
+    }
+
+    public function reverse(): FulfilledPromise
+    {
+        $internalReference = $this->parameters()['internalReference'] ?? null;
+
+        if (!$internalReference) {
+            return $this->response(400, [
+                'status' => [
+                    'status' => 'FAILED',
+                    'reason' => 0,
+                    'message' => 'Referencia inválida, debe ser de 1 a 32 caracteres',
+                    'date' => '2021-09-14T21:26:22-05:00'
+                ]
+            ]);
+        }
+
+        $response = '{"status": {"status": "APPROVED","reason": "00","message": "Aprobada","date": "2021-09-14T21:20:06-05:00"},"payment": {"status": {"status": "APPROVED","reason": "00","message": "Aprobada","date": "2021-09-14T21:20:06-05:00"},"internalReference": 1519102359,"paymentMethod": "master","paymentMethodName": "Master","issuerName": "Banco del Pacifico, S.A.","amount": {"from": {"currency": "COP","total": "2009000.00"},"to": {"currency": "COP","total": "2009000.00"},"factor": 1},"authorization": "000000","reference": "800166551","receipt": 72406,"franchise": "RM_MC","refunded": false}}';
         return $this->response(200, json_decode($response, true));
     }
 
