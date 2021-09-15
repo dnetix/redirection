@@ -13,15 +13,7 @@ trait StatusTrait
 
     public function status(): Status
     {
-        if ($this->status instanceof Status) {
-            return $this->status;
-        }
-
-        return new Status([
-            'status' => Status::ST_ERROR,
-            'message' => 'No response status was provisioned',
-            'reason' => '',
-        ]);
+        return $this->status;
     }
 
     public function isApproved(): bool
