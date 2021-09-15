@@ -20,6 +20,7 @@ class Authentication
     private string $tranKey;
 
     private array $auth = [];
+    private array $additional = [];
     private bool $overridden = false;
     private string $algorithm = 'sha1';
 
@@ -41,6 +42,7 @@ class Authentication
         }
 
         $this->algorithm = $config['algorithm'] ?? 'sha1';
+        $this->additional = $config['authAdditional'] ?? [];
 
         $this->generate();
     }
@@ -96,6 +98,11 @@ class Authentication
         return $this->tranKey;
     }
 
+    public function additional(): array
+    {
+        return $this->additional;
+    }
+
     public function generate(): self
     {
         if (!$this->overridden) {
@@ -133,6 +140,7 @@ class Authentication
             'tranKey' => $this->digest(),
             'nonce' => $this->getNonce(),
             'seed' => $this->getSeed(),
+            'additional' => $this->additional(),
         ];
     }
 }

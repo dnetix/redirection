@@ -173,6 +173,10 @@ class RestCarrierMock
             throw new Exception('Autenticación fallida 106', 106);
         }
 
+        if (($auth['additional']['testing-auth'] ?? '') == 'ERROR-200') {
+            throw new Exception('Autenticación fallida 200', 200);
+        }
+
         if ($auth['login'] == 'failed_login') {
             throw new Exception('Autenticación fallida 101', 101);
         }

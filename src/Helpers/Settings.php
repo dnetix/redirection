@@ -28,6 +28,7 @@ class Settings extends Entity
     protected string $login;
     protected string $tranKey;
     protected array $headers = [];
+    protected array $authAdditional = [];
 
     protected ?Logger $logger = null;
     protected ?Client $client = null;
@@ -62,6 +63,7 @@ class Settings extends Entity
             'tranKey',
             'headers',
             'client',
+            'authAdditional',
         ];
 
         $this->load($data, $allowedKeys);
@@ -155,6 +157,7 @@ class Settings extends Entity
         return new Authentication([
             'login' => $this->login(),
             'tranKey' => $this->tranKey(),
+            'authAdditional' => $this->authAdditional,
         ]);
     }
 }

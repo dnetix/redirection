@@ -60,4 +60,17 @@ class AuthenticationTest extends BaseTestCase
         $this->assertEquals(Status::ST_FAILED, $response->status()->status());
         $this->assertFalse($response->isSuccessful());
     }
+
+    public function testItHandlesAuthenticationAdditional()
+    {
+        $response = $this->getService([
+            'authAdditional' => [
+                'testing-auth' => 'ERROR-200',
+            ],
+        ])->request($this->baseRequest());
+
+        $this->assertEquals(Status::ST_FAILED, $response->status()->status());
+        $this->assertEquals(401, $response->status()->reason());
+        $this->assertEquals('Autenticación fallida 200', $response->status()->message());
+    }
 }
