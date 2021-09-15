@@ -157,8 +157,8 @@ class RestCarrierMock
                     'status' => 'FAILED',
                     'reason' => 0,
                     'message' => 'Referencia inválida, debe ser de 1 a 32 caracteres',
-                    'date' => '2021-09-14T21:26:22-05:00'
-                ]
+                    'date' => '2021-09-14T21:26:22-05:00',
+                ],
             ]);
         }
 

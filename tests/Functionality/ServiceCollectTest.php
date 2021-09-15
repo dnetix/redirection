@@ -5,9 +5,7 @@ namespace Tests\Functionality;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Entities\Transaction;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
-use Dnetix\Redirection\Exceptions\PlacetoPayServiceException;
 use Tests\BaseTestCase;
-use Tests\Mocks\RestCarrierMock;
 
 class ServiceCollectTest extends BaseTestCase
 {

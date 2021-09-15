@@ -3,10 +3,7 @@
 namespace Tests\Functionality;
 
 use Dnetix\Redirection\Entities\Status;
-use Dnetix\Redirection\Exceptions\PlacetoPayException;
-use Dnetix\Redirection\Exceptions\PlacetoPayServiceException;
 use Tests\BaseTestCase;
-use Tests\Mocks\RestCarrierMock;
 
 class ServiceReverseTest extends BaseTestCase
 {
@@ -17,14 +14,14 @@ class ServiceReverseTest extends BaseTestCase
                 'status' => 'APPROVED',
                 'reason' => '00',
                 'message' => 'Aprobada',
-                'date' => '2021-09-14T21:20:06-05:00'
+                'date' => '2021-09-14T21:20:06-05:00',
             ],
             'payment' => [
                 'status' => [
                     'status' => 'APPROVED',
                     'reason' => '00',
                     'message' => 'Aprobada',
-                    'date' => '2021-09-14T21:20:06-05:00'
+                    'date' => '2021-09-14T21:20:06-05:00',
                 ],
                 'internalReference' => 1519102359,
                 'paymentMethod' => 'master',
@@ -33,20 +30,20 @@ class ServiceReverseTest extends BaseTestCase
                 'amount' => [
                     'from' => [
                         'currency' => 'COP',
-                        'total' => '2009000.00'
+                        'total' => '2009000.00',
                     ],
                     'to' => [
                         'currency' => 'COP',
-                        'total' => '2009000.00'
+                        'total' => '2009000.00',
                     ],
-                    'factor' => 1
+                    'factor' => 1,
                 ],
                 'authorization' => '000000',
                 'reference' => '800166551',
                 'receipt' => 72406,
                 'franchise' => 'RM_MC',
-                'refunded' => false
-            ]
+                'refunded' => false,
+            ],
         ];
         $response = $this->getService()->reverse(1519097768);
         $this->assertEquals($data, $response->toArray());
