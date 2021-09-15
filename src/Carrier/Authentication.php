@@ -21,11 +21,6 @@ class Authentication
 
     private array $auth = [];
     private bool $overridden = false;
-    /**
-     * It can be full or basic.
-     */
-    private string $type;
-    private array $additional = [];
     private string $algorithm = 'sha1';
 
     /**
@@ -45,8 +40,6 @@ class Authentication
             $this->overridden = true;
         }
 
-        $this->type = $config['auth_type'] ?? 'full';
-        $this->additional = $config['auth_additional'] ?? [];
         $this->algorithm = $config['algorithm'] ?? 'sha1';
 
         $this->generate();
@@ -84,11 +77,7 @@ class Authentication
 
     public function digest($encoded = true): string
     {
-        if ($this->type == 'full') {
-            $digest = hash($this->algorithm, $this->getNonce(false) . $this->getSeed() . $this->tranKey(), true);
-        } else {
-            $digest = hash($this->algorithm, $this->getSeed() . $this->tranKey(), false);
-        }
+        $digest = hash($this->algorithm, $this->getNonce(false) . $this->getSeed() . $this->tranKey(), true);
 
         if ($encoded) {
             return base64_encode($digest);
@@ -107,11 +96,6 @@ class Authentication
         return $this->tranKey;
     }
 
-    public function additional(): array
-    {
-        return $this->additional;
-    }
-
     public function generate(): self
     {
         if (!$this->overridden) {
@@ -121,12 +105,6 @@ class Authentication
             ];
         }
 
-        return $this;
-    }
-
-    public function setAdditional($additional): self
-    {
-        $this->additional = $additional;
         return $this;
     }
 
@@ -155,7 +133,6 @@ class Authentication
             'tranKey' => $this->digest(),
             'nonce' => $this->getNonce(),
             'seed' => $this->getSeed(),
-            'additional' => $this->additional(),
         ];
     }
 }
