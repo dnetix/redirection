@@ -28,4 +28,20 @@ class BaseTestCase extends TestCase
     {
         return new PlacetoPay($this->getDefaultSettings($overrides));
     }
+
+    public function baseRequest(array $overrides = []): array
+    {
+        return array_replace_recursive([
+            'payment' => [
+                'reference' => 'TEST_20210913_120000',
+                'amount' => [
+                    'total' => 12844,
+                    'currency' => 'COP',
+                ],
+            ],
+            'returnUrl' => 'https://dnetix.co/ping/example',
+            'ipAddress' => '127.0.0.1',
+            'userAgent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9',
+        ], $overrides);
+    }
 }

@@ -125,6 +125,7 @@ class RedirectInformationTest extends BaseTestCase
 
         $this->assertEquals(373, $information->requestId());
         $this->assertEquals(Status::ST_REJECTED, $information->status()->status());
+        $this->assertTrue($information->status()->isRejected());
 
         $this->assertTrue($information->isSuccessful());
         $this->assertFalse($information->isApproved());

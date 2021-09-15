@@ -14,6 +14,7 @@ class TransactionTest extends BaseTestCase
         $transaction = new Transaction($data);
 
         $this->assertEquals(Status::ST_APPROVED, $transaction->status()->status());
+        $this->assertTrue($transaction->status()->isApproved());
         $this->assertTrue($transaction->isSuccessful());
         $this->assertTrue($transaction->isApproved());
         $this->assertEquals('1518816265', $transaction->internalReference());

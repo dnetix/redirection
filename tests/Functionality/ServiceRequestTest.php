@@ -4,27 +4,12 @@ namespace Tests\Functionality;
 
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
+use Dnetix\Redirection\Exceptions\PlacetoPayServiceException;
 use Tests\BaseTestCase;
 use Tests\Mocks\RestCarrierMock;
 
 class ServiceRequestTest extends BaseTestCase
 {
-    public function baseRequest(array $overrides = []): array
-    {
-        return [
-            'payment' => [
-                'reference' => 'TEST_20210913_120000',
-                'amount' => [
-                    'total' => 12844,
-                    'currency' => 'COP',
-                ],
-            ],
-            'returnUrl' => 'https://dnetix.co/ping/example',
-            'ipAddress' => '127.0.0.1',
-            'userAgent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9',
-        ];
-    }
-
     public function testItHandlesTheHeaders()
     {
         $this->getService([
@@ -47,7 +32,38 @@ class ServiceRequestTest extends BaseTestCase
         $response = $this->getService()->request($this->baseRequest());
 
         $this->assertEquals(Status::ST_OK, $response->status()->status());
+        $this->assertTrue($response->status()->isSuccessful());
+        $this->assertEquals('120000', $response->toArray()['requestId']);
         $this->assertEquals('120000', $response->requestId());
         $this->assertNotEmpty($response->processUrl());
+    }
+
+    public function testItHandlesCorrectlyAnExceptionThrown()
+    {
+        $this->expectException(PlacetoPayServiceException::class);
+        $this->getService()->request($this->baseRequest([
+            'payment' => [
+                'reference' => 'MAKE_EXCEPTION',
+            ],
+        ]));
+    }
+
+    public function testItHandlesASubscriptionRequest()
+    {
+        $response = $this->getService()->request($this->baseRequest([
+            'payment' => null,
+            'subscription' => [
+                'reference' => 'SOME_REFERENCE',
+                'description' => 'Testing subscription',
+                'fields' => [
+                    [
+                        'keyword' => 'no_empty',
+                        'value' => 'no_empty_value',
+                        'displayOn' => 'none',
+                    ],
+                ],
+            ],
+        ]));
+        $this->assertTrue($response->status()->isSuccessful());
     }
 }

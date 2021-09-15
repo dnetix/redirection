@@ -172,6 +172,27 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertEquals($data, $payment->toArray());
     }
 
+    public function testItHandlesABadEntityOnConstruction()
+    {
+        $data = [
+            'reference' => 'required',
+            'amount' => [
+                'total' => 10000,
+                'currency' => 'COP',
+            ],
+            'shipping' => (object)[
+                'name' => 'Diego',
+                'surname' => 'Calle',
+                'email' => 'dnetix@gmail.com',
+            ],
+            'allowPartial' => false,
+            'subscribe' => false,
+        ];
+        $payment = new Payment($data);
+
+        $this->assertEmpty($payment->shipping());
+    }
+
     public function testItParsesCorrectlyADispersion()
     {
         $data = [
