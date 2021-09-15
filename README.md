@@ -6,7 +6,12 @@ With this code you will be able to quickly connect with the PlacetoPay redirecti
 
 In order to see how it works, please refer to the examples.
 
-To migrate from v1 the only change that you need to make is change the parameter `url` for `baseUrl` on settings
+
+### Migration from version 1
+
+- [ ] Change the settings parameter `url` for `baseUrl`
+- [ ] If you have set the timeout for rest then change it to the root of the settings
+- [ ] `PlacetoPayServiceException` is thrown instead of returning an ERROR status response
 
 ## Installation
 
@@ -24,13 +29,10 @@ Create an object with the configuration required for that instance
 
 ```php 
 $placetopay = new Dnetix\Redirection\PlacetoPay([
-    'login' => 'YOUR_LOGIN',
-    'tranKey' => 'YOUR_TRANKEY',
+    'login' => 'YOUR_LOGIN', // Provided by PlacetoPay
+    'tranKey' => 'YOUR_TRANSACTIONAL_KEY', // Provided by PlacetoPay
     'baseUrl' => 'https://THE_BASE_URL_TO_POINT_AT',
-    'rest' => [
-        'timeout' => 45, // (optional) 15 by default
-        'connect_timeout' => 30, // (optional) 5 by default
-    ]
+    'timeout' => 10, // (optional) 15 by default
 ]);
 ```
 
