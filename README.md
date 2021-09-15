@@ -2,15 +2,14 @@
 
 [![codecov](https://codecov.io/gh/dnetix/redirection/branch/master/graph/badge.svg?token=7QB12XVSTG)](https://codecov.io/gh/dnetix/redirection)
 
-With this code you will be able to quickly connect with the PlacetoPay redirection service.
+With this code you will be able to quickly connect with the PlacetoPay Checkout service.
 
-In order to see how it works, please refer to the examples.
-
+In order to see more comprehensive examples of how it works, please refer to the examples and the [documentation](https://docs-gateway.placetopay.com/)
 
 ### Migration from version 1
 
 - [ ] Change the settings parameter `url` for `baseUrl`
-- [ ] If you have set the timeout for rest then change it to the root of the settings
+- [ ] If you have set the `timeout` for rest then change it to the root of the settings
 - [ ] `PlacetoPayServiceException` is thrown instead of returning an ERROR status response
 
 ## Installation
