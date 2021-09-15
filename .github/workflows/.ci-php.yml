@@ -1,4 +1,4 @@
-name: Github Actions for PHP with PHPUnit Tests
+name: PHPUnit Tests
 on: [push]
 jobs:
   build:
