@@ -16,11 +16,7 @@ class Settings extends Entity
     public const TP_SOAP = 'soap';
 
     protected string $type = self::TP_REST;
-    // Used for REST
     protected string $baseUrl = '';
-    // Used for SOAP
-    protected string $wsdl = '';
-    protected string $location = '';
 
     protected int $timeout = 15;
     protected bool $verifySsl = true;
@@ -55,8 +51,6 @@ class Settings extends Entity
 
         $allowedKeys = [
             'baseUrl',
-            'wsdl',
-            'location',
             'timeout',
             'verifySsl',
             'login',
@@ -77,12 +71,12 @@ class Settings extends Entity
 
     public function wsdl(): string
     {
-        return $this->wsdl;
+        return $this->baseUrl('soap/redirect?wsdl');
     }
 
     public function location(): ?string
     {
-        return $this->location;
+        return $this->baseUrl('soap/redirect');
     }
 
     public function timeout(): int

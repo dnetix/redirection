@@ -40,12 +40,13 @@ class SettingsTest extends BaseTestCase
         $settings = $this->getSettings([
             'client' => null,
             'type' => Settings::TP_SOAP,
+            'baseUrl' => 'https://redirection.test',
             'wsdl' => $location . '?wsdl',
             'location' => $location,
         ]);
         $this->assertEquals(Settings::TP_SOAP, $settings->type());
-        $this->assertEquals($location . '?wsdl', $settings->wsdl());
-        $this->assertEquals($location, $settings->location());
+        $this->assertEquals('https://redirection.test/soap/redirect?wsdl', $settings->wsdl());
+        $this->assertEquals('https://redirection.test/soap/redirect', $settings->location());
         $this->assertEmpty($settings->toArray());
 
         $carrier = $settings->carrier();
