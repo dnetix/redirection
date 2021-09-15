@@ -52,9 +52,6 @@ class Person extends Entity
         return $this->email;
     }
 
-    /**
-     * @return Address
-     */
     public function address(): ?Address
     {
         return $this->address;

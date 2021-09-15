@@ -7,27 +7,26 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 
 class TaxDetail extends Entity
 {
-    use LoaderTrait;
-    protected $kind;
-    protected $amount;
-    protected $base;
+    protected string $kind;
+    protected float $amount;
+    protected ?float $base = null;
 
     public function __construct($data = [])
     {
         $this->load($data, ['kind', 'amount', 'base']);
     }
 
-    public function kind()
+    public function kind(): string
     {
         return $this->kind;
     }
 
-    public function amount()
+    public function amount(): float
     {
         return $this->amount;
     }
 
-    public function base()
+    public function base(): ?float
     {
         return $this->base;
     }

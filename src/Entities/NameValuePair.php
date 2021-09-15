@@ -7,27 +7,26 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 
 class NameValuePair extends Entity
 {
-    use LoaderTrait;
-    protected $keyword;
-    protected $value;
-    protected $displayOn = 'none';
+    protected string $keyword;
+    protected string $value = '';
+    protected string $displayOn = 'none';
 
     public function __construct($data = [])
     {
         $this->load($data, ['keyword', 'value', 'displayOn']);
     }
 
-    public function keyword()
+    public function keyword(): string
     {
         return $this->keyword;
     }
 
-    public function value()
+    public function value(): string
     {
         return $this->value;
     }
 
-    public function displayOn()
+    public function displayOn(): string
     {
         return $this->displayOn;
     }

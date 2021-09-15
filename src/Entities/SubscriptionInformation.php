@@ -12,11 +12,11 @@ class SubscriptionInformation extends Entity
     /**
      * The type of this subscription could be token or account for the time being.
      */
-    public string $type;
+    protected string $type;
     /**
      * @var NameValuePair[]
      */
-    public $instrument;
+    protected array $instrument = [];
 
     public function __construct(array $data)
     {

@@ -7,21 +7,20 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 
 class AmountBase extends Entity
 {
-    use LoaderTrait;
-    protected $currency = 'COP';
-    protected $total;
+    protected string $currency = 'COP';
+    protected float $total;
 
     public function __construct($data = [])
     {
         $this->load($data, ['currency', 'total']);
     }
 
-    public function currency()
+    public function currency(): string
     {
         return $this->currency;
     }
 
-    public function total()
+    public function total(): float
     {
         return $this->total;
     }

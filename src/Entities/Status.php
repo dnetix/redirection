@@ -80,14 +80,6 @@ class Status extends Entity
         return $this->status() == self::ST_ERROR;
     }
 
-    public static function validStatus(string $status = '')
-    {
-        if ($status) {
-            return in_array($status, self::$STATUSES);
-        }
-        return self::$STATUSES;
-    }
-
     public function toArray(): array
     {
         return [

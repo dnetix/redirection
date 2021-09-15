@@ -7,8 +7,6 @@ use Dnetix\Redirection\Traits\LoaderTrait;
 
 class Discount extends Entity
 {
-    use LoaderTrait;
-
     protected string $code;
     protected string $type;
     protected float $amount;

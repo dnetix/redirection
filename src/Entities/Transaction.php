@@ -3,10 +3,12 @@
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
+use Dnetix\Redirection\Traits\StatusTrait;
 
 class Transaction extends Entity
 {
-    protected Status $status;
+    use StatusTrait;
+
     /**
      * Reference as the commerce provides.
      */
@@ -40,11 +42,6 @@ class Transaction extends Entity
         if (isset($data['processorFields'])) {
             $this->setProcessorFields($data['processorFields']);
         }
-    }
-
-    public function status(): Status
-    {
-        return $this->status;
     }
 
     public function reference(): string

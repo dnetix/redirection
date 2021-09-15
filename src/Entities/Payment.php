@@ -4,13 +4,10 @@ namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\FieldsTrait;
-use Dnetix\Redirection\Validators\PaymentValidator;
 
 class Payment extends Entity
 {
     use FieldsTrait;
-
-    protected $validator = PaymentValidator::class;
 
     protected string $reference;
     protected string $description = '';

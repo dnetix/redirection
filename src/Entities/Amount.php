@@ -7,12 +7,11 @@ class Amount extends AmountBase
     /**
      * @var TaxDetail[]
      */
-    protected $taxes = null;
+    protected array $taxes = [];
     /**
      * @var AmountDetail[]
      */
-    protected $details = null;
-    protected $taxAmount = 0;
+    protected array $details = [];
 
     public function __construct($data = [])
     {
@@ -35,36 +34,12 @@ class Amount extends AmountBase
         return $this->details;
     }
 
-    public function taxAmount()
-    {
-        return $this->taxAmount;
-    }
-
-    public function devolutionBase()
-    {
-        if (!isset($this->vatDevolutionBase)) {
-            return 0;
-        }
-
-        return $this->vatDevolutionBase;
-    }
-
-    public function subtotal()
-    {
-        if (!isset($this->subtotal)) {
-            return $this->total() - $this->taxAmount;
-        }
-
-        return $this->subtotal;
-    }
-
     public function setTaxes(array $taxes)
     {
         $return = [];
         foreach ($taxes as $tax) {
             if (is_array($tax)) {
                 $tax = new TaxDetail($tax);
-                $this->taxAmount += $tax->amount();
                 $return[] = $tax;
             }
         }

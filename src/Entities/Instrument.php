@@ -6,8 +6,7 @@ use Dnetix\Redirection\Contracts\Entity;
 
 class Instrument extends Entity
 {
-    protected ?Bank $bank = null;
-    protected ?Card $card = null;
+    protected ?Account $bank = null;
     protected ?Token $token = null;
     protected ?Credit $credit = null;
     protected string $pin;
@@ -15,8 +14,7 @@ class Instrument extends Entity
 
     public function __construct($data = [])
     {
-        $this->loadEntity($data['bank'] ?? null, 'bank', Bank::class);
-        $this->loadEntity($data['card'] ?? null, 'card', Card::class);
+        $this->loadEntity($data['bank'] ?? null, 'bank', Account::class);
         $this->loadEntity($data['credit'] ?? null, 'credit', Credit::class);
         $this->loadEntity($data['token'] ?? null, 'token', Token::class);
 
@@ -24,14 +22,9 @@ class Instrument extends Entity
         $this->password = $data['password'] ?? '';
     }
 
-    public function bank(): ?Bank
+    public function bank(): ?Account
     {
         return $this->bank;
-    }
-
-    public function card(): ?Card
-    {
-        return $this->card;
     }
 
     public function credit(): ?Credit
@@ -58,7 +51,6 @@ class Instrument extends Entity
     {
         return $this->arrayFilter([
             'bank' => $this->bank() ? $this->bank()->toArray() : null,
-            'card' => $this->card() ? $this->card()->toArray() : null,
             'credit' => $this->credit() ? $this->credit()->toArray() : null,
             'token' => $this->token() ? $this->token()->toArray() : null,
             'pin' => $this->pin(),
