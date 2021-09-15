@@ -35,6 +35,6 @@
   "scripts": {
     "test": "vendor/bin/phpunit",
     "testdox": "vendor/bin/phpunit --testdox",
-    "php-cs-fixer": "vendor/bin/php-cs-fixer fix"
+    "php-cs-fixer": "vendor/bin/php-cs-fixer fix --stop-on-violation --using-cache=no"
   }
 }
