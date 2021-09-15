@@ -1,5 +1,7 @@
 # PlacetoPay Redirection PHP library
 
+[![codecov](https://codecov.io/gh/dnetix/redirection/branch/master/graph/badge.svg?token=7QB12XVSTG)](https://codecov.io/gh/dnetix/redirection)
+
 With this code you will be able to quickly connect with the PlacetoPay redirection service.
 
 In order to see how it works, please refer to the examples.
