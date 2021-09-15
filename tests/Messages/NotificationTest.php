@@ -26,7 +26,7 @@ class NotificationTest extends BaseTestCase
     {
         $data = unserialize('a:4:{s:6:"status";a:4:{s:6:"status";s:8:"REJECTED";s:6:"reason";s:2:"?C";s:7:"message";s:51:"El proceso de pago ha sido cancelado por el usuario";s:4:"date";s:25:"2016-10-12T01:44:37-05:00";}s:9:"requestId";i:126;s:9:"reference";s:9:"100000071";s:9:"signature";s:40:"554fa6c36bd5d1376b192b8bc3a1e3dd9a01e448";}');
 
-        $gateway = $this->getGateway([
+        $gateway = $this->getService([
             'url' => 'https://testing.com',
             'tranKey' => '024h1IlD',
         ]);
@@ -34,5 +34,6 @@ class NotificationTest extends BaseTestCase
 
         $this->assertTrue($notification->isValidNotification(), 'Its a valid notification');
         $this->assertEquals(Status::ST_REJECTED, $notification->status()->status());
+        $this->assertFalse($notification->isApproved());
     }
 }

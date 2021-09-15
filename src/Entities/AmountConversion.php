@@ -6,15 +6,9 @@ use Dnetix\Redirection\Contracts\Entity;
 
 class AmountConversion extends Entity
 {
-    /**
-     * @var AmountBase
-     */
-    protected $from;
-    /**
-     * @var AmountBase
-     */
-    protected $to;
-    protected $factor;
+    protected ?AmountBase $from = null;
+    protected ?AmountBase $to = null;
+    protected float $factor = 1;
 
     public function __construct($data = [])
     {
@@ -51,7 +45,7 @@ class AmountConversion extends Entity
     /**
      * @return AmountBase
      */
-    public function from()
+    public function from(): AmountBase
     {
         return $this->from;
     }
@@ -59,7 +53,7 @@ class AmountConversion extends Entity
     /**
      * @return AmountBase
      */
-    public function to()
+    public function to(): AmountBase
     {
         return $this->to;
     }
@@ -71,29 +65,13 @@ class AmountConversion extends Entity
 
     public function setFrom($from)
     {
-        if (is_array($from)) {
-            $from = new AmountBase($from);
-        }
-
-        if (!($from instanceof AmountBase)) {
-            $from = null;
-        }
-
-        $this->from = $from;
+        $this->loadEntity($from, 'from', AmountBase::class);
         return $this;
     }
 
     public function setTo($to)
     {
-        if (is_array($to)) {
-            $to = new AmountBase($to);
-        }
-
-        if (!($to instanceof AmountBase)) {
-            $to = null;
-        }
-
-        $this->to = $to;
+        $this->loadEntity($to, 'to', AmountBase::class);
         return $this;
     }
 
@@ -103,7 +81,7 @@ class AmountConversion extends Entity
         return $this;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'from' => $this->from()->toArray(),

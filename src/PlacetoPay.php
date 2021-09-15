@@ -2,80 +2,51 @@
 
 namespace Dnetix\Redirection;
 
-use Dnetix\Redirection\Carrier\Authentication;
-use Dnetix\Redirection\Carrier\RestCarrier;
-use Dnetix\Redirection\Carrier\SoapCarrier;
-use Dnetix\Redirection\Contracts\Carrier;
-use Dnetix\Redirection\Contracts\Gateway;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
+use Dnetix\Redirection\Helpers\Settings;
 use Dnetix\Redirection\Message\CollectRequest;
+use Dnetix\Redirection\Message\Notification;
 use Dnetix\Redirection\Message\RedirectInformation;
 use Dnetix\Redirection\Message\RedirectRequest;
 use Dnetix\Redirection\Message\RedirectResponse;
 use Dnetix\Redirection\Message\ReverseResponse;
 
-class PlacetoPay extends Gateway
+class PlacetoPay
 {
-    private function carrier()
+    protected Settings $settings;
+
+    public function __construct(array $data)
     {
-        if ($this->carrier instanceof Carrier) {
-            return $this->carrier;
-        }
-
-        $config = $this->config;
-        $auth = new Authentication($config);
-        $type = $this->type;
-        $typeConfig = isset($config[$type]) ? $config[$type] : [];
-
-        if ($type == self::TP_SOAP) {
-            $carrierConfig = array_merge([
-                'wsdl' => $config['url'] . 'soap/redirect?wsdl',
-                'location' => $config['url'] . 'soap/redirect',
-            ], $typeConfig);
-            $this->carrier = new SoapCarrier($auth, $carrierConfig);
-        } else {
-            $carrierConfig = array_merge([
-                'url' => $config['url'],
-            ], $typeConfig);
-            $this->carrier = new RestCarrier($auth, $carrierConfig);
-        }
-
-        return $this->carrier;
+        $this->settings = new Settings($data);
     }
 
     /**
      * @param RedirectRequest|array $redirectRequest
-     * @return RedirectResponse
      * @throws PlacetoPayException
      */
-    public function request($redirectRequest)
+    public function request($redirectRequest): RedirectResponse
     {
         if (is_array($redirectRequest)) {
             $redirectRequest = new RedirectRequest($redirectRequest);
         }
 
         if (!($redirectRequest instanceof RedirectRequest)) {
-            throw new PlacetoPayException('Wrong class request');
+            throw PlacetoPayException::forDataNotProvided('Wrong class request');
         }
 
-        return $this->carrier()->request($redirectRequest);
+        return $this->settings->carrier()->request($redirectRequest);
     }
 
-    /**
-     * @param int $requestId
-     * @return RedirectInformation
-     */
-    public function query($requestId)
+    public function query(int $requestId): RedirectInformation
     {
-        return $this->carrier()->query($requestId);
+        return $this->settings->carrier()->query($requestId);
     }
 
     /**
      * @param CollectRequest|array $collectRequest
-     * @return RedirectInformation
      * @throws PlacetoPayException
      */
-    public function collect($collectRequest)
+    public function collect($collectRequest): RedirectInformation
     {
         if (is_array($collectRequest)) {
             $collectRequest = new CollectRequest($collectRequest);
@@ -85,15 +56,16 @@ class PlacetoPay extends Gateway
             throw new PlacetoPayException('Wrong collect request');
         }
 
-        return $this->carrier()->collect($collectRequest);
+        return $this->settings->carrier()->collect($collectRequest);
     }
 
-    /**
-     * @param string $internalReference
-     * @return ReverseResponse
-     */
-    public function reverse($internalReference)
+    public function reverse(string $internalReference): ReverseResponse
     {
-        return $this->carrier()->reverse($internalReference);
+        return $this->settings->carrier()->reverse($internalReference);
+    }
+
+    public function readNotification(array $data): Notification
+    {
+        return new Notification($data, $this->settings->tranKey());
     }
 }

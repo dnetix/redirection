@@ -5,45 +5,43 @@ namespace Dnetix\Redirection\Helpers;
 class DocumentHelper
 {
     // Colombia Documents
-    const TYPE_CC = 'CC';
-    const TYPE_CE = 'CE';
-    const TYPE_TI = 'TI';
-    const TYPE_RC = 'RC';
-    const TYPE_NIT = 'NIT';
-    const TYPE_RUT = 'RUT';
+    public const TYPE_CC = 'CC';
+    public const TYPE_CE = 'CE';
+    public const TYPE_TI = 'TI';
+    public const TYPE_RC = 'RC';
+    public const TYPE_NIT = 'NIT';
+    public const TYPE_RUT = 'RUT';
 
     // Generic Documents
-    const TYPE_PPN = 'PPN';
-    const TYPE_TAX = 'TAX';
-    const TYPE_LIC = 'LIC';
-
-    // Carnet Diplomatico
-    const TYPE_CD = 'CD';
+    public const TYPE_PPN = 'PPN';
+    public const TYPE_TAX = 'TAX';
+    public const TYPE_LIC = 'LIC';
+    public const TYPE_CD = 'CD';
 
     // USA Documents
-    const TYPE_SSN = 'SSN';
+    public const TYPE_SSN = 'SSN';
 
     // Panama Documents
-    const TYPE_CIP = 'CIP';
+    public const TYPE_CIP = 'CIP';
 
     // Brazil Documents
-    const TYPE_CPF = 'CPF';
+    public const TYPE_CPF = 'CPF';
 
     // Ecuador Documents
-    const TYPE_CI = 'CI';
-    const TYPE_RUC = 'RUC';
+    public const TYPE_CI = 'CI';
+    public const TYPE_RUC = 'RUC';
 
     // Peru Documents
-    const TYPE_DNI = 'DNI';
+    public const TYPE_DNI = 'DNI';
 
     // Costa Rica Documents
-    const TYPE_CRCPF = 'CRCPF';
-    const TYPE_CPJ = 'CPJ';
-    const TYPE_DIMEX = 'DIMEX';
-    const TYPE_DIDI = 'DIDI';
+    public const TYPE_CRCPF = 'CRCPF';    // Cédula personal física
+    public const TYPE_CPJ = 'CPJ';    // Cedula personal juridica
+    public const TYPE_DIMEX = 'DIMEX';    // Documento de identificación de Migración y Extranjería
+    public const TYPE_DIDI = 'DIDI';    // Documento de identificación de diplomáticos
 
     // Chile Documents
-    const TYPE_CLRUT = 'CLRUT';
+    public const TYPE_CLRUT = 'CLRUT'; // Rol Único Tributario
 
     protected static $DOCUMENT_TYPES = [
         self::TYPE_CC,
@@ -66,6 +64,7 @@ class DocumentHelper
         self::TYPE_DIDI,
         self::TYPE_CLRUT,
     ];
+
     public static $VALIDATION_PATTERNS = [
         self::TYPE_CC => '/^[1-9][0-9]{3,9}$/',
         self::TYPE_CE => '/^([a-zA-Z]{1,5})?[1-9][0-9]{3,7}$/',
@@ -76,7 +75,7 @@ class DocumentHelper
         self::TYPE_TAX => '/^[a-zA-Z0-9_]{4,16}$/',
         self::TYPE_LIC => '/^[a-zA-Z0-9_]{4,16}$/',
         self::TYPE_SSN => '/^\d{3}\d{2,3}\d{4}$/',
-        self::TYPE_CIP => '/^(PE|N|E|\d+)?\d{2,6}\d{2,6}$/',
+        self::TYPE_CIP => '/^(PE|E|N|[23456789](?:AV|PI)?|1[0123]?(?:AV|PI)?)-?(\d{1,4})-?(\d{1,6})$/',
         self::TYPE_CPF => '/^\d{10,11}$/',
         self::TYPE_CI => '/^\d{10}$/',
         self::TYPE_RUC => '/^\d{13}$/',
@@ -85,10 +84,10 @@ class DocumentHelper
         self::TYPE_CPJ => '/^[1-9][0-9]{9}$/',
         self::TYPE_DIMEX => '/^[1-9][0-9]{10,11}$/',
         self::TYPE_DIDI => '/^[1-9][0-9]{10,11}$/',
-        self::TYPE_CLRUT => '/^(\d{1,3}(?:\.?\d{1,3}){2}-[\dkK])$/',
+        self::TYPE_CLRUT => '/^(\d{1,2}(?:\.?\d{1,3}){2}-[\dkK])$/',
     ];
 
-    public static function documentTypes($exclude = [])
+    public static function documentTypes(array $exclude = []): array
     {
         $types = self::$DOCUMENT_TYPES;
         if ($exclude && is_array($exclude)) {
@@ -97,12 +96,12 @@ class DocumentHelper
         return $types;
     }
 
-    public static function isValidType($type)
+    public static function isValidType(string $type): bool
     {
         return in_array($type, self::$DOCUMENT_TYPES);
     }
 
-    public static function isValidDocument($type, $document)
+    public static function isValidDocument(string $type, string $document): bool
     {
         if (!self::isValidType($type)) {
             return false;
@@ -116,7 +115,12 @@ class DocumentHelper
         return (bool)preg_match($pattern, $document);
     }
 
-    public static function businessDocument($document = null)
+    /**
+     * Checks if a document is a business one or returns an array of business documents.
+     * @param string $document
+     * @return bool|string[]
+     */
+    public static function businessDocument(string $document = '')
     {
         $businessDocuments = [
             self::TYPE_NIT,

@@ -3,99 +3,78 @@
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
-use Dnetix\Redirection\Traits\LoaderTrait;
 
 class Token extends Entity
 {
-    use LoaderTrait;
-    /**
-     * @var Status
-     */
-    protected $status;
-    protected $token;
-    protected $subtoken;
-    protected $franchise;
-    protected $franchiseName;
-    protected $issuerName;
-    protected $lastDigits;
-    protected $validUntil;
+    protected string $token = '';
+    protected string $subtoken = '';
+    protected string $franchise = '';
+    protected string $franchiseName = '';
+    protected string $issuerName = '';
+    protected string $lastDigits = '';
+    protected string $validUntil = '';
     // Just in case the token will be utilized
-    protected $cvv;
-    protected $installments;
+    protected string $cvv = '';
+    protected int $installments = 0;
 
     public function __construct($data = [])
     {
         $this->load($data, ['token', 'subtoken', 'franchise', 'franchiseName', 'issuerName', 'lastDigits', 'validUntil', 'cvv', 'installments']);
-
-        if (isset($data['status'])) {
-            $this->setStatus($data['status']);
-        }
     }
 
-    public function status()
-    {
-        return $this->status;
-    }
-
-    public function token()
+    public function token(): string
     {
         return $this->token;
     }
 
-    public function subtoken()
+    public function subtoken(): string
     {
         return $this->subtoken;
     }
 
-    public function franchise()
+    public function franchise(): string
     {
         return $this->franchise;
     }
 
-    public function franchiseName()
+    public function franchiseName(): string
     {
         return $this->franchiseName;
     }
 
-    public function issuerName()
+    public function issuerName(): string
     {
         return $this->issuerName;
     }
 
-    public function lastDigits()
+    public function lastDigits(): string
     {
         return $this->lastDigits;
     }
 
-    public function validUntil()
+    public function validUntil(): string
     {
         return $this->validUntil;
     }
 
-    public function cvv()
+    public function cvv(): string
     {
         return $this->cvv;
     }
 
-    public function installments()
+    public function installments(): string
     {
         return $this->installments;
     }
 
-    public function expiration()
+    public function expiration(): string
     {
         return date('m/y', strtotime($this->validUntil()));
     }
 
-    public function isSuccessful()
-    {
-        return $this->status()->status() == 'OK';
-    }
-
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
-            'status' => $this->status() ? $this->status()->toArray() : null,
             'token' => $this->token(),
             'subtoken' => $this->subtoken(),
             'franchise' => $this->franchise(),

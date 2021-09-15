@@ -55,7 +55,7 @@ $response = $placetopay->request($request);
 if ($response->isSuccessful()) {
     // STORE THE $response->requestId() and $response->processUrl() on your DB associated with the payment order
     // Redirect the client to the processUrl or display it on the JS extension
-    header('Location: ' . $response->processUrl());
+    $response->processUrl();
 } else {
     // There was some error so check the message and log it
     $response->status()->message();

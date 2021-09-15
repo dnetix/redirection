@@ -21,6 +21,14 @@ class DocumentHelperTest extends BaseTestCase
         $this->assertTrue(in_array(DocumentHelper::TYPE_NIT, $documentTypes), 'Document NIT Exists after');
     }
 
+    public function testItHandlesBusinessDocuments()
+    {
+        $this->assertIsArray(DocumentHelper::businessDocument());
+        $this->assertFalse(DocumentHelper::businessDocument(DocumentHelper::TYPE_CC));
+
+        $this->assertFalse(DocumentHelper::isValidDocument('NOT_EXISTS', '1234'));
+    }
+
     public function testItValidatesCorrectlyTheCI()
     {
         $this->assertTrue(DocumentHelper::isValidDocument(DocumentHelper::TYPE_CI, '1002606430'));

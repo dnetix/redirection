@@ -4,180 +4,135 @@ namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\FieldsTrait;
-use Dnetix\Redirection\Traits\LoaderTrait;
-use Dnetix\Redirection\Validators\PaymentValidator;
 
 class Payment extends Entity
 {
-    protected $validator = PaymentValidator::class;
-    use FieldsTrait, LoaderTrait;
-    protected $reference;
-    protected $description;
-    /**
-     * @var Amount
-     */
-    protected $amount;
-    protected $allowPartial = false;
-    /**
-     * @var Person
-     */
-    protected $shipping;
+    use FieldsTrait;
+
+    protected string $reference;
+    protected string $description = '';
+    protected ?Amount $amount = null;
+    protected bool $allowPartial = false;
+    protected ?Person $shipping = null;
     /**
      * @var Item[]
      */
-    protected $items;
-    /**
-     * @var Recurring
-     */
-    protected $recurring;
-    protected $discount;
-    /**
-     * @var Instrument
-     */
-    protected $instrument;
-    public $subscribe = false;
-    protected $agreement;
-    protected $agreementType;
-    /**
-     * @var GDS
-     */
-    protected $gds;
+    protected array $items = [];
+    protected ?Recurring $recurring = null;
+    protected ?Discount $discount = null;
+    protected ?Instrument $instrument = null;
+    public bool $subscribe = false;
+    protected string $agreement = '';
+    protected string $agreementType = '';
 
-    public function __construct($data = [])
+    public function __construct(array $data = [])
     {
-        $this->load($data, ['reference', 'description', 'allowPartial', 'subscribe', 'items', 'agreement', 'agreementType']);
+        $this->load($data, ['reference', 'description', 'allowPartial', 'subscribe', 'agreement', 'agreementType']);
 
-        if (isset($data['amount'])) {
-            $this->setAmount($data['amount']);
-        }
-        if (isset($data['recurring'])) {
-            $this->setRecurring($data['recurring']);
-        }
-        if (isset($data['shipping'])) {
-            $this->setShipping($data['shipping']);
-        }
+        $this->loadEntity($data['amount'] ?? null, 'amount', Amount::class);
+        $this->loadEntity($data['recurring'] ?? null, 'recurring', Recurring::class);
+        $this->loadEntity($data['shipping'] ?? null, 'shipping', Person::class);
+        $this->loadEntity($data['discount'] ?? null, 'discount', Discount::class);
+
         if (isset($data['items'])) {
             $this->setItems($data['items']);
         }
         if (isset($data['fields'])) {
             $this->setFields($data['fields']);
         }
-        if (isset($data['gds'])) {
-            $this->setGDS($data['gds']);
-        }
     }
 
-    public function reference()
+    public function reference(): string
     {
         return $this->reference;
     }
 
-    public function description()
+    public function description(): string
     {
         return $this->description;
     }
 
-    public function amount()
+    public function amount(): ?Amount
     {
         return $this->amount;
     }
 
-    public function agreement()
+    public function agreement(): string
     {
         return $this->agreement;
     }
 
-    public function agreementType()
+    public function agreementType(): string
     {
         return $this->agreementType;
     }
 
-    public function gds()
-    {
-        return $this->gds;
-    }
-
-    /**
-     * @return bool
-     */
-    public function allowPartial()
+    public function allowPartial(): bool
     {
         return filter_var($this->allowPartial, FILTER_VALIDATE_BOOLEAN);
     }
 
-    public function shipping()
+    public function shipping(): ?Person
     {
         return $this->shipping;
     }
 
-    public function items()
+    public function items(): array
     {
         return $this->items;
     }
 
-    public function recurring()
+    public function recurring(): ?Recurring
     {
         return $this->recurring;
     }
 
-    public function subscribe()
+    public function subscribe(): bool
     {
         return $this->subscribe;
     }
 
-    public function setReference($reference)
+    public function discount(): ?Discount
+    {
+        return $this->discount;
+    }
+
+    public function setReference($reference): self
     {
         $this->reference = $reference;
         return $this;
     }
 
-    public function setDescription($description)
+    public function setDescription($description): self
     {
         $this->description = $description;
         return $this;
     }
 
-    public function setGDS($gds)
+    public function setItems(array $items): self
     {
-        if (is_array($gds)) {
-            $gds = new GDS($gds);
+        if (isset($items['item'])) {
+            $items = $items['item'];
         }
-        $this->gds = $gds;
+        $this->items = array_map(function ($data) {
+            return is_array($data) ? new Item($data) : $data;
+        }, $items);
+
         return $this;
     }
 
-    public function setItems($items)
-    {
-        if ($items && is_array($items)) {
-            if (isset($items['item'])) {
-                $items = $items['item'];
-            }
-
-            $this->items = [];
-            foreach ($items as $item) {
-                if (is_array($item)) {
-                    $item = new Item($item);
-                }
-                $this->items[] = $item;
-            }
-        }
-        return $this;
-    }
-
-    public function itemsToArray()
+    public function itemsToArray(): array
     {
         if ($this->items() && is_array($this->items())) {
-            $items = [];
-            foreach ($this->items() as $item) {
-                $items[] = $item->toArray();
-            }
-            return $items;
-        } else {
-            return null;
+            return array_map(function (Item $item) {
+                return $item->toArray();
+            }, $this->items());
         }
+
+        return [];
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return self::arrayFilter([
             'reference' => $this->reference(),
@@ -187,11 +142,11 @@ class Payment extends Entity
             'shipping' => $this->shipping() ? $this->shipping()->toArray() : null,
             'items' => $this->itemsToArray(),
             'recurring' => $this->recurring() ? $this->recurring()->toArray() : null,
+            'discount' => $this->discount() ? $this->discount()->toArray() : null,
             'subscribe' => $this->subscribe(),
             'fields' => $this->fieldsToArray(),
             'agreement' => $this->agreement(),
             'agreementType' => $this->agreementType(),
-            'gds' => $this->gds() ? $this->gds()->toArray() : null,
         ]);
     }
 }

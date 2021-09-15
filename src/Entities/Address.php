@@ -3,57 +3,52 @@
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
-use Dnetix\Redirection\Traits\LoaderTrait;
-use Dnetix\Redirection\Validators\AddressValidator;
 
 class Address extends Entity
 {
-    protected $validator = AddressValidator::class;
-    use LoaderTrait;
-    protected $street;
-    protected $city;
-    protected $state;
-    protected $postalCode;
-    protected $country;
-    protected $phone;
+    protected string $street = '';
+    protected string $city = '';
+    protected string $state = '';
+    protected string $postalCode = '';
+    protected string $country = '';
+    protected string $phone = '';
 
     public function __construct($data = [])
     {
         $this->load($data, ['street', 'city', 'state', 'postalCode', 'phone', 'country']);
-        parent::__construct($data);
     }
 
-    public function street()
+    public function street(): string
     {
         return $this->street;
     }
 
-    public function city()
+    public function city(): string
     {
         return $this->city;
     }
 
-    public function state()
+    public function state(): string
     {
         return $this->state;
     }
 
-    public function postalCode()
+    public function postalCode(): string
     {
         return $this->postalCode;
     }
 
-    public function country()
+    public function country(): string
     {
         return $this->country;
     }
 
-    public function phone()
+    public function phone(): string
     {
-        return AddressValidator::normalizePhone($this->phone);
+        return $this->phone;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'street' => $this->street(),

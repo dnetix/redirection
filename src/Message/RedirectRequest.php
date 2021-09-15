@@ -4,53 +4,34 @@ namespace Dnetix\Redirection\Message;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Entities\DispersionPayment;
-use Dnetix\Redirection\Entities\Payment;
 use Dnetix\Redirection\Entities\Person;
 use Dnetix\Redirection\Entities\Subscription;
 use Dnetix\Redirection\Traits\FieldsTrait;
-use Dnetix\Redirection\Traits\LoaderTrait;
 
 class RedirectRequest extends Entity
 {
-    use LoaderTrait, FieldsTrait;
-    protected $locale = 'es_CO';
-    /**
-     * @var Person
-     */
-    protected $payer;
-    /**
-     * @var Person
-     */
-    protected $buyer;
-    /**
-     * @var DispersionPayment
-     */
-    protected $payment;
-    /**
-     * @var Subscription
-     */
-    protected $subscription;
-    protected $returnUrl;
-    protected $paymentMethod;
-    protected $cancelUrl;
-    protected $ipAddress;
-    protected $userAgent;
-    protected $expiration;
-    protected $captureAddress;
-    protected $skipResult = false;
-    protected $noBuyerFill = false;
+    use FieldsTrait;
+
+    protected string $locale = 'es_CO';
+    protected ?Person $payer = null;
+    protected ?Person $buyer = null;
+    protected ?DispersionPayment $payment = null;
+    protected ?Subscription $subscription = null;
+    protected string $returnUrl;
+    protected string $paymentMethod = '';
+    protected string $cancelUrl = '';
+    protected string $ipAddress;
+    protected string $userAgent;
+    protected string $expiration;
+    protected bool $captureAddress = false;
+    protected bool $skipResult = false;
+    protected bool $noBuyerFill = false;
 
     public function __construct($data = [])
     {
         // Setting the default values
         if (!isset($data['expiration'])) {
             $this->expiration = date('c', strtotime('+1 day'));
-        }
-        if (!isset($data['userAgent'])) {
-            $this->userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null;
-        }
-        if (!isset($data['ipAddress'])) {
-            $this->ipAddress = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : $_SERVER['REMOTE_ADDR'];
         }
 
         $this->load($data, ['returnUrl', 'paymentMethod', 'cancelUrl', 'ipAddress', 'userAgent', 'expiration', 'captureAddress', 'skipResult', 'noBuyerFill']);
@@ -59,79 +40,62 @@ class RedirectRequest extends Entity
             $this->setLocale($data['locale']);
         }
 
-        if (isset($data['payer'])) {
-            $this->setPayer($data['payer']);
-        }
-
-        if (isset($data['buyer'])) {
-            $this->setBuyer($data['buyer']);
-        }
-
-        if (isset($data['payment'])) {
-            $this->setPayment($data['payment']);
-        }
-
-        if (isset($data['subscription'])) {
-            $this->setSubscription($data['subscription']);
-        }
+        $this->loadEntity($data['payer'] ?? null, 'payer', Person::class);
+        $this->loadEntity($data['buyer'] ?? null, 'buyer', Person::class);
+        $this->loadEntity($data['payment'] ?? null, 'payment', DispersionPayment::class);
+        $this->loadEntity($data['subscription'] ?? null, 'subscription', Subscription::class);
 
         if (isset($data['fields'])) {
             $this->setFields($data['fields']);
         }
     }
 
-    public function locale()
+    public function locale(): string
     {
         return $this->locale;
     }
 
-    public function language()
+    public function language(): string
     {
         return strtoupper(substr($this->locale(), 0, 2));
     }
 
-    public function payer()
+    public function payer(): ?Person
     {
         return $this->payer;
     }
 
-    public function buyer()
+    public function buyer(): ?Person
     {
         return $this->buyer;
     }
 
-    /**
-     * @return DispersionPayment
-     */
-    public function payment()
+    public function payment(): ?DispersionPayment
     {
         return $this->payment;
     }
 
-    /**
-     * @return Subscription
-     */
-    public function subscription()
+    public function subscription(): ?Subscription
     {
         return $this->subscription;
     }
 
-    public function cancelUrl()
+    public function cancelUrl(): string
     {
         return $this->cancelUrl;
     }
 
-    public function returnUrl()
+    public function returnUrl(): string
     {
         return $this->returnUrl;
     }
 
-    public function ipAddress()
+    public function ipAddress(): string
     {
         return $this->ipAddress;
     }
 
-    public function userAgent()
+    public function userAgent(): string
     {
         return $this->userAgent;
     }
@@ -141,60 +105,45 @@ class RedirectRequest extends Entity
      * know how to get it.
      * @return mixed
      */
-    public function reference()
+    public function reference(): string
     {
         if ($this->payment()) {
             return $this->payment()->reference();
         }
-
         return $this->subscription()->reference();
     }
 
-    public function setLocale($locale)
+    public function setLocale($locale): self
     {
         $this->locale = $locale;
         return $this;
     }
 
-    public function setSubscription($subscription)
-    {
-        if (is_array($subscription)) {
-            $subscription = new Subscription($subscription);
-        }
-
-        if (!($subscription instanceof Subscription)) {
-            $subscription = null;
-        }
-
-        $this->subscription = $subscription;
-        return $this;
-    }
-
-    public function setReturnUrl($returnUrl)
+    public function setReturnUrl($returnUrl): self
     {
         $this->returnUrl = $returnUrl;
         return $this;
     }
 
-    public function setCancelUrl($cancelUrl)
+    public function setCancelUrl($cancelUrl): self
     {
         $this->cancelUrl = $cancelUrl;
         return $this;
     }
 
-    public function setExpiration($expiration)
+    public function setExpiration($expiration): self
     {
         $this->expiration = $expiration;
         return $this;
     }
 
-    public function setUserAgent($userAgent)
+    public function setUserAgent($userAgent): self
     {
         $this->userAgent = $userAgent;
         return $this;
     }
 
-    public function setIpAddress($ipAddress)
+    public function setIpAddress($ipAddress): self
     {
         $this->ipAddress = $ipAddress;
         return $this;
@@ -202,34 +151,33 @@ class RedirectRequest extends Entity
 
     /**
      * Returns the expiration datetime for this request.
-     * @return string
      */
-    public function expiration()
+    public function expiration(): string
     {
         return $this->expiration;
     }
 
-    public function paymentMethod()
+    public function paymentMethod(): string
     {
         return $this->paymentMethod;
     }
 
-    public function captureAddress()
+    public function captureAddress(): bool
     {
-        return (bool)$this->captureAddress;
+        return $this->captureAddress;
     }
 
-    public function skipResult()
+    public function skipResult(): bool
     {
         return filter_var($this->skipResult, FILTER_VALIDATE_BOOLEAN);
     }
 
-    public function noBuyerFill()
+    public function noBuyerFill(): bool
     {
         return filter_var($this->noBuyerFill, FILTER_VALIDATE_BOOLEAN);
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'locale' => $this->locale(),

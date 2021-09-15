@@ -4,15 +4,15 @@ namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Traits\FieldsTrait;
-use Dnetix\Redirection\Traits\LoaderTrait;
 
 class Subscription extends Entity
 {
-    use FieldsTrait, LoaderTrait;
-    protected $reference;
-    protected $description;
+    use FieldsTrait;
 
-    public function __construct($data = [])
+    protected string $reference = '';
+    protected string $description = '';
+
+    public function __construct(array $data = [])
     {
         $this->load($data, ['reference', 'description']);
         if (isset($data['fields'])) {
@@ -20,17 +20,17 @@ class Subscription extends Entity
         }
     }
 
-    public function reference()
+    public function reference(): string
     {
         return $this->reference;
     }
 
-    public function description()
+    public function description(): string
     {
         return $this->description;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'reference' => $this->reference(),

@@ -12,13 +12,16 @@ class PaymentEntityTest extends BaseTestCase
     public function testItAddsAField()
     {
         $payment = new Payment();
-        $this->assertNull($payment->fields());
+        $this->assertEmpty($payment->fields());
+        $this->assertEmpty($payment->fieldsToKeyValue());
 
         $payment->addField(['keyword' => 'testing', 'value' => 'value']);
         $this->assertEquals(1, count($payment->fields()));
 
         $payment->addField(['keyword' => 'testing2', 'value' => 'value2']);
         $this->assertEquals(2, count($payment->fields()));
+
+        $this->assertArrayHasKey('testing2', $payment->fieldsToKeyValue());
 
         $data = [
             'reference' => 'required',
@@ -117,7 +120,7 @@ class PaymentEntityTest extends BaseTestCase
             ],
             'subscribe' => false,
         ]);
-        $this->assertNull($payment->items());
+        $this->assertEmpty($payment->items());
     }
 
     public function testItParsesTheDataCorrectly()
@@ -145,12 +148,52 @@ class PaymentEntityTest extends BaseTestCase
                     'name' => 'Testing2',
                 ],
             ],
+            'recurring' => [
+                'periodicity' => 'M',
+                'interval' => 1,
+                'notificationUrl' => 'https://dnetix.co/ping/recurring',
+                'dueDate' => date('Y-m-d', strtotime('+6 months')),
+            ],
+            'shipping' => [
+                'name' => 'Diego',
+                'surname' => 'Calle',
+                'email' => 'dnetix@gmail.com',
+            ],
+            'discount' => [
+                'code' => 1231,
+                'type' => 'MERCHANT',
+                'amount' => 100,
+                'base' => '10',
+                'percent' => 0,
+            ],
             'allowPartial' => false,
             'subscribe' => false,
         ];
         $payment = new Payment($data);
+
         $this->assertEquals(1, count($payment->fields()));
         $this->assertEquals($data, $payment->toArray());
+    }
+
+    public function testItHandlesABadEntityOnConstruction()
+    {
+        $data = [
+            'reference' => 'required',
+            'amount' => [
+                'total' => 10000,
+                'currency' => 'COP',
+            ],
+            'shipping' => (object)[
+                'name' => 'Diego',
+                'surname' => 'Calle',
+                'email' => 'dnetix@gmail.com',
+            ],
+            'allowPartial' => false,
+            'subscribe' => false,
+        ];
+        $payment = new Payment($data);
+
+        $this->assertEmpty($payment->shipping());
     }
 
     public function testItParsesCorrectlyADispersion()

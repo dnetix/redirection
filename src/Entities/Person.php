@@ -4,100 +4,70 @@ namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Helpers\DocumentHelper;
-use Dnetix\Redirection\Traits\LoaderTrait;
-use Dnetix\Redirection\Validators\PersonValidator;
 
 class Person extends Entity
 {
-    protected $validator = PersonValidator::class;
-    use LoaderTrait;
-    protected $document;
-    protected $documentType;
-    protected $name;
-    protected $surname;
-    protected $company;
-    protected $email;
-    /**
-     * @var Address
-     */
-    protected $address;
-    protected $mobile;
+    protected string $document = '';
+    protected string $documentType = '';
+    protected string $name = '';
+    protected string $surname = '';
+    protected string $company = '';
+    protected string $email = '';
+    protected string $mobile = '';
+    protected ?Address $address = null;
 
     public function __construct($data = [])
     {
         $this->load($data, ['document', 'documentType', 'name', 'surname', 'company', 'email', 'mobile']);
-
-        if (isset($data['address'])) {
-            $this->setAddress($data['address']);
-        }
+        $this->loadEntity($data['address'] ?? null, 'address', Address::class);
     }
 
-    public function document()
+    public function document(): string
     {
         return $this->document;
     }
 
-    public function documentType()
+    public function documentType(): string
     {
         return $this->documentType;
     }
 
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function surname()
+    public function surname(): string
     {
         return $this->surname;
     }
 
-    public function company()
+    public function company(): string
     {
         return $this->company;
     }
 
-    public function email()
+    public function email(): string
     {
         return $this->email;
     }
 
-    /**
-     * @return Address
-     */
-    public function address()
+    public function address(): ?Address
     {
         return $this->address;
     }
 
-    public function mobile()
+    public function mobile(): string
     {
-        return PersonValidator::normalizePhone($this->mobile);
+        return $this->mobile;
     }
 
-    public function isBusiness()
+    public function isBusiness(): bool
     {
         return $this->documentType() && DocumentHelper::businessDocument($this->documentType());
     }
 
-    public function fullDocument()
-    {
-        if ($this->document()) {
-            return $this->documentType() . ' ' . $this->document();
-        }
-        return null;
-    }
-
-    public function getRequiredFields()
-    {
-        $rf = ['document', 'documentType', 'name', 'email'];
-        if (!$this->isBusiness()) {
-            $rf[] = 'surname';
-        }
-        return $rf;
-    }
-
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'document' => $this->document(),

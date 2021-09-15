@@ -3,30 +3,28 @@
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
-use Dnetix\Redirection\Traits\LoaderTrait;
 
 class AmountDetail extends Entity
 {
-    use LoaderTrait;
-    protected $kind;
-    protected $amount;
+    protected string $kind;
+    protected float $amount;
 
     public function __construct($data = [])
     {
         $this->load($data, ['kind', 'amount']);
     }
 
-    public function kind()
+    public function kind(): string
     {
         return $this->kind;
     }
 
-    public function amount()
+    public function amount(): float
     {
         return $this->amount;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'kind' => $this->kind(),

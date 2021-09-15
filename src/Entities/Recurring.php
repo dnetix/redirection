@@ -3,75 +3,62 @@
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
-use Dnetix\Redirection\Traits\LoaderTrait;
-use Dnetix\Redirection\Validators\RecurringValidator;
 
 class Recurring extends Entity
 {
-    use LoaderTrait;
     /**
      * Frequency to resubmit the transaction.
      * Y = annual  M = monthly  D = daily.
      * @var string
      */
-    protected $periodicity;
-    /**
-     * @var int
-     */
-    protected $interval;
-    protected $nextPayment;
+    protected string $periodicity;
+    protected int $interval;
+    protected string $nextPayment = '';
     /**
      * Depends on the number of times that it makes the charge, corresponds to maximum times that the recurrence
      * will happen. If you do not want to set up should indicated -1.
      * You must specify this parameter or dueDate.
-     * @var int
      */
-    protected $maxPeriods;
-    protected $dueDate;
-    protected $notificationUrl;
+    protected ?int $maxPeriods = null;
+    protected string $dueDate = '';
+    protected string $notificationUrl = '';
 
     public function __construct($data = [])
     {
-        $this->load($data, ['periodicity', 'interval', 'maxPeriods', 'notificationUrl']);
-        if (isset($data['nextPayment'])) {
-            $this->nextPayment = RecurringValidator::parseDate($data['nextPayment'], 'Y-m-d');
-        }
-        if (isset($data['dueDate'])) {
-            $this->dueDate = RecurringValidator::parseDate($data['dueDate'], 'Y-m-d');
-        }
+        $this->load($data, ['periodicity', 'interval', 'maxPeriods', 'nextPayment', 'dueDate', 'notificationUrl']);
     }
 
-    public function periodicity()
+    public function periodicity(): string
     {
         return $this->periodicity;
     }
 
-    public function interval()
+    public function interval(): int
     {
         return $this->interval;
     }
 
-    public function nextPayment()
+    public function nextPayment(): string
     {
         return $this->nextPayment;
     }
 
-    public function maxPeriods()
+    public function maxPeriods(): ?int
     {
         return $this->maxPeriods;
     }
 
-    public function dueDate()
+    public function dueDate(): string
     {
         return $this->dueDate;
     }
 
-    public function notificationUrl()
+    public function notificationUrl(): string
     {
         return $this->notificationUrl;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'periodicity' => $this->periodicity(),

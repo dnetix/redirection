@@ -3,54 +3,52 @@
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
-use Dnetix\Redirection\Traits\LoaderTrait;
 
 class Item extends Entity
 {
-    use LoaderTrait;
-    protected $sku;
-    protected $name;
-    protected $category;
-    protected $qty;
-    protected $price;
-    protected $tax;
+    protected string $sku = '';
+    protected string $name = '';
+    protected string $category = '';
+    protected string $qty = '';
+    protected string $price = '';
+    protected string $tax = '';
 
     public function __construct($data = [])
     {
         $this->load($data, ['sku', 'name', 'category', 'qty', 'price', 'tax']);
     }
 
-    public function sku()
+    public function sku(): string
     {
         return $this->sku;
     }
 
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function category()
+    public function category(): string
     {
         return $this->category;
     }
 
-    public function qty()
+    public function qty(): string
     {
         return $this->qty;
     }
 
-    public function price()
+    public function price(): string
     {
         return $this->price;
     }
 
-    public function tax()
+    public function tax(): string
     {
         return $this->tax;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->arrayFilter([
             'sku' => $this->sku(),

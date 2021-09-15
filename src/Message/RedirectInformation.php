@@ -11,31 +11,20 @@ use Dnetix\Redirection\Traits\StatusTrait;
 class RedirectInformation extends Entity
 {
     use StatusTrait;
-    public $requestId;
-    /**
-     * @var RedirectRequest
-     */
-    public $request;
+
+    protected string $requestId;
+    protected ?RedirectRequest $request = null;
     /**
      * @var Transaction[]
      */
-    public $payment;
-    /**
-     * @var SubscriptionInformation
-     */
-    public $subscription;
+    protected array $payment = [];
+    protected ?SubscriptionInformation $subscription = null;
 
     public function __construct($data = [])
     {
-        if (isset($data['requestId'])) {
-            $this->requestId = $data['requestId'];
-        }
-
-        $this->setStatus($data['status']);
-
-        if (isset($data['request'])) {
-            $this->setRequest($data['request']);
-        }
+        $this->requestId = $data['requestId'] ?? '';
+        $this->loadEntity($data['status'], 'status', Status::class);
+        $this->loadEntity($data['request'] ?? null, 'request', RedirectRequest::class);
 
         if (isset($data['payment'])) {
             $this->setPayment($data['payment']);
@@ -46,23 +35,12 @@ class RedirectInformation extends Entity
         }
     }
 
-    public function requestId()
+    public function requestId(): string
     {
         return $this->requestId;
     }
 
-    /**
-     * @return Status
-     */
-    public function status()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @return RedirectRequest
-     */
-    public function request()
+    public function request(): RedirectRequest
     {
         return $this->request;
     }
@@ -70,29 +48,17 @@ class RedirectInformation extends Entity
     /**
      * @return Transaction[]
      */
-    public function payment()
+    public function payment(): array
     {
         return $this->payment;
     }
 
-    /**
-     * @return SubscriptionInformation
-     */
-    public function subscription()
+    public function subscription(): ?SubscriptionInformation
     {
         return $this->subscription;
     }
 
-    public function setRequest($request)
-    {
-        if (is_array($request)) {
-            $request = new RedirectRequest($request);
-        }
-        $this->request = $request;
-        return $this;
-    }
-
-    public function setPayment($payments)
+    public function setPayment($payments): self
     {
         if ($payments) {
             $this->payment = [];
@@ -108,50 +74,26 @@ class RedirectInformation extends Entity
         return $this;
     }
 
-    /**
-     * @param SubscriptionInformation|array $subscription
-     * @return $this
-     */
-    public function setSubscription($subscription)
+    public function setSubscription($subscription): self
     {
-        if (is_array($subscription)) {
-            $subscription = new SubscriptionInformation($subscription);
-        }
-
-        if (!($subscription instanceof SubscriptionInformation)) {
-            $subscription = null;
-        }
-
-        $this->subscription = $subscription;
+        $this->loadEntity($subscription, 'subscription', SubscriptionInformation::class);
         return $this;
     }
 
-    private function paymentToArray()
+    private function paymentToArray(): array
     {
         if (!$this->payment() || !is_array($this->payment())) {
-            return null;
+            return [];
         }
 
         $payments = [];
         foreach ($this->payment() as $payment) {
             $payments[] = $payment->toArray();
         }
-        return $payments ?: null;
+        return $payments ?: [];
     }
 
-    public function isSuccessful()
-    {
-        return !in_array($this->status()->status(), [Status::ST_ERROR, Status::ST_FAILED]);
-    }
-
-    // Helpers
-
-    public function isApproved()
-    {
-        return $this->status()->status() == Status::ST_APPROVED;
-    }
-
-    public function lastApprovedTransaction()
+    public function lastApprovedTransaction(): ?Transaction
     {
         return $this->lastTransaction(true);
     }
@@ -161,7 +103,7 @@ class RedirectInformation extends Entity
      * @param bool $approved
      * @return Transaction
      */
-    public function lastTransaction($approved = false)
+    public function lastTransaction(bool $approved = false): ?Transaction
     {
         $transactions = $this->payment();
         if (is_array($transactions) && count($transactions) > 0) {
@@ -181,17 +123,17 @@ class RedirectInformation extends Entity
     /**
      * Returns the last authorization associated with the session.
      */
-    public function lastAuthorization()
+    public function lastAuthorization(): string
     {
         if ($this->lastApprovedTransaction()) {
             return $this->lastApprovedTransaction()->authorization();
         }
-        return null;
+        return '';
     }
 
-    public function toArray()
+    public function toArray(): array
     {
-        return array_filter([
+        return $this->arrayFilter([
             'requestId' => $this->requestId(),
             'status' => $this->status() ? $this->status()->toArray() : null,
             'request' => $this->request() ? $this->request()->toArray() : null,

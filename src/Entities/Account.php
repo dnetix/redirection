@@ -3,64 +3,44 @@
 namespace Dnetix\Redirection\Entities;
 
 use Dnetix\Redirection\Contracts\Entity;
-use Dnetix\Redirection\Traits\LoaderTrait;
+use Dnetix\Redirection\Traits\StatusTrait;
 
 class Account extends Entity
 {
-    use LoaderTrait;
-    /**
-     * @var Status
-     */
-    public $status;
-    public $bankCode;
-    public $bankName;
-    public $accountType;
-    public $accountNumber;
+    use StatusTrait;
+
+    protected string $bankCode;
+    protected string $bankName;
+    protected string $accountType = '';
+    protected string $accountNumber = '';
 
     public function __construct($data = [])
     {
         $this->load($data, ['bankCode', 'bankName', 'accountType', 'accountNumber']);
-
-        if (isset($data['status'])) {
-            $this->setStatus($data['status']);
-        }
+        $this->loadEntity($data['status'] ?? null, 'status', Status::class);
     }
 
-    public function status()
-    {
-        return $this->status;
-    }
-
-    public function bankCode()
+    public function bankCode(): string
     {
         return $this->bankCode;
     }
 
-    public function bankName()
+    public function bankName(): string
     {
         return $this->bankName;
     }
 
-    public function accountType()
+    public function accountType(): string
     {
         return $this->accountType;
     }
 
-    public function accountNumber()
+    public function accountNumber(): string
     {
         return $this->accountNumber;
     }
 
-    /**
-     * The subscription franchise code (CR_VS, RM_MC).
-     * @return string
-     */
-    public function franchise()
-    {
-        return '_' . $this->bankCode() . '_';
-    }
-
-    public function toArray()
+    public function toArray(): array
     {
         return array_filter([
             'status' => $this->status() ? $this->status()->toArray() : null,
@@ -68,48 +48,20 @@ class Account extends Entity
             'bankName' => $this->bankName(),
             'accountType' => $this->accountType(),
             'accountNumber' => $this->accountNumber(),
-            'franchise' => $this->franchise(),
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function type()
+    public function type(): string
     {
         return 'account';
     }
 
     /**
-     * The subscription franchise name (VISA, Mastercard, Bancolombia).
-     * @return string
-     */
-    public function franchiseName()
-    {
-        return $this->bankName();
-    }
-
-    /**
      * Last digits for the instrument subscribed in order to display to the
      * user.
-     * @return string
      */
-    public function lastDigits()
+    public function lastDigits(): string
     {
         return substr($this->accountNumber(), -4);
-    }
-
-    /**
-     * Parses this entity as Name Value Pairs for the response.
-     * @return array
-     */
-    public function asNameValuePairArray()
-    {
-        return array_filter([
-            'bankCode' => $this->bankCode(),
-            'bankName' => $this->bankName(),
-            'accountType' => $this->accountType(),
-            'accountNumber' => $this->accountNumber(),
-        ]);
     }
 }
