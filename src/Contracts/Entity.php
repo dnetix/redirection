@@ -15,7 +15,7 @@ abstract class Entity
      */
     abstract public function toArray(): array;
 
-    public function loadEntity($data, string $attribute, string $class): self
+    protected function loadEntity($data, string $attribute, string $class): self
     {
         if ($data) {
             if (is_array($data)) {
@@ -30,7 +30,7 @@ abstract class Entity
         return $this;
     }
 
-    public function arrayFilter(array $array): array
+    protected function arrayFilter(array $array): array
     {
         return ArrayHelper::filter($array);
     }
