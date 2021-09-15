@@ -12,8 +12,8 @@ use GuzzleHttp\Client;
 
 class Settings extends Entity
 {
-    protected const TP_REST = 'rest';
-    protected const TP_SOAP = 'soap';
+    public const TP_REST = 'rest';
+    public const TP_SOAP = 'soap';
 
     protected string $type = self::TP_REST;
     // Used for REST
@@ -53,7 +53,6 @@ class Settings extends Entity
         }
 
         $allowedKeys = [
-            'type',
             'baseUrl',
             'wsdl',
             'location',
@@ -94,6 +93,11 @@ class Settings extends Entity
         return $this->verifySsl;
     }
 
+    public function type(): string
+    {
+        return $this->type;
+    }
+
     public function login(): string
     {
         return $this->login;
@@ -115,6 +119,7 @@ class Settings extends Entity
             $this->client = new Client([
                 'timeout' => $this->timeout(),
                 'connect_timeout' => $this->timeout(),
+                'verify' => $this->verifySsl(),
             ]);
         }
         return $this->client;
@@ -136,7 +141,7 @@ class Settings extends Entity
             return $this->carrier;
         }
 
-        if ($this->type == self::TP_SOAP) {
+        if ($this->type() == self::TP_SOAP) {
             $this->carrier = new SoapCarrier($this);
         } else {
             $this->carrier = new RestCarrier($this);
