@@ -5,6 +5,7 @@ namespace Dnetix\Redirection\Carrier;
 use Dnetix\Redirection\Contracts\Carrier;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
+use Dnetix\Redirection\Exceptions\PlacetoPayServiceException;
 use Dnetix\Redirection\Message\CollectRequest;
 use Dnetix\Redirection\Message\RedirectInformation;
 use Dnetix\Redirection\Message\RedirectRequest;
@@ -19,22 +20,29 @@ class RestCarrier extends Carrier
     {
         try {
             $data = array_merge($arguments, ['auth' => $this->settings->authentication()->asArray()]);
+
+            $this->settings->logger()->debug('REQUEST', $data);
+
             $response = $this->settings->client()->post($url, [
                 'json' => $data,
                 'headers' => $this->settings->headers(),
             ]);
             $result = $response->getBody()->getContents();
+
+            $this->settings->logger()->debug('RESPONSE', [
+                'result' => $result,
+            ]);
         } catch (BadResponseException $exception) {
             $result = $exception->getResponse()->getBody()->getContents();
+            $this->settings->logger()->warning('BAD_RESPONSE', [
+                'class' => get_class($exception),
+                'result' => $result,
+            ]);
         } catch (Throwable $exception) {
-            return [
-                'status' => [
-                    'status' => Status::ST_ERROR,
-                    'reason' => 'WR',
-                    'message' => PlacetoPayException::readException($exception),
-                    'date' => date('c'),
-                ],
-            ];
+            $this->settings->logger()->warning('EXCEPTION_RESPONSE', [
+                'exception' => PlacetoPayException::readException($exception),
+            ]);
+            throw PlacetoPayServiceException::fromServiceException($exception);
         }
 
         return json_decode($result, true);
