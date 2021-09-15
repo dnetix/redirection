@@ -76,15 +76,7 @@ class RedirectInformation extends Entity
 
     public function setSubscription($subscription): self
     {
-        if (is_array($subscription)) {
-            $subscription = new SubscriptionInformation($subscription);
-        }
-
-        if (!($subscription instanceof SubscriptionInformation)) {
-            $subscription = null;
-        }
-
-        $this->subscription = $subscription;
+        $this->loadEntity($subscription, 'subscription', SubscriptionInformation::class);
         return $this;
     }
 
@@ -101,7 +93,7 @@ class RedirectInformation extends Entity
         return $payments ?: [];
     }
 
-    public function lastApprovedTransaction()
+    public function lastApprovedTransaction(): ?Transaction
     {
         return $this->lastTransaction(true);
     }
