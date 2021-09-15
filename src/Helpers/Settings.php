@@ -9,7 +9,6 @@ use Dnetix\Redirection\Contracts\Carrier;
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
 use GuzzleHttp\Client;
-use Psr\Log\LoggerInterface;
 
 class Settings extends Entity
 {

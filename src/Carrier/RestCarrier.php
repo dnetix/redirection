@@ -3,7 +3,6 @@
 namespace Dnetix\Redirection\Carrier;
 
 use Dnetix\Redirection\Contracts\Carrier;
-use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
 use Dnetix\Redirection\Exceptions\PlacetoPayServiceException;
 use Dnetix\Redirection\Message\CollectRequest;
