@@ -21,6 +21,10 @@ trait FieldsTrait
 
     public function setFields(array $fieldsData)
     {
+        if (isset($fieldsData['item'])) {
+            $fieldsData = $fieldsData['item'];
+        }
+
         $this->fields = [];
         foreach ($fieldsData as $nvp) {
             if (is_array($nvp)) {

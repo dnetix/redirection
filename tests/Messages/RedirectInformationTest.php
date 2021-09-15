@@ -4,6 +4,7 @@ namespace Tests\Messages;
 
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Entities\Token;
+use Dnetix\Redirection\Helpers\ArrayHelper;
 use Dnetix\Redirection\Message\RedirectInformation;
 use Tests\BaseTestCase;
 
@@ -133,5 +134,14 @@ class RedirectInformationTest extends BaseTestCase
         $this->assertEquals('TEST_20170517_211300', $information->request()->subscription()->reference());
 
         $this->assertNull($information->subscription());
+    }
+
+    public function testItParsesAResponseFromSOAP()
+    {
+        $result = unserialize('O:8:"stdClass":5:{s:9:"requestId";i:1847725;s:6:"status";O:8:"stdClass":4:{s:6:"status";s:8:"APPROVED";s:6:"reason";s:2:"00";s:7:"message";s:42:"La petición ha sido aprobada exitosamente";s:4:"date";s:25:"2021-09-15T18:39:43-05:00";}s:7:"request";O:8:"stdClass":9:{s:6:"locale";s:5:"es_CO";s:5:"payer";O:8:"stdClass":6:{s:12:"documentType";s:2:"CC";s:8:"document";s:10:"1040035000";s:4:"name";s:5:"Terry";s:7:"surname";s:7:"Pfeffer";s:5:"email";s:18:"dnetix@yopmail.com";s:6:"mobile";s:10:"3006108300";}s:5:"buyer";O:8:"stdClass":6:{s:12:"documentType";s:2:"CC";s:8:"document";s:10:"1040035000";s:4:"name";s:5:"Terry";s:7:"surname";s:7:"Pfeffer";s:5:"email";s:18:"dnetix@yopmail.com";s:6:"mobile";s:10:"3006108300";}s:7:"payment";O:8:"stdClass":4:{s:9:"reference";s:20:"TEST_20210915_221645";s:11:"description";s:56:"Facilis non perferendis nostrum harum asperiores quidem.";s:6:"amount";O:8:"stdClass":2:{s:8:"currency";s:3:"COP";s:5:"total";s:6:"112000";}s:12:"allowPartial";b:0;}s:6:"fields";O:8:"stdClass":1:{s:4:"item";a:1:{i:0;O:8:"stdClass":3:{s:7:"keyword";s:12:"_processUrl_";s:5:"value";s:85:"https://checkout-test.placetopay.com/session/1847725/7590b48c895fa6a7eca1d8ab5a1bf7f5";s:9:"displayOn";s:4:"none";}}}s:10:"expiration";s:25:"2021-09-16T22:16:45+00:00";s:9:"returnUrl";s:29:"http://dnetix.test/p2p/client";s:9:"ipAddress";s:9:"127.0.0.1";s:9:"userAgent";s:120:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36";}s:7:"payment";O:8:"stdClass":1:{s:11:"transaction";a:1:{i:0;O:8:"stdClass":11:{s:6:"status";O:8:"stdClass":4:{s:6:"status";s:8:"APPROVED";s:6:"reason";s:2:"00";s:7:"message";s:8:"Aprobada";s:4:"date";s:25:"2021-09-15T17:17:25-05:00";}s:17:"internalReference";i:1519172591;s:13:"paymentMethod";s:4:"visa";s:17:"paymentMethodName";s:4:"Visa";s:10:"issuerName";s:25:"JPMORGAN CHASE BANK, N.A.";s:6:"amount";O:8:"stdClass":3:{s:4:"from";O:8:"stdClass":2:{s:8:"currency";s:3:"COP";s:5:"total";s:6:"112000";}s:2:"to";O:8:"stdClass":2:{s:8:"currency";s:3:"COP";s:5:"total";s:6:"112000";}s:6:"factor";d:1;}s:13:"authorization";s:6:"000000";s:9:"reference";s:20:"TEST_20210915_221645";s:7:"receipt";s:8:"99944245";s:9:"franchise";s:5:"CR_VS";s:15:"processorFields";O:8:"stdClass":1:{s:4:"item";a:6:{i:0;O:8:"stdClass":3:{s:7:"keyword";s:12:"merchantCode";s:5:"value";s:9:"011271442";s:9:"displayOn";s:4:"none";}i:1;O:8:"stdClass":3:{s:7:"keyword";s:14:"terminalNumber";s:5:"value";s:8:"00057742";s:9:"displayOn";s:4:"none";}i:2;O:8:"stdClass":3:{s:7:"keyword";s:3:"bin";s:5:"value";s:6:"411111";s:9:"displayOn";s:4:"none";}i:3;O:8:"stdClass":3:{s:7:"keyword";s:10:"expiration";s:5:"value";s:4:"1122";s:9:"displayOn";s:4:"none";}i:4;O:8:"stdClass":3:{s:7:"keyword";s:12:"installments";s:5:"value";s:1:"2";s:9:"displayOn";s:4:"none";}i:5;O:8:"stdClass":3:{s:7:"keyword";s:10:"lastDigits";s:5:"value";s:8:"****1111";s:9:"displayOn";s:4:"none";}}}}}}s:12:"subscription";N;}');
+        $response = new RedirectInformation(ArrayHelper::asArray($result));
+
+        $this->assertEquals(1847725, $response->requestId());
+        $this->assertIsArray($response->toArray());
     }
 }

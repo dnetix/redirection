@@ -20,7 +20,7 @@ class RedirectInformation extends Entity
     protected array $payment = [];
     protected ?SubscriptionInformation $subscription = null;
 
-    public function __construct($data = [])
+    public function __construct(array $data = [])
     {
         $this->requestId = $data['requestId'] ?? '';
         $this->loadEntity($data['status'], 'status', Status::class);
