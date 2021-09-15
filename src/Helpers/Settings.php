@@ -30,7 +30,7 @@ class Settings extends Entity
     protected string $tranKey;
     protected array $headers = [];
 
-    protected ?LoggerInterface $logger = null;
+    protected ?Logger $logger = null;
     protected ?Client $client = null;
 
     protected ?Carrier $carrier = null;
