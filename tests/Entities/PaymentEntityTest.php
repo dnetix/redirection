@@ -13,12 +13,15 @@ class PaymentEntityTest extends BaseTestCase
     {
         $payment = new Payment();
         $this->assertEmpty($payment->fields());
+        $this->assertEmpty($payment->fieldsToKeyValue());
 
         $payment->addField(['keyword' => 'testing', 'value' => 'value']);
         $this->assertEquals(1, count($payment->fields()));
 
         $payment->addField(['keyword' => 'testing2', 'value' => 'value2']);
         $this->assertEquals(2, count($payment->fields()));
+
+        $this->assertArrayHasKey('testing2', $payment->fieldsToKeyValue());
 
         $data = [
             'reference' => 'required',

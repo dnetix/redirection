@@ -46,6 +46,9 @@ class AuthenticationTest extends BaseTestCase
         $this->assertEquals('2016-10-26T21:37:00+00:00', $data['seed'], 'Seed matches');
         $this->assertEquals('aWZZRVBuQWNKYnBEVlIxdA==', $data['nonce'], 'Nonce matches');
         $this->assertEquals('Xi5xrRwrqPU21WE2JI4hyMaCvQ8=', $data['tranKey'], 'Trankey matches');
+
+        $this->assertNotEmpty($auth->digest(false));
+        $this->assertInstanceOf(\SoapHeader::class, $auth->asSoapHeader());
     }
 
     public function testItHandlesCorrectlyABadRequest()
