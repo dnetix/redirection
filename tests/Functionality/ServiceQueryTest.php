@@ -3,6 +3,7 @@
 namespace Tests\Functionality;
 
 use Dnetix\Redirection\Entities\Account;
+use Dnetix\Redirection\Entities\Status;
 use Tests\BaseTestCase;
 
 class ServiceQueryTest extends BaseTestCase
@@ -13,6 +14,16 @@ class ServiceQueryTest extends BaseTestCase
 
         $this->assertEquals(10008, $response->requestId());
         $this->assertEquals(3, count($response->payment()));
+        $this->assertNotNull($response->request());
+    }
+
+    public function testItHandlesANonExistentSession()
+    {
+        $response = $this->getService()->query(99999);
+
+        $this->assertEmpty($response->requestId());
+        $this->assertEquals(Status::ST_FAILED, $response->status()->status());
+        $this->assertNull($response->request());
     }
 
     public function testItHandlesABankAccountSubscription()
