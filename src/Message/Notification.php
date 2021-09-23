@@ -56,7 +56,7 @@ class Notification extends Entity
     public function toArray(): array
     {
         return [
-            'status' => $this->status() ? $this->status()->toArray() : null,
+            'status' => $this->status()->toArray(),
             'requestId' => $this->requestId(),
             'reference' => $this->reference(),
             'signature' => $this->signature(),

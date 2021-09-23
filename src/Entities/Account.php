@@ -43,7 +43,7 @@ class Account extends Entity
     public function toArray(): array
     {
         return array_filter([
-            'status' => $this->status() ? $this->status()->toArray() : null,
+            'status' => $this->status()->toArray(),
             'bankCode' => $this->bankCode(),
             'bankName' => $this->bankName(),
             'accountType' => $this->accountType(),

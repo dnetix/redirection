@@ -100,7 +100,7 @@ class SubscriptionInformation extends Entity
     {
         return array_filter([
             'type' => $this->type(),
-            'status' => $this->status(),
+            'status' => $this->status()->toArray(),
             'instrument' => $this->instrumentToArray(),
         ]);
     }

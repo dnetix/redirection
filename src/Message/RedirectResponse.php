@@ -38,7 +38,7 @@ class RedirectResponse extends Entity
     public function toArray(): array
     {
         return $this->arrayFilter([
-            'status' => $this->status() ? $this->status()->toArray() : null,
+            'status' => $this->status()->toArray(),
             'requestId' => $this->requestId(),
             'processUrl' => $this->processUrl(),
         ]);

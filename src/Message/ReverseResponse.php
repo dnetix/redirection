@@ -27,7 +27,7 @@ class ReverseResponse extends Entity
     public function toArray(): array
     {
         return $this->arrayFilter([
-            'status' => $this->status() ? $this->status()->toArray() : null,
+            'status' => $this->status()->toArray(),
             'payment' => $this->payment() ? $this->payment()->toArray() : null,
         ]);
     }

@@ -135,7 +135,7 @@ class RedirectInformation extends Entity
     {
         return $this->arrayFilter([
             'requestId' => $this->requestId(),
-            'status' => $this->status() ? $this->status()->toArray() : null,
+            'status' => $this->status()->toArray(),
             'request' => $this->request() ? $this->request()->toArray() : null,
             'payment' => $this->paymentToArray(),
             'subscription' => $this->subscription() ? $this->subscription()->toArray() : null,
