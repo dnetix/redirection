@@ -40,7 +40,7 @@ class RedirectInformation extends Entity
         return $this->requestId;
     }
 
-    public function request(): RedirectRequest
+    public function request(): ?RedirectRequest
     {
         return $this->request;
     }
