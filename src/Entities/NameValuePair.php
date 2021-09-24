@@ -7,7 +7,7 @@ use Dnetix\Redirection\Contracts\Entity;
 class NameValuePair extends Entity
 {
     protected string $keyword;
-    protected string $value = '';
+    protected $value;
     protected string $displayOn = 'none';
 
     public function __construct($data = [])
@@ -20,7 +20,10 @@ class NameValuePair extends Entity
         return $this->keyword;
     }
 
-    public function value(): string
+    /**
+     * @return string|array
+     */
+    public function value()
     {
         return $this->value;
     }
