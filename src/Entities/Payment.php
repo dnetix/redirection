@@ -145,7 +145,7 @@ class Payment extends Entity
             'recurring' => $this->recurring() ? $this->recurring()->toArray() : null,
             'discount' => $this->discount() ? $this->discount()->toArray() : null,
             'fields' => $this->fieldsToArray(),
-            'subscribe' => $this->subscribe(),
+            'subscribe' => $this->subscribe() ?: null,
             'allowPartial' => $this->allowPartial ?: null,
         ]);
     }

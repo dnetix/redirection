@@ -46,8 +46,7 @@ class PaymentEntityTest extends BaseTestCase
                     'name' => 'Testing2',
                 ],
             ],
-            'allowPartial' => false,
-            'subscribe' => false,
+            'allowPartial' => true,
         ];
         $payment = new Payment($data);
         $this->assertEquals(1, count($payment->fields()));
@@ -166,8 +165,7 @@ class PaymentEntityTest extends BaseTestCase
                 'base' => '10',
                 'percent' => 0,
             ],
-            'allowPartial' => false,
-            'subscribe' => false,
+            'subscribe' => true,
         ];
         $payment = new Payment($data);
 
@@ -284,8 +282,6 @@ class PaymentEntityTest extends BaseTestCase
                             'currency' => 'COP',
                             'total' => 207890,
                         ],
-                        'allowPartial' => false,
-                        'subscribe' => false,
                     ],
                     [
                         'reference' => 'TEST_3',
@@ -301,12 +297,8 @@ class PaymentEntityTest extends BaseTestCase
                             'currency' => 'COP',
                             'total' => 35700,
                         ],
-                        'allowPartial' => false,
-                        'subscribe' => false,
                     ],
                 ],
-                'allowPartial' => false,
-                'subscribe' => false,
             ],
             'expiration' => date('c', strtotime('+1 day')),
             'returnUrl' => 'https://dnetix.co/ping/rtest',

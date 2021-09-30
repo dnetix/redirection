@@ -25,8 +25,6 @@ class CollectRequestTest extends BaseTestCase
                     'currency' => 'COP',
                     'total' => 143000,
                 ],
-                'allowPartial' => false,
-                'subscribe' => false,
             ],
             'instrument' => [
                 'token' => [

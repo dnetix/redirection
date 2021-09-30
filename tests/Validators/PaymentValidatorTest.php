@@ -17,7 +17,6 @@ class PaymentValidatorTest extends BaseTestCase
                 'total' => 1000,
             ],
             'allowPartial' => true,
-            'subscribe' => false,
         ];
         $payment = new Payment($data);
         $this->assertEquals($data['reference'], $payment->reference());
@@ -65,7 +64,6 @@ class PaymentValidatorTest extends BaseTestCase
                 ],
             ],
             'allowPartial' => true,
-            'subscribe' => false,
         ];
 
         $payment = new Payment($data);
@@ -88,7 +86,6 @@ class PaymentValidatorTest extends BaseTestCase
                 'total' => 1000,
             ],
             'allowPartial' => true,
-            'subscribe' => false,
         ];
         $payment = new Payment($data);
         $this->assertEquals($data['reference'], $payment->reference());
