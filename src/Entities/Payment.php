@@ -22,7 +22,7 @@ class Payment extends Entity
     protected ?Discount $discount = null;
     protected ?Instrument $instrument = null;
     public bool $subscribe = false;
-    protected string $agreement = '';
+    protected ?int $agreement = null;
     protected string $agreementType = '';
 
     public function __construct(array $data = [])
@@ -57,7 +57,7 @@ class Payment extends Entity
         return $this->amount;
     }
 
-    public function agreement(): string
+    public function agreement(): ?int
     {
         return $this->agreement;
     }
@@ -135,18 +135,18 @@ class Payment extends Entity
     public function toArray(): array
     {
         return self::arrayFilter([
+            'agreement' => $this->agreement(),
+            'agreementType' => $this->agreementType(),
             'reference' => $this->reference(),
             'description' => $this->description(),
             'amount' => $this->amount() ? $this->amount()->toArray() : null,
-            'allowPartial' => $this->allowPartial,
             'shipping' => $this->shipping() ? $this->shipping()->toArray() : null,
             'items' => $this->itemsToArray(),
             'recurring' => $this->recurring() ? $this->recurring()->toArray() : null,
             'discount' => $this->discount() ? $this->discount()->toArray() : null,
-            'subscribe' => $this->subscribe(),
             'fields' => $this->fieldsToArray(),
-            'agreement' => $this->agreement(),
-            'agreementType' => $this->agreementType(),
+            'subscribe' => $this->subscribe() ?: null,
+            'allowPartial' => $this->allowPartial ?: null,
         ]);
     }
 }
