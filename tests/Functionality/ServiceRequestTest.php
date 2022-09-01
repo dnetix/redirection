@@ -2,6 +2,7 @@
 
 namespace Tests\Functionality;
 
+use Dnetix\Redirection\Entities\PaymentModifier;
 use Dnetix\Redirection\Entities\Status;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
 use Dnetix\Redirection\Exceptions\PlacetoPayServiceException;
@@ -64,6 +65,25 @@ class ServiceRequestTest extends BaseTestCase
                 ],
             ],
         ]));
+        $this->assertTrue($response->status()->isSuccessful());
+    }
+
+    public function testItHandlesARequestWithPaymentModifiers(): void
+    {
+        $response = $this->getService()->request($this->baseRequest([
+            'payment' => [
+                'modifiers' => [
+                    [
+                        'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
+                        'code' => 17934,
+                        'additional' => [
+                            'invoice' => '12545',
+                        ],
+                    ],
+                ],
+            ],
+        ]));
+
         $this->assertTrue($response->status()->isSuccessful());
     }
 }

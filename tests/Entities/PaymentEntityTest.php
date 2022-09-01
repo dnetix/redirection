@@ -4,6 +4,7 @@ namespace Tests\Entities;
 
 use Dnetix\Redirection\Entities\Item;
 use Dnetix\Redirection\Entities\Payment;
+use Dnetix\Redirection\Entities\PaymentModifier;
 use Dnetix\Redirection\Message\RedirectRequest;
 use Tests\BaseTestCase;
 
@@ -311,5 +312,51 @@ class PaymentEntityTest extends BaseTestCase
         ];
 
         $this->assertEquals($conversion, $request->toArray());
+    }
+
+    public function testItCanGetAModifierByType()
+    {
+        $modifierData = [
+            'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
+            'code' => '12983',
+            'additional' => [
+                'invoice' => '123456',
+            ],
+        ];
+
+        $payment = new Payment([
+            'modifiers' => [$modifierData],
+        ]);
+
+        $this->assertInstanceOf(PaymentModifier::class, $payment->modifier(PaymentModifier::TYPE_FEDERAL_GOVERNMENT));
+        $this->assertEquals($modifierData, $payment->modifier(PaymentModifier::TYPE_FEDERAL_GOVERNMENT)->toArray());
+
+        $this->assertNull($payment->modifier('unknown_class'));
+    }
+
+    public function testItCanGetAModifierByTypeAndCode()
+    {
+        $modifierData = [
+            'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
+            'code' => '12983',
+            'additional' => [
+                'invoice' => '123456',
+            ],
+        ];
+
+        $payment = new Payment([
+            'modifiers' => [
+                [
+                    'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
+                    'code' => '122233',
+                ],
+                $modifierData,
+            ],
+        ]);
+
+        $this->assertInstanceOf(PaymentModifier::class, $payment->modifier(PaymentModifier::TYPE_FEDERAL_GOVERNMENT, '12983'));
+        $this->assertEquals($modifierData, $payment->modifier(PaymentModifier::TYPE_FEDERAL_GOVERNMENT, '12983')->toArray());
+
+        $this->assertNull($payment->modifier(PaymentModifier::TYPE_FEDERAL_GOVERNMENT, 'unknown_code'));
     }
 }
