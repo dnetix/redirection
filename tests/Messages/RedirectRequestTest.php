@@ -182,24 +182,26 @@ class RedirectRequestTest extends BaseTestCase
 
     public function testItParsesCorrectlyAPaymentRequestWithModifiers(): void
     {
-        $data = $this->baseRequest([
-            'payment' => [
-                'reference' => 'Testing_2022',
-                'description' => 'Testing payment with modifiers',
-                'amount' => [
-                    'currency' => 'USD',
-                    'total' => 10.283,
-                ],
-                'modifiers' => [
-                    [
-                        'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
-                        'code' => 17934,
-                        'additional' => [
-                            'invoice' => '12545',
-                        ],
+        $payment = [
+            'reference' => 'Testing_2022',
+            'description' => 'Testing payment with modifiers',
+            'amount' => [
+                'currency' => 'USD',
+                'total' => 10.283,
+            ],
+            'modifiers' => [
+                [
+                    'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
+                    'code' => 17934,
+                    'additional' => [
+                        'invoice' => '12545',
                     ],
                 ],
             ],
+        ];
+
+        $data = $this->baseRequest([
+            'payment' => $payment,
         ]);
 
         $request = new RedirectRequest($data);
@@ -207,5 +209,6 @@ class RedirectRequestTest extends BaseTestCase
         $this->assertCount(1, $request->payment()->modifiers());
         $this->assertInstanceOf(PaymentModifier::class, $request->payment()->modifiers()[0]);
         $this->assertEquals($data['payment']['modifiers'], $request->payment()->modifiersToArray());
+        $this->assertEquals($request->toArray()['payment'], $payment);
     }
 }

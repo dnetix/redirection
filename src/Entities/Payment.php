@@ -206,6 +206,7 @@ class Payment extends Entity
             'fields' => $this->fieldsToArray(),
             'subscribe' => $this->subscribe() ?: null,
             'allowPartial' => $this->allowPartial ?: null,
+            'modifiers' => $this->modifiersToArray(),
         ]);
     }
 }
