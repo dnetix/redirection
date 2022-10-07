@@ -10,7 +10,7 @@ use Tests\BaseTestCase;
 
 class PaymentEntityTest extends BaseTestCase
 {
-    public function testItAddsAField()
+    public function testItAddsAField(): void
     {
         $payment = new Payment();
         $this->assertEmpty($payment->fields());
@@ -71,7 +71,7 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertEquals(2, count($payment->items()));
     }
 
-    public function testItParsesCorrectlyTheItems()
+    public function testItParsesCorrectlyTheItems(): void
     {
         $payment = new Payment([
             'reference' => 'required',
@@ -105,7 +105,7 @@ class PaymentEntityTest extends BaseTestCase
         }
     }
 
-    public function testItAcceptsNoItems()
+    public function testItAcceptsNoItems(): void
     {
         $payment = new Payment([
             'reference' => 'required',
@@ -123,7 +123,7 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertEmpty($payment->items());
     }
 
-    public function testItParsesTheDataCorrectly()
+    public function testItParsesTheDataCorrectly(): void
     {
         $data = [
             'reference' => 'required',
@@ -174,7 +174,7 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertEquals($data, $payment->toArray());
     }
 
-    public function testItHandlesABadEntityOnConstruction()
+    public function testItHandlesABadEntityOnConstruction(): void
     {
         $data = [
             'reference' => 'required',
@@ -195,7 +195,7 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertEmpty($payment->shipping());
     }
 
-    public function testItParsesCorrectlyADispersion()
+    public function testItParsesCorrectlyADispersion(): void
     {
         $data = [
             'buyer' => [
@@ -314,7 +314,7 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertEquals($conversion, $request->toArray());
     }
 
-    public function testItCanGetAModifierByType()
+    public function testItCanGetAModifierByType(): void
     {
         $modifierData = [
             'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
@@ -334,7 +334,7 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertNull($payment->modifier('unknown_class'));
     }
 
-    public function testItCanGetAModifierByTypeAndCode()
+    public function testItCanGetAModifierByTypeAndCode(): void
     {
         $modifierData = [
             'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
