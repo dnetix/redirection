@@ -359,4 +359,25 @@ class PaymentEntityTest extends BaseTestCase
 
         $this->assertNull($payment->modifier(PaymentModifier::TYPE_FEDERAL_GOVERNMENT, 'unknown_code'));
     }
+
+    public function testItParsesDiscountWithoutPercent(): void
+    {
+        $data = [
+            'reference' => '23232',
+            'amount' => [
+                'total' => 10000,
+                'currency' => 'COP',
+            ],
+            'discount' => [
+                'code' => 18910,
+                'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
+                'amount' => 500.0,
+                'base' => 10.0,
+            ],
+        ];
+        $payment = new Payment($data);
+
+        $this->assertArrayNotHasKey('percent', $payment->discount()->toArray());
+        $this->assertEquals($data, $payment->toArray());
+    }
 }
