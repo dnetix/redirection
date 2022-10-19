@@ -3,6 +3,8 @@
 namespace Tests\Functionality;
 
 use Dnetix\Redirection\Entities\Account;
+use Dnetix\Redirection\Entities\Discount;
+use Dnetix\Redirection\Entities\PaymentModifier;
 use Dnetix\Redirection\Entities\Status;
 use Tests\BaseTestCase;
 
@@ -71,5 +73,21 @@ class ServiceQueryTest extends BaseTestCase
         $this->assertNotEmpty($response->subscription()->instrumentToArray());
 
         $this->assertEquals('account', $response->subscription()->toArray()['type']);
+    }
+
+    public function testItHandlesQueryResponseWithFederalGovernmentDiscountType(): void
+    {
+        $response = $this->getService()->query(10011);
+
+        $this->assertTrue($response->status()->isApproved());
+
+        $transaction = $response->payment()[0];
+        $this->assertInstanceOf(Discount::class, $transaction->discount());
+        $this->assertEquals('17934', $transaction->discount()->code());
+        $this->assertEquals(PaymentModifier::TYPE_FEDERAL_GOVERNMENT, $transaction->discount()->type());
+        $this->assertEquals(9950.0, $transaction->discount()->amount());
+        $this->assertEquals(199000.0, $transaction->discount()->base());
+        $this->assertEquals(5.0, $transaction->discount()->percent());
+        $this->assertCount(1, $response->request()->payment()->modifiers());
     }
 }

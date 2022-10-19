@@ -4,12 +4,13 @@ namespace Tests\Entities;
 
 use Dnetix\Redirection\Entities\Item;
 use Dnetix\Redirection\Entities\Payment;
+use Dnetix\Redirection\Entities\PaymentModifier;
 use Dnetix\Redirection\Message\RedirectRequest;
 use Tests\BaseTestCase;
 
 class PaymentEntityTest extends BaseTestCase
 {
-    public function testItAddsAField()
+    public function testItAddsAField(): void
     {
         $payment = new Payment();
         $this->assertEmpty($payment->fields());
@@ -70,7 +71,7 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertEquals(2, count($payment->items()));
     }
 
-    public function testItParsesCorrectlyTheItems()
+    public function testItParsesCorrectlyTheItems(): void
     {
         $payment = new Payment([
             'reference' => 'required',
@@ -104,7 +105,7 @@ class PaymentEntityTest extends BaseTestCase
         }
     }
 
-    public function testItAcceptsNoItems()
+    public function testItAcceptsNoItems(): void
     {
         $payment = new Payment([
             'reference' => 'required',
@@ -122,7 +123,7 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertEmpty($payment->items());
     }
 
-    public function testItParsesTheDataCorrectly()
+    public function testItParsesTheDataCorrectly(): void
     {
         $data = [
             'reference' => 'required',
@@ -173,7 +174,7 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertEquals($data, $payment->toArray());
     }
 
-    public function testItHandlesABadEntityOnConstruction()
+    public function testItHandlesABadEntityOnConstruction(): void
     {
         $data = [
             'reference' => 'required',
@@ -194,7 +195,7 @@ class PaymentEntityTest extends BaseTestCase
         $this->assertEmpty($payment->shipping());
     }
 
-    public function testItParsesCorrectlyADispersion()
+    public function testItParsesCorrectlyADispersion(): void
     {
         $data = [
             'buyer' => [
@@ -311,5 +312,72 @@ class PaymentEntityTest extends BaseTestCase
         ];
 
         $this->assertEquals($conversion, $request->toArray());
+    }
+
+    public function testItCanGetAModifierByType(): void
+    {
+        $modifierData = [
+            'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
+            'code' => '12983',
+            'additional' => [
+                'invoice' => '123456',
+            ],
+        ];
+
+        $payment = new Payment([
+            'modifiers' => [$modifierData],
+        ]);
+
+        $this->assertInstanceOf(PaymentModifier::class, $payment->modifier(PaymentModifier::TYPE_FEDERAL_GOVERNMENT));
+        $this->assertEquals($modifierData, $payment->modifier(PaymentModifier::TYPE_FEDERAL_GOVERNMENT)->toArray());
+
+        $this->assertNull($payment->modifier('unknown_class'));
+    }
+
+    public function testItCanGetAModifierByTypeAndCode(): void
+    {
+        $modifierData = [
+            'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
+            'code' => '12983',
+            'additional' => [
+                'invoice' => '123456',
+            ],
+        ];
+
+        $payment = new Payment([
+            'modifiers' => [
+                [
+                    'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
+                    'code' => '122233',
+                ],
+                $modifierData,
+            ],
+        ]);
+
+        $this->assertInstanceOf(PaymentModifier::class, $payment->modifier(PaymentModifier::TYPE_FEDERAL_GOVERNMENT, '12983'));
+        $this->assertEquals($modifierData, $payment->modifier(PaymentModifier::TYPE_FEDERAL_GOVERNMENT, '12983')->toArray());
+
+        $this->assertNull($payment->modifier(PaymentModifier::TYPE_FEDERAL_GOVERNMENT, 'unknown_code'));
+    }
+
+    public function testItParsesDiscountWithoutPercent(): void
+    {
+        $data = [
+            'reference' => '23232',
+            'amount' => [
+                'total' => 10000,
+                'currency' => 'COP',
+            ],
+            'discount' => [
+                'code' => 18910,
+                'type' => PaymentModifier::TYPE_FEDERAL_GOVERNMENT,
+                'amount' => 500.0,
+                'base' => 10.0,
+            ],
+        ];
+        $payment = new Payment($data);
+
+        $this->assertArrayNotHasKey('percent', $payment->discount()->toArray());
+        $this->assertEquals($data, $payment->toArray());
     }
 }

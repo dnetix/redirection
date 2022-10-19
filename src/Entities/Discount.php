@@ -10,7 +10,7 @@ class Discount extends Entity
     protected string $type;
     protected float $amount;
     protected float $base;
-    protected float $percent;
+    protected ?float $percent = null;
 
     public function __construct($data = [])
     {
@@ -37,7 +37,7 @@ class Discount extends Entity
         return $this->base;
     }
 
-    public function percent(): float
+    public function percent(): ?float
     {
         return $this->percent;
     }

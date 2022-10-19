@@ -25,6 +25,9 @@ class Payment extends Entity
     protected ?int $agreement = null;
     protected string $agreementType = '';
 
+    /** @var PaymentModifier[] */
+    protected array $modifiers = [];
+
     public function __construct(array $data = [])
     {
         $this->load($data, ['reference', 'description', 'allowPartial', 'subscribe', 'agreement', 'agreementType']);
@@ -39,6 +42,9 @@ class Payment extends Entity
         }
         if (isset($data['fields'])) {
             $this->setFields($data['fields']);
+        }
+        if (isset($data['modifiers']) && is_array($data['modifiers'])) {
+            $this->setModifiers($data['modifiers']);
         }
     }
 
@@ -132,6 +138,59 @@ class Payment extends Entity
         return [];
     }
 
+    /**
+     * @return PaymentModifier[]
+     */
+    public function modifiers(): array
+    {
+        return $this->modifiers;
+    }
+
+    public function setModifiers(array $modifiers): self
+    {
+        $this->modifiers = [];
+
+        foreach ($modifiers as $modifier) {
+            $this->addModifier($modifier);
+        }
+
+        return $this;
+    }
+
+    public function addModifier($modifier): self
+    {
+        if (is_array($modifier)) {
+            $modifier = new PaymentModifier($modifier);
+        }
+
+        if ($modifier instanceof PaymentModifier) {
+            $this->modifiers[] = $modifier;
+        }
+
+        return $this;
+    }
+
+    public function modifiersToArray(): array
+    {
+        $modifiers = [];
+        foreach ($this->modifiers as $modifier) {
+            $modifiers[] = $modifier->toArray();
+        }
+
+        return $modifiers;
+    }
+
+    public function modifier(string $type, ?string $code = null): ?PaymentModifier
+    {
+        foreach ($this->modifiers as $modifier) {
+            if ($modifier->type() === $type && (!$code || $code === $modifier->code())) {
+                return $modifier;
+            }
+        }
+
+        return null;
+    }
+
     public function toArray(): array
     {
         return self::arrayFilter([
@@ -147,6 +206,7 @@ class Payment extends Entity
             'fields' => $this->fieldsToArray(),
             'subscribe' => $this->subscribe() ?: null,
             'allowPartial' => $this->allowPartial ?: null,
+            'modifiers' => $this->modifiersToArray(),
         ]);
     }
 }
