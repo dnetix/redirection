@@ -30,7 +30,7 @@ Create an object with the configuration required for that instance
 $placetopay = new Dnetix\Redirection\PlacetoPay([
     'login' => 'YOUR_LOGIN', // Provided by PlacetoPay
     'tranKey' => 'YOUR_TRANSACTIONAL_KEY', // Provided by PlacetoPay
-    'baseUrl' => 'https://THE_BASE_URL_TO_POINT_AT',
+    'url' => 'https://THE_BASE_URL_TO_POINT_AT',
     'timeout' => 10, // (optional) 15 by default
 ]);
 ```
