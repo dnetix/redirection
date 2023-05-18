@@ -34,7 +34,6 @@ try {
     $response = placetopay()->collect($request);
 
     if ($response->isSuccessful()) {
-
         // Store this id associating it with the order that you are collecting for to query for it later
         $requestId = $response->requestId();
 

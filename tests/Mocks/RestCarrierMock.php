@@ -36,7 +36,7 @@ class RestCarrierMock
         ], $headers);
 
         return new FulfilledPromise(
-            new Response($code, $headers, utf8_decode($body), '1.1', utf8_decode($reason))
+            new Response($code, $headers, $body, '1.1', $reason)
         );
     }
 
