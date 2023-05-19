@@ -13,6 +13,9 @@ class Amount extends AmountBase
      */
     protected array $details = [];
 
+    protected $tip;
+    protected $insurance;
+
     public function __construct($data = [])
     {
         parent::__construct($data);

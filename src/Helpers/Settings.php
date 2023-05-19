@@ -4,7 +4,6 @@ namespace Dnetix\Redirection\Helpers;
 
 use Dnetix\Redirection\Carrier\Authentication;
 use Dnetix\Redirection\Carrier\RestCarrier;
-use Dnetix\Redirection\Carrier\SoapCarrier;
 use Dnetix\Redirection\Contracts\Carrier;
 use Dnetix\Redirection\Contracts\Entity;
 use Dnetix\Redirection\Exceptions\PlacetoPayException;
@@ -12,10 +11,6 @@ use GuzzleHttp\Client;
 
 class Settings extends Entity
 {
-    public const TP_REST = 'rest';
-    public const TP_SOAP = 'soap';
-
-    protected string $type = self::TP_REST;
     protected string $baseUrl = '';
 
     protected int $timeout = 15;
@@ -45,10 +40,6 @@ class Settings extends Entity
             $data['baseUrl'] .= '/';
         }
 
-        if (isset($data['type']) && in_array($data['type'], [self::TP_SOAP, self::TP_REST])) {
-            $this->type = $data['type'];
-        }
-
         $allowedKeys = [
             'baseUrl',
             'timeout',
@@ -69,16 +60,6 @@ class Settings extends Entity
         return $this->baseUrl . $endpoint;
     }
 
-    public function wsdl(): string
-    {
-        return $this->baseUrl('soap/redirect?wsdl');
-    }
-
-    public function location(): ?string
-    {
-        return $this->baseUrl('soap/redirect');
-    }
-
     public function timeout(): int
     {
         return $this->timeout;
@@ -87,11 +68,6 @@ class Settings extends Entity
     public function verifySsl(): bool
     {
         return $this->verifySsl;
-    }
-
-    public function type(): string
-    {
-        return $this->type;
     }
 
     public function login(): string
@@ -137,11 +113,7 @@ class Settings extends Entity
             return $this->carrier;
         }
 
-        if ($this->type() == self::TP_SOAP) {
-            $this->carrier = new SoapCarrier($this);
-        } else {
-            $this->carrier = new RestCarrier($this);
-        }
+        $this->carrier = new RestCarrier($this);
 
         return $this->carrier;
     }
