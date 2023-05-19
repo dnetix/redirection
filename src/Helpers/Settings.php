@@ -70,11 +70,6 @@ class Settings extends Entity
         return $this->verifySsl;
     }
 
-    public function type(): string
-    {
-        return $this->type;
-    }
-
     public function login(): string
     {
         return $this->login;
