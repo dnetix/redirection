@@ -43,6 +43,10 @@ class CollectRequestTest extends BaseTestCase
             'captureAddress' => false,
             'skipResult' => false,
             'noBuyerFill' => false,
+            'provider' => 'PROVIDER',
+            'metadata' => [
+                "initiatorIndicator" =>  "AGENT"
+            ]
         ];
         $request = new CollectRequest($data);
 
@@ -53,5 +57,8 @@ class CollectRequestTest extends BaseTestCase
 
         $this->assertEquals($data['instrument'], $request->instrument()->toArray());
         $this->assertEquals($data, $request->toArray());
+        $this->assertEquals($data['metadata'], $request->metadata());
+        $this->assertEquals($data['provider'], $request->provider());
+
     }
 }
