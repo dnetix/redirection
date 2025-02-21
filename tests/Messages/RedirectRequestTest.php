@@ -103,6 +103,9 @@ class RedirectRequestTest extends BaseTestCase
             'noBuyerFill' => true,
             'captureAddress' => true,
             'paymentMethod' => 'CR_VS,_ATH_',
+            'metadata' => [
+                "initiatorIndicator" =>  "AGENT"
+            ],
         ];
         $request = new RedirectRequest($data);
 
@@ -112,6 +115,7 @@ class RedirectRequestTest extends BaseTestCase
         $this->assertTrue($request->payment()->allowPartial());
         $this->assertEquals($data['returnUrl'], $request->returnUrl());
         $this->assertEquals($data['cancelUrl'], $request->cancelUrl());
+        $this->assertEquals($data['metadata'], $request->metadata());
 
         $this->assertEquals($data, $request->toArray());
     }
