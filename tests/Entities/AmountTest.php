@@ -3,7 +3,6 @@
 namespace Tests\Entities;
 
 use Dnetix\Redirection\Entities\Amount;
-use Dnetix\Redirection\Exceptions\PlacetoPayException;
 use Tests\BaseTestCase;
 
 class AmountTest extends BaseTestCase
