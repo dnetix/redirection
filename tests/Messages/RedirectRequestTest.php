@@ -104,7 +104,7 @@ class RedirectRequestTest extends BaseTestCase
             'captureAddress' => true,
             'paymentMethod' => 'CR_VS,_ATH_',
             'metadata' => [
-                "initiatorIndicator" =>  "AGENT"
+                'initiatorIndicator' =>  'AGENT',
             ],
         ];
         $request = new RedirectRequest($data);

@@ -14,5 +14,9 @@
       <directory suffix="Test.php">./tests</directory>
     </testsuite>
   </testsuites>
+  <php>
+    <ini name="error_reporting" value="-1"/>
+    <server name="PHPUNIT_ERROR_HANDLER" value="PHPUnit\Util\ErrorHandler::handleDeprecation"/>
+  </php>
   <logging/>
 </phpunit>

@@ -14,7 +14,14 @@ $rules = [
     'blank_line_before_statement' => [
         'statements' => ['declare'],
     ],
-    'braces' => true,
+    'single_space_around_construct' => true,
+    'control_structure_braces' => true,
+    'control_structure_continuation_position' => true,
+    'declare_parentheses' => true,
+    'no_multiple_statements_per_line' => true,
+    'braces_position' => true,
+    'statement_indentation' => true,
+    'no_extra_blank_lines' => true,
     'cast_spaces' => [
         'space' => 'none',
     ],
@@ -27,7 +34,7 @@ $rules = [
     'encoding' => true,
     'full_opening_tag' => true,
     'function_declaration' => true,
-    'function_typehint_space' => true,
+    'type_declaration_spaces' => true,
     'single_line_comment_style' => [
         'comment_types' => ['hash'],
     ],
@@ -59,8 +66,8 @@ $rules = [
     'no_singleline_whitespace_before_semicolons' => true,
     'no_spaces_after_function_name' => true,
     'no_spaces_around_offset' => true,
-    'no_spaces_inside_parenthesis' => true,
-    'no_trailing_comma_in_list_call' => true,
+    'spaces_inside_parentheses' => false,
+    'no_trailing_comma_in_singleline' => true,
     'no_trailing_whitespace' => true,
     'no_trailing_whitespace_in_comment' => true,
     'no_unneeded_control_parentheses' => true,
@@ -109,8 +116,7 @@ $rules = [
     'logical_operators' => true,
     'short_scalar_cast' => true,
     'no_unset_cast' => true,
-    'no_trailing_comma_in_singleline_array' => true,
-    'single_blank_line_before_namespace' => true,
+    'blank_lines_before_namespace' => true,
 ];
 
 $finder = Finder::create()
