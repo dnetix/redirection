@@ -26,12 +26,14 @@ class RestCarrier extends Carrier
                 'json' => $data,
                 'headers' => $this->settings->headers(),
             ]);
+            $statusCode = $response->getStatusCode();
             $result = $response->getBody()->getContents();
 
             $this->settings->logger()->debug('RESPONSE', [
                 'result' => $result,
             ]);
         } catch (BadResponseException $exception) {
+            $statusCode = $exception->getResponse()->getStatusCode();
             $result = $exception->getResponse()->getBody()->getContents();
             $this->settings->logger()->warning('BAD_RESPONSE', [
                 'class' => get_class($exception),
@@ -44,7 +46,13 @@ class RestCarrier extends Carrier
             throw PlacetoPayServiceException::fromServiceException($exception);
         }
 
-        return json_decode($result, true);
+        $decoded = json_decode($result, true);
+
+        if (!is_array($decoded)) {
+            throw PlacetoPayServiceException::forInvalidResponse($statusCode, json_last_error_msg(), $result);
+        }
+
+        return $decoded;
     }
 
     public function request(RedirectRequest $redirectRequest): RedirectResponse
